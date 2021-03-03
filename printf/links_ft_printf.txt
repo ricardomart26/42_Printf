@@ -4,6 +4,7 @@ https://github.com/rchallie/ft_printf
 https://github.com/MagicHatJo/-42-ft_printf
 https://github.com/BenSouchet/ft-printf
 
+httpswww.tutorialspoint.comc_standard_libraryc_function_printf.htm
 https://www.codingunit.com/printf-format-specifiers-format-conversions-and-formatted-output
 https://www.lix.polytechnique.fr/~liberti/public/computing/prog/c/C/FUNCTIONS/format.html#precision
 https://stackoverflow.com/questions/18445396/meaning-of-in-printf
