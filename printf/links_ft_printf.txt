@@ -9,6 +9,7 @@ https://www.codingunit.com/printf-format-specifiers-format-conversions-and-forma
 https://www.lix.polytechnique.fr/~liberti/public/computing/prog/c/C/FUNCTIONS/format.html#precision
 https://stackoverflow.com/questions/18445396/meaning-of-in-printf
 https://www.tutorialspoint.com/format-specifiers-in-c
+https://www.thegeekstuff.com/2017/05/c-variadic-functions/
 
 Also cool
 https://www.enseignement.polytechnique.fr/informatique/INF478/docs/Cpp/en/c/variadic.html
