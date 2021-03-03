@@ -1,0 +1,41 @@
+
+
+printf - 
+o que é variadic functions?
+O que é buffer management?
+
+
+
+Nome do programa libftprintf.a
+makefile - all clean fclean re bonus
+
+O que vai converter? 
+- c
+- s
+- p
+- d
+- i
+- u
+- x
+- X
+
+Combinações de flags: '-O.*' e o campo minimo com o tamanho para todas as conversões
+
+A minus symbol (-) sign tells left alignment
+
+A number after % specifies the minimum field width. If string is less than the width, it will be filled with spaces
+
+A period (.) is used to separate field width and precision
+
+Especifica o "Character String Maximum field width"
+
+The precision within a string format specifies the maximum field width:
+
+%2.6s
+
+specifies a minimum width of 2 and a maximum width of 6 characters. If the string is greater than 6 characters, it will be truncated.
+
+Exemplo:
+
+- %d (inteiro decimal)
+- %6d (inteiro decimal com limite maximo de 6 unidades)
