@@ -1,0 +1,14 @@
+Implementation
+https://github.com/solaldunckel/ft_printf
+https://github.com/rchallie/ft_printf
+https://github.com/MagicHatJo/-42-ft_printf
+https://github.com/BenSouchet/ft-printf
+
+https://www.lix.polytechnique.fr/~liberti/public/computing/prog/c/C/FUNCTIONS/format.html#precision
+https://stackoverflow.com/questions/18445396/meaning-of-in-printf
+https://www.tutorialspoint.com/format-specifiers-in-c
+
+Also cool
+https://www.enseignement.polytechnique.fr/informatique/INF478/docs/Cpp/en/c/variadic.html
+https://www.hackerearth.com/practice/notes/know-our-printf-variable-number-of-arguments-to-a-function/
+https://azrael.digipen.edu/~mmead/www/Courses/CS120/VariadicFunctions.html
