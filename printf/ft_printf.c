@@ -1,36 +1,11 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "libft/libft.h"
-#include <stdarg.h>
-
+#include "printf.h"
 // int size_of_%()
-// Ver se da para fazer o tamanho da string para ver 
+// Ver se da para fazer o tamanho da string para ver
 // Como usar o args noutras funções?
 
+int invalid_per(char *str, int i, int size);
 
-int type(char c)
-{
-  if (c == 'c' || c == 'd' || c == 's' || c == 'i' 
-    || c == 'x' || c == 'X' || c == 'p' || c == 'u') // Ver se falta algum
-    return (1);
-  else
-    return (0);
-}
-
-
-int invalid_per(char *str, int i, int size_per)
-{
-  if (str[i] != '%' /* Posso tirar!! */ && str[i + 1] == ' ' && str[i + 1] == '%')
-    return (0);
-  else if (!(type(str[size_per - 1])))
-    return (0);
-  else
-    return (1);
-}
-
-
-int number_per(char *format)
+int number_per(char *format, int size)
 {
   int counter;
   int c;
@@ -40,8 +15,11 @@ int number_per(char *format)
 
   while (format[c] != '\0')
   {
-    if (!(invalid_per(format, c, size_per(format))))
-      counter++;
+    if (format[c] == '%')
+    {
+      if (!(invalid_per((char *)format, c, size)))
+        counter++;
+    }
     c++;
   }
   return (counter);
@@ -50,29 +28,33 @@ int number_per(char *format)
 int size_per(char *format)
 {
   int counter;
-  int c;
 
   counter = 0;
-  while (format[counter] != ' ')
+  while (!ft_isalpha(format[counter]))
   {
     counter++;
-    printf("%d", counter);
+    printf("%d\n", counter);
   }
-  if (counter > 6 || counter == 1)
+  if (counter > 5 || counter == 0)
   {
-    printf("Too many arguments in percent");
+    printf("Too many arguments in percent\n");
     return (0);
   }
-  // if (format[c] == '%' && format[c + 1] == '%')
-  // {
-  //   write(1, &format[c], 1);
-  //   return (0);
-  // }
-  return(counter);
+  printf("format[counter] = %c\n", format[counter]);
+  if (type(format[counter]))
+  {
+    counter++;
+    return (counter);
+  }
+  else
+  {
+    printf("Don't match any data type\n");
+    return (0);
+  }
+  return (0);
 }
 
-
-int print_until_perc(char *format)
+int print_until_perc(char *format) // Write até ao %
 {
   int c;
 
@@ -85,39 +67,47 @@ int print_until_perc(char *format)
   return (c);
 }
 
-int basic_perc(va_list args, char *format)
+void basic_perc(va_list args, char *format, int size)
 {
   int c;
 
   c = 0;
-  if (format[c] == '%' && format[c + 1] == '%')
-     write(1, &format[c], 1);
-  if (format[c] = '%' && format[c + 1] == 's')
+  if (format[c] == '%' && format[c - 1] == '%')
+    ft_putchar_fd('%', 1);
+  if (format[c] == '%' && format[size - 1] == 's')
+    convert_strings(args);
+}
+
+void start_loop(char *format, va_list args, int count_args)
+{
+  int size_perc;
+  sign_t signs;
+  printf("count args = %d", count_args);
+  while (count_args)
   {
-    va_arg(args, char *);
+    format += print_until_perc((char *)format); // Imprimir até ao % e adicionar ao pointer para ficar no %
+    if (!(*format == '%'))
+      size_perc = size_per((char *)format); // tamanho da percentagem
+    if (size_perc == 2)
+      basic_perc(args, (char *)format, size_perc);
+    else if (size_perc > 2)
+      see_signs(format, &signs, size_perc);
+    format++;
+    count_args--;
   }
-  return (0);
 }
 
 int ft_printf(const char *format, ...)
 {
-  int size_perc;
-  int smaller_perc;
   va_list args;
-  int counter;
-  // counter = number_per(format);
-  va_start(args, format);
+  int count_args;
+
   if (!format)
     return (0);
-  while (*format != '\0')
-  {
-    format += print_until_perc((char *)format);
-    if (!(*format == '\0'))
-      size_perc = size_per((char *)format);
-    if (size_perc == 2)
-      smaller_perc = basic_perc(args , (char *)format);
-    format++;
-  }
+  count_args = number_per((char *)format, size_per((char *)format)); // Contar quantidade de % validos
+  va_start(args, (char *)format);                                    // Inicializar args
+
+  start_loop((char *)format, args, count_args);
   return (0);
 }
 
@@ -125,7 +115,6 @@ int main(void)
 {
   char *str = "string qualquer % com uma percentagem";
 
-  ft_printf(str);
-  printf("%s", str);
+  ft_printf("%s ", str);
   return (0);
 }
