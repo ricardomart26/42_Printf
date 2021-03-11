@@ -6,7 +6,7 @@
 #    By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/24 20:16:53 by rimartin          #+#    #+#              #
-#    Updated: 2021/02/25 15:36:17 by rimartin         ###   ########.fr        #
+#    Updated: 2021/03/09 18:10:39 by rimartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ $(NAME) : $(OBJ)
 			ranlib $(NAME)
 
 bonus	: $(OBJBON) $(OBJ)
-			ar rcs $(NAME) $(OBJBON) $(OBJ)
+			ar -rcs $(NAME) $(OBJBON) $(OBJ)
 
 clean	:
 			rm -f $(OBJ) $(OBJBON)

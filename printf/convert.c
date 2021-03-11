@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:19 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/08 19:09:04 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/10 20:55:12 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ char	*ft_convhexa(unsigned int decimal, int control)
 
 char	*ft_convaddr(void *ptr)
 {
-
 	uintptr_t conv;
 	size_t i;
 
