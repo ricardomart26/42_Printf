@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:11 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/08 18:55:16 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/10 20:58:44 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,6 @@ void	ft_revstr(char *str)
 	}
 }
 
-size_t	ft_strlen(const char *str)
-{
-	size_t i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
 
 char	*ft_strdup(char *src)
 {
@@ -135,4 +126,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		sub[i++] = s[start++];
 	sub[i] = '\0';
 	return (sub);
+}
+
+int	ft_strlen(const char *str)
+{
+	int c;
+
+	c = 0;
+	while (str[c] != '\0')
+		c++;
+	return (c);
 }

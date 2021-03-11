@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:31 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/08 19:29:28 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/11 18:30:37 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,26 @@
 
 void exit(int status);
 
-int size_per(char *format)
+int size_per(char *format, sign_t *signs)
 {
 	int counter;
 
-	// ver se o format esta no % ou a frente
 	counter = 0;
-	while (!type(format[counter]))
+	if (format[counter + 1] = '%')
 	{
-		counter++;
-	}
-	if (counter == 0)
-	{
-		//printf("Too many arguments in percent\n");
-		return (0);
-	}
-	if (type(format[counter]))
-	{
-		counter++;
+		counter = 2;
+		signs->c = '%';
 		return (counter);
 	}
-	else
-	{
-		//printf("Don't match any data type\n");
+	while (!type(format[counter]))
+		counter++;
+	if (counter == 0)
 		return (0);
+	if (type(format[counter]))
+	{
+		signs->c = format[counter];
+ 		counter++;
+		return (counter);
 	}
 	return (0);
 }
@@ -91,8 +87,6 @@ int number_per(char *format, int size)
 	return (counter);
 }
 
-
-
 int type(char c)
 {
 	if (c == 'c' || c == 'd' || c == 's' || c == 'i'
@@ -112,8 +106,13 @@ int sign(char c)
 int	ft_checkvalid(const char *format)
 {
 	int i;
+	int size;
+	char c;
 
+	size = size_per((char *)format, &c);
 	i = 0;
+	if (!(type(format[size - 1])))
+		return (1);
 	while (format[i] != '\0')
 	{
 		while (format[i] != '%')
