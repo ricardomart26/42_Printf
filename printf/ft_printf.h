@@ -23,7 +23,7 @@ typedef struct signs
 	int	counter_precision;
 	int counter_flags;
 	int counter_words;
-	
+
 } sign_t;
 
 
@@ -62,11 +62,11 @@ void	init_struct(sign_t *signs);
 void	precision(sign_t *signs, char *format, va_list args);
 void	width(sign_t *signs, char *format, va_list args);
 void	flags(sign_t *signs, char *format, va_list args);
-void	star(sign_t *signs, char *format, va_list args);
+void	star(sign_t *signs, va_list args);
 
 // do
 void	handle_signs(sign_t *signs, va_list args);
-void do_precision(sign_t *signs);
+void	do_precision(sign_t *signs);
 void	do_width(sign_t *signs);
 
 

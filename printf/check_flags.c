@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   check_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:25 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/11 18:54:13 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:17:18 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void flags(sign_t *signs, char *format, va_list args)
 		signs->p_align = signs->counter_flags++;
 	if (format[signs->counter_flags] == '0' && format[signs->counter_flags - 1] != '-')
 		signs->p_zero = signs->counter_flags++;
-	else if (format[signs->counter_flags] == '0')
+	else if (format[signs->counter_flags] == '0' && signs->c != 's')
 		signs->counter_flags++;
 	if (ft_isdigit(format[signs->counter_flags]) || format[signs->counter_flags] == '*')
 		width(signs, format, args);
-	if (format[signs->counter_flags] == '.')
+	if (format[signs->counter_flags] == '.' && signs->c != 's')
 		precision(signs, format, args);
 
 	handle_signs(signs, args);
@@ -74,20 +74,15 @@ void width(sign_t *signs, char *format, va_list args)
 		signs->v_width = ft_atoi(temp);
 	}
 	else if (format[signs->counter_flags] == '*')
-		star(signs, format, args);
+		star(signs, args);
 
 	free(temp);
 }
 
-void star(sign_t *signs, char *format, va_list args)
+void star(sign_t *signs, va_list args)
 {
 	signs->v_width = va_arg(args, int);
-	printf("width = %d", signs->v_width);
-	if (format[signs->counter_flags + 1] == '.')
-	{
-		signs->counter_flags++;
-		precision(signs, format, args);
-	}
+	// printf("width = %d", signs->v_width);
 }
 
 // default . e 6 sem certezas
@@ -95,7 +90,7 @@ void precision(sign_t *signs, char *format, va_list args)
 {
 	char *temp = malloc(2);
 	int counter;
-	
+
 	signs->counter_flags++;
 	counter = 0;
 	if (format[signs->counter_flags] == '*')

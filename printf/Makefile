@@ -1,37 +1,25 @@
-
+CC = gcc
+FLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
+SRCS = convert.c convert2.c do_flags.c check_flags.c ft_printf.c \
+	   utils.c validate.c
 
-CCFLAGS = gcc -Wall -Werror -Wextra -I.
+OBJS = $(SRCS:.c=.o)
 
-GDB = -g
+all: $(NAME)
 
-SRC = check.c \
-			convert.c \
-			ft_printf.c \
-			utils.c \
-			validate.c \
+%.o : %.c
+	$(CC) $(FLAGS) -c $< -o $@
 
-OBJ = $(SRC:.c=.o)
-
-HEADER = printf.h
-
-all: (NAME)
-
-$(NAME): $(HEADER) $(OBJ)
-	$(CCFLAGS) $(SRC) -o $@
-	ranlib $(NAME)
-
-gdb: $(HEADER) $(OBJ)
-	$(CCFLAGS) $(GDB) $(SRC) -o $@ 
+$(NAME) : $(OBJS)
+	ar -rc $(NAME) $(OBJS)
 
 clean:
-	rm -rf $(OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
-	rm -rf printf
+	rm -f $(NAME)
 
-re: fclean compile
+re: fclean all
 
-regdb: fclean gdb
-
-.PHONY: all compile clean fclean re gdb regdb
+.PHONY: all clean fclean re
