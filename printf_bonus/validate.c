@@ -28,11 +28,9 @@ int invalid(char const *str)
 			while (!type(str[i]))
 			{
 				if (!sign(str[i]))
-					exit (0);
+					return (1);
 				i++;
 			}
-			if (!type(str[i]))
-				exit (0);
 		}
 		i++;
 	}
@@ -43,14 +41,25 @@ int invalid(char const *str)
 int type(char c)
 {
 	if (c == 'c' || c == 'd' || c == 's' || c == 'i'
-		|| c == 'x' || c == 'X' || c == 'p' || c == 'u')
+		|| c == 'x' || c == 'X' || c == 'p' || c == 'u'
+		|| c == 'f' || c == 'g' || c == 'n' || c == 'e')
 		return (1);
 	return (0);
 }
 
 int sign(char c)
 {
-	if (c == '.' || c == '-' || ft_isdigit(c) || c == '*' || c == '%')
+	if (c == '.' || c == '-' || ft_isdigit(c) || c == '*' || c == '%'
+		|| c == ' ' || c == '#' || c == '+')
+		return (1);
+	else
+		return (0);
+}
+
+
+int hash_values(char c)
+{
+	if (c == 'X' || c == 'x' || c == 'f' || c == 'g' || c == 'e')
 		return (1);
 	else
 		return (0);

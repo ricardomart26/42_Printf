@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.sass": "scss",
+    "printf.h": "c"
+  }
+}
