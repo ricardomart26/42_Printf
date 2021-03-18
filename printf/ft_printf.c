@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:47:34 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/11 18:32:13 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:16:07 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 // Ver se e melhor fazer uma função para escrever e depois as flags ou vice versa
 // Ver o 0
 // Perguntar se temos que meter o 0x ja que o # faz isso
+
+
+void	free_if_needed(sign_t *signs)
+{
+	if (signs->c == 'd' || signs->c == 'i' || signs->c == 'x' || signs->c == 'X'
+	|| signs->c == 'p' || signs->c == 'u' || signs->c == 'c')
+	{
+		free(signs->conv);
+		signs->conv = 0;
+	}
+}
 
 char *ft_letter(va_list args, sign_t *signs)
 {
@@ -79,7 +90,7 @@ int size_per(char *format, sign_t *signs)
 void start_loop(char *format, va_list args, sign_t *signs)
 {
 	int size_perc;
-	
+
 	signs->counter_words = 0;
 	while (*format != '\0')
 	{
@@ -98,7 +109,8 @@ void start_loop(char *format, va_list args, sign_t *signs)
 				signs->conv = ft_letter(args, signs);
 				signs->counter_words += ft_strlen(signs->conv);
 				ft_putstr_fd(signs->conv, 1);
-				free(signs->conv);
+				free_if_needed(signs);
+				//free(signs->conv);
 			}
 		}
 		else if (size_perc > 2)
@@ -124,150 +136,151 @@ int ft_printf(const char *format, ...)
 	return (signs.counter_words);
 }
 
+// O 0 nem a precisao, nao funcionam para strings!
+
 int main()
 {
-	int num;
-	// char str[8] = "Ricardo";
-	// char c = 'i';
+	char str[8] = "Ricardo";
+	char c = 'i';
 	// int i = 10;
-	// int d = 1020;
-	// unsigned int u = 60;
-	// unsigned int v = -60;
+	int d = 1020;
+	unsigned int u = 60;
+	unsigned int v = -60;
 	// unsigned int hexa = -65464872;
-	// int *ptr;
-	// int b;
+	int *ptr;
+	int b;
 	int number = 30;
-	// b = 5;
+	b = 5;
 
-	// ptr = &b;
+	ptr = &b;
 	int i = 40;
-  printf("\n\n PRINTF REAL \n\n");
+	printf("\n\n PRINTF REAL \n\n");
 
-	//printf("%s\n", "ola tudo bem?");
-  printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?");
-  // printf("%s%s\n", "ola tudo", " bem?");
-  // printf("%s %s\n", "ola tudo", " bem?");
-  // printf("%5s\n", "ola tudo bem?");
-  // printf("%25s\n", "ola tudo bem?");
-  // printf("%.35s\n", "ola tudo bem?");
-  // printf("%16.23s\n", "ola tudo bem?");
-  // printf("%3.s\n", "ola tudo bem?");
-  // printf("%5.22s\n", "ola tudo bem?");
-  // printf("%22.5s\n", "ola tudo bem?");
-  // printf("%22.20s\n", "ola tudo bem?");
-  // printf("%-24s coisas a frente\n", "ola tudo bem?");
-  // printf("%-26.30s coisas a frente\n", "ola tudo bem?");
-  // printf("%-14s coisas a frente\n", "ola tudo bem?");
-  // printf("%-.23s coisas a frente\n", "ola tudo bem?");
-  // printf("%023s\n", "ola tudo bem?");
-  // printf("%012s\n", "ola tudo bem?");
-  // printf("%0.24s\n", "ola tudo bem?");
-  // printf("%0.12s\n", "ola tudo bem?");
-  // printf("%024.28s\n", "ola tudo bem?");
-  // printf("%028.24s\n", "ola tudo bem?");
-  // printf("%0.0s\n", "ola tudo bem?");
-  
-  ft_printf("\n\n MEU PRINTF \n\n");
+	// printf("%s\n", "ola tudo bem?");
+	// printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?");
+	// printf("%s%s\n", "ola tudo", " bem?");
+	// printf("%s %s\n", "ola tudo", " bem?");
+	// printf("%5s\n", "ola tudo bem?");
+	// printf("%25s\n", "ola tudo bem?");
+	printf("%.35s\n", "ola tudo bem?");
+	printf("%16.23s\n", "ola tudo bem?");
+	printf("%3.s\n", "ola tudo bem?");
+	printf("%5.22s\n", "ola tudo bem?");
+	printf("%22.5s\n", "ola tudo bem?");
+	printf("%22.20s\n", "ola tudo bem?");
+	printf("%-24s coisas a frente\n", "ola tudo bem?");
+	printf("%-26.30s coisas a frente\n", "ola tudo bem?");
+	printf("%-14s coisas a frente\n", "ola tudo bem?");
+	printf("%-.23s coisas a frente\n", "ola tudo bem?");
+	printf("%23s\n", "ola tudo bem?");
+	printf("%12s\n", "ola tudo bem?");
+	printf("%.24s\n", "ola tudo bem?");
+	printf("%.12s\n", "ola tudo bem?");
+	printf("%24.28s\n", "ola tudo bem?");
+	printf("%28.24s\n", "ola tudo bem?");
+	printf("%s\n", "ola tudo bem?");
 
-
-  //ft_printf("%s\n", "ola tudo bem?");
-  num = ft_printf("%s bruna \n tenho %d anos\n", "ola tudo bem?", 21);
-
-	ft_printf("num = %d", num);
-  // ft_printf("%s%s\n", "ola tudo", " bem?");
-  // ft_printf("%s %s\n", "ola tudo", " bem?");
-  // ft_printf("%5s\n", "ola tudo bem?");
-  // ft_printf("%25s\n", "ola tudo bem?");
-  // ft_printf("%.35s\n", "ola tudo bem?");
-  // ft_printf("%16.23s\n", "ola tudo bem?");
-  // ft_printf("%3.s\n", "ola tudo bem?");
-  // ft_printf("%5.22s\n", "ola tudo bem?");
-  // ft_printf("%22.5s\n", "ola tudo bem?");
-  // ft_printf("%22.20s\n", "ola tudo bem?");
-  // ft_printf("%-24s coisas a frente\n", "ola tudo bem?");
-  // ft_printf("%-26.30s coisas a frente\n", "ola tudo bem?");
-  // ft_printf("%-14s coisas a frente\n", "ola tudo bem?");
-  // ft_printf("%-.23s coisas a frente\n", "ola tudo bem?");
-  // ft_printf("%023s\n", "ola tudo bem?");
-  // ft_printf("%012s\n", "ola tudo bem?");
-  // ft_printf("%0.24s\n", "ola tudo bem?");
-  // ft_printf("%0.12s\n", "ola tudo bem?");
-  // ft_printf("%024.28s\n", "ola tudo bem?");
-  // ft_printf("%028.24s\n", "ola tudo bem?");
-  // ft_printf("%0.0s\n", "ola tudo bem?");
+	ft_printf("\n\n MEU PRINTF \n\n");
 
 
-	// printf("TESTE STRING PRINTF = Este e o resultado do %s printf real %s \n", str, str);
-	// ft_printf("TESTE STRING MEU PRINTF = Este e o resultado do %s meu printf. %s\n", str, str);
+	// ft_printf("%s\n", "ola tudo bem?"); // Certo
+	// ft_printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?"); // Certo
 
-	// printf("\nTESTE PRINTF = %% (precent) e sem args\n");
-	// ft_printf("MEU PRINTF = %% (percent) e sem args\n");
 
-	// printf("\nTESTE CHAR = %c (char)\n", c);
-	//  ft_printf("MEU PRINTF CHAR = %c (char)\n", c);
+	// ft_printf("%s%s\n", "ola tudo", " bem?"); // Certo
+	// ft_printf("%s %s\n", "ola tudo", " bem?"); // Certo
+	// ft_printf("%5s\n", "ola tudo bem?"); // Certo
+	// ft_printf("%25s\n", "ola tudo bem?");
+	ft_printf("%.35s\n", "ola tudo bem?");
+	ft_printf("%16.23s\n", "ola tudo bem?");
+	ft_printf("%3.s\n", "ola tudo bem?");
+	ft_printf("%5.22s\n", "ola tudo bem?");
+	ft_printf("%22.5s\n", "ola tudo bem?");
+	ft_printf("%22.20s\n", "ola tudo bem?");
+	ft_printf("%-24s coisas a frente\n", "ola tudo bem?");
+	ft_printf("%-26.30s coisas a frente\n", "ola tudo bem?");
+	ft_printf("%-14s coisas a frente\n", "ola tudo bem?");
+	ft_printf("%-.23s coisas a frente\n", "ola tudo bem?");
+	ft_printf("%23s\n", "ola tudo bem?");
+	ft_printf("%12s\n", "ola tudo bem?");
+	ft_printf("%.24s\n", "ola tudo bem?");
+	ft_printf("%.12s\n", "ola tudo bem?");
+	ft_printf("%24.28s\n", "ola tudo bem?");
+	ft_printf("%28.24s\n", "ola tudo bem?");
+	ft_printf("%s\n", "ola tudo bem?");
 
-	// printf("\nTESTE NUMBER = %i = 10 (i) , %d (d)= 55 \n", i, d);
-	// ft_printf("MEU PRINTF NUMBER = %i = 10 (i) , %d (d) = 55 \n", i, d );
 
-	// printf("\nTESTE UNSIGNED = %u = 60 (u) , %u (u) = 60 \n", u, v);
-	// ft_printf("MEU PRINTF UNSIGNED = %u = 60 (u) , %u (u) = -60 \n", u, v);
+	printf("TESTE STRING PRINTF = Este e o resultado do %s printf real %s \n", str, str);
+	ft_printf("TESTE STRING MEU PRINTF = Este e o resultado do %s meu printf. %s\n", str, str);
 
-	// printf("\nHexadecimal = %x (x) , %X (X)\n", 10241241, 10241241);
-	// ft_printf("MEU HEXA = %x (x), %X (X)\n", 10241241, 10241241); // nao funciona com numeros negativos.
+	printf("\nTESTE PRINTF = %% (precent) e sem args\n");
+	ft_printf("MEU PRINTF = %% (percent) e sem args\n");
 
-	// printf("\n\nTESTE POINTER: %p (p)\n", ptr);
-	// ft_printf("MEU PTR = %p (p)\n\n", ptr);
+	printf("\nTESTE CHAR = %c (char)\n", c);
+	 ft_printf("MEU PRINTF CHAR = %c (char)\n", c);
 
-	// printf("Teste ao meu new-line.");
-	// ft_printf("\nTeste s.kmfao meu new-line.");
+	printf("\nTESTE NUMBER = %i = 10 (i) , %d (d)= 55 \n", i, d);
+	ft_printf("MEU PRINTF NUMBER = %i = 10 (i) , %d (d) = 55 \n", i, d );
 
-	// ft_printf("Teste\a ao meu\a bell char\n\n."); //TERMINAL DON'T RING
-	// printf("Teste\a ao verdadeiro\a bell char\n\n."); //TERMINAL DON'T RING
+	printf("\nTESTE UNSIGNED = %u = 60 (u) , %u (u) = 60 \n", u, v);
+	ft_printf("MEU PRINTF UNSIGNED = %u = 60 (u) , %u (u) = -60 \n", u, v);
 
-	// ft_printf("Teste\f ao meu\f form feed char\f.\n");
-	// printf("\nTeste\f ao verdadeiro\f form feed char\f.\n");
+	printf("\nHexadecimal = %x (x) , %X (X)\n", 10241241, 10241241);
+	ft_printf("MEU HEXA = %x (x), %X (X)\n", 10241241, 10241241); // nao funciona com numeros negativos.
 
-	// ft_printf("Teste\r ao meu\r return carriage char\r.\n");
-	// printf("Teste\r ao verdadeiro\r return carriage char\r.\n");
+	printf("\n\nTESTE POINTER: %p (p)\n", ptr);
+	ft_printf("MEU PTR = %p (p)\n\n", ptr);
 
-	// ft_printf("Teste\tao meu\ttab char\t.\n");
-	// printf("Teste\t ao verdadeiro\ttab char\t.\n");
+	printf("Teste ao meu new-line.");
+	ft_printf("\nTeste s.kmfao meu new-line.");
 
-	// ft_printf("Teste\vao meu \vvertical tab char\v .\n");
-	// printf("Teste\vao verdadeiro \vvertical tab char\v .\n");
+	ft_printf("Teste\a ao meu\a bell char\n\n."); //TERMINAL DON'T RING
+	printf("Teste\a ao verdadeiro\a bell char\n\n."); //TERMINAL DON'T RING
 
-	// ft_printf("Teste\'ao meu \'single quote char\' .\n");
-	// printf("Teste\'ao verdadeiro \'single quote char\' .\n");
+	ft_printf("Teste\f ao meu\f form feed char\f.\n");
+	printf("\nTeste\f ao verdadeiro\f form feed char\f.\n");
 
-	// ft_printf("Teste\"ao meu \"double quote char\" .\n");
-	// printf("Teste\"ao verdadeiro \"double quote char\" .\n");
+	ft_printf("Teste\r ao meu\r return carriage char\r.\n");
+	printf("Teste\r ao verdadeiro\r return carriage char\r.\n");
 
-	// ft_printf("Teste\\ao meu \\backslash char\\ .\n");
-	// printf("Teste\\ao verdadeiro \\backslash char\\ .\n");
+	ft_printf("Teste\tao meu\ttab char\t.\n");
+	printf("Teste\t ao verdadeiro\ttab char\t.\n");
 
-	// ft_printf("teste num \126\n");
-	// printf("test num  \126\n");
+	ft_printf("Teste\vao meu \vvertical tab char\v .\n");
+	printf("Teste\vao verdadeiro \vvertical tab char\v .\n");
 
-	// printf("Teste Width real: .%4d (d) , .%5d (5d)\n", d, d);
-	// ft_printf("Teste Width: .%4d (d) , .%100d (5d)\n", d, d);
+	ft_printf("Teste\'ao meu \'single quote char\' .\n");
+	printf("Teste\'ao verdadeiro \'single quote char\' .\n");
 
-	// printf("\nTeste Width star real: .%*d (5d)\n", 5, d);
-	// ft_printf("Teste Width star meu: .%*d (*8d)\n", 8, d);
+	ft_printf("Teste\"ao meu \"double quote char\" .\n");
+	printf("Teste\"ao verdadeiro \"double quote char\" .\n");
 
-	// printf("\nTeste align real: .%-5d (-5d) , .%-*d (-*d)",  d, 8, d);
-	// ft_printf("\nTeste align meu: .%-*d (-*d)\n", 8, d);
+	ft_printf("Teste\\ao meu \\backslash char\\ .\n");
+	printf("Teste\\ao verdadeiro \\backslash char\\ .\n");
 
-	// printf("printf real = %10.5d\n", 10); // (  00010)
-	// ft_printf("meu printf = %10.5d\n", 10); // (  00010)
+	ft_printf("teste num \126\n");
+	printf("test num  \126\n");
 
- 		// printf(" %-10d \n", number);
-    // printf(" %010d \n", number);
-    // printf(" %-#10x \n", number);  
-    // printf(" %#x \n", 100);
-    // printf(" %x \n", 100);
+	printf("Teste Width real: .%4d (d) , .%5d (5d)\n", d, d);
+	ft_printf("Teste Width: .%4d (d) , .%100d (5d)\n", d, d);
 
-    // printf(" %+d \n", 100);
-    // printf(" % d \n", -100);
+	printf("\nTeste Width star real: .%*d (5d)\n", 5, d);
+	ft_printf("Teste Width star meu: .%*d (*8d)\n", 8, d);
+
+	printf("\nTeste align real: .%-5d (-5d) , .%-*d (-*d)",  d, 8, d);
+	ft_printf("\nTeste align meu: .%-*d (-*d)\n", 8, d);
+
+	printf("printf real = %10.5d\n", 10); // (  00010)
+	ft_printf("meu printf = %10.5d\n", 10); // (  00010)
+
+	printf(" %-10d \n", number);
+	printf(" %010d \n", number);
+	printf(" %-#10x \n", number);
+	printf(" %#x \n", 100);
+	printf(" %x \n", 100);
+
+	printf(" %+d \n", 100);
+	printf(" % d \n", -100);
 
 
 

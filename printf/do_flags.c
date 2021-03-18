@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_flags.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 03:01:08 by marvin            #+#    #+#             */
-/*   Updated: 2021/03/16 03:01:08 by marvin           ###   ########.fr       */
+/*   Updated: 2021/03/18 18:15:41 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void do_width(sign_t *signs)
 	if (signs->size_conv < signs->v_width)
 	{
 		signs->v_width -= signs->size_conv;
+		signs->counter_words = signs->v_width;
 		while (signs->v_width > 0)
 		{
 			if (signs->p_zero)
 				write(1, "0", 1);
 			else
 				write(1, " ", 1);
-      signs->counter_words++;
 			signs->v_width--;
 		}
 	}
@@ -64,8 +64,8 @@ void do_width(sign_t *signs)
 	{
 		write(1, "0", 1);
 		signs->counter_precision--;
-    signs->counter_words++;
+		signs->counter_words++;
 	}
 }
 
-void	get_arg_and_size(signs)
+// void	get_arg_and_size(signs)
