@@ -10,28 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "printf.h"
 
 // Verificar se esta a contar bem as palavras
 // Ver se e melhor fazer uma função para escrever e depois as flags ou vice versa
-// Ver o 0
-// Perguntar se temos que meter o 0x ja que o # faz isso
+// Como converter um numero para notação cientifica (string)
+// Perceber o n
+// Float, acrescenta sempre 6 casas a seguir a virgula e não funciona com a width
+// Float, fazer função para so contar a frente da virgula
 
-char *ft_letter(va_list args, sign_t *signs)
+
+char *ft_letter(va_list args, sign_t signs)
 {
-	if (signs->c == 's')
+	if (signs.c == 's')
 		return (va_arg(args, char *));
-	else if (signs->c == 'c')
+	else if (signs.c == '%')
 		return (ft_convert_char(va_arg(args, int)));
-	else if (signs->c == 'i' || signs->c == 'd')
+	else if (signs.c == 'c')
+		return (ft_convert_char(va_arg(args, int)));
+	else if (signs.c == 'i' || signs.c == 'd')
 		return (ft_itoa(va_arg(args, int)));
-	else if (signs->c == 'u')
+	else if (signs.c == 'u')
 		return (ft_unsigneditoa(va_arg(args, unsigned int)));
-	else if (signs->c == 'x')
+	else if (signs.c == 'x')
 		return (ft_convhexa(va_arg(args, unsigned int), 0));
-	else if (signs->c == 'X')
+	else if (signs.c == 'X')
 		return (ft_convhexa(va_arg(args, unsigned int), 1));
-	else if (signs->c == 'p')
+	else if (signs.c == 'p')
 		return (ft_convadress(va_arg(args, long int)));
 	return (0);
 }
@@ -43,7 +48,7 @@ int print_until_perc(char *format, sign_t *signs) // Write até ao %
 	c = 0;
 	while (format[c] != '%' && format[c] != '\0')
 	{
-		signs->counter_words++;
+		signs->ret++;
 		write(1, &format[c], 1);
 		c++;
 	}
@@ -61,16 +66,11 @@ int size_per(char *format, sign_t *signs)
 		return (2);
 	}
 	while ((!type(format[counter])))
-	{
-		//printf("counter = %d\n", counter);
-		//printf("format[counter] = %c\n", format[counter]);
 		counter++;
-	}
 	if (type(format[counter]))
 	{
-		signs->c = format[counter];
-		//printf("counter = %d", counter);
-		return (counter + 1);
+		signs->c = format[counter++];
+		return (counter);
 	}
 	return (0);
 }
@@ -80,7 +80,7 @@ void start_loop(char *format, va_list args, sign_t *signs)
 {
 	int size_perc;
 	
-	signs->counter_words = 0;
+	signs->ret = 0;
 	while (*format != '\0')
 	{
 		init_struct(signs);
@@ -88,25 +88,23 @@ void start_loop(char *format, va_list args, sign_t *signs)
 		if (*format == '\0')
 			break;
 		size_perc = size_per((char *)format, signs);
-		// printf("size_perc = %d\n", size_perc);
 		if (size_perc == 2)
 		{
 			if (format[1] == '%')
 				write(1, "%%", 1);
 			else
 			{
-				signs->conv = ft_letter(args, signs);
-				signs->counter_words += ft_strlen(signs->conv);
+				signs->conv = ft_letter(args, *signs);
 				ft_putstr_fd(signs->conv, 1);
-				free(signs->conv);
 			}
 		}
 		else if (size_perc > 2)
 			flags(signs, format, args);
 		format += size_perc;
-		//printf("format = %s\n", format);
 	}
 }
+
+
 
 int ft_printf(const char *format, ...)
 {
@@ -121,81 +119,24 @@ int ft_printf(const char *format, ...)
 	va_start(args, (char *)format);
 	start_loop((char *)format, args, &signs);
 	va_end(args);
-	return (signs.counter_words);
+	return (signs.ret);
 }
 
 int main()
 {
-	int num;
 	// char str[8] = "Ricardo";
 	// char c = 'i';
 	// int i = 10;
-	// int d = 1020;
+	int d = 1020;
 	// unsigned int u = 60;
 	// unsigned int v = -60;
 	// unsigned int hexa = -65464872;
 	// int *ptr;
 	// int b;
-	int number = 30;
+
 	// b = 5;
-
+	int *ptr = &d;
 	// ptr = &b;
-	int i = 40;
-  printf("\n\n PRINTF REAL \n\n");
-
-	//printf("%s\n", "ola tudo bem?");
-  printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?");
-  // printf("%s%s\n", "ola tudo", " bem?");
-  // printf("%s %s\n", "ola tudo", " bem?");
-  // printf("%5s\n", "ola tudo bem?");
-  // printf("%25s\n", "ola tudo bem?");
-  // printf("%.35s\n", "ola tudo bem?");
-  // printf("%16.23s\n", "ola tudo bem?");
-  // printf("%3.s\n", "ola tudo bem?");
-  // printf("%5.22s\n", "ola tudo bem?");
-  // printf("%22.5s\n", "ola tudo bem?");
-  // printf("%22.20s\n", "ola tudo bem?");
-  // printf("%-24s coisas a frente\n", "ola tudo bem?");
-  // printf("%-26.30s coisas a frente\n", "ola tudo bem?");
-  // printf("%-14s coisas a frente\n", "ola tudo bem?");
-  // printf("%-.23s coisas a frente\n", "ola tudo bem?");
-  // printf("%023s\n", "ola tudo bem?");
-  // printf("%012s\n", "ola tudo bem?");
-  // printf("%0.24s\n", "ola tudo bem?");
-  // printf("%0.12s\n", "ola tudo bem?");
-  // printf("%024.28s\n", "ola tudo bem?");
-  // printf("%028.24s\n", "ola tudo bem?");
-  // printf("%0.0s\n", "ola tudo bem?");
-  
-  ft_printf("\n\n MEU PRINTF \n\n");
-
-
-  //ft_printf("%s\n", "ola tudo bem?");
-  num = ft_printf("%s bruna \n tenho %d anos\n", "ola tudo bem?", 21);
-
-	ft_printf("num = %d", num);
-  // ft_printf("%s%s\n", "ola tudo", " bem?");
-  // ft_printf("%s %s\n", "ola tudo", " bem?");
-  // ft_printf("%5s\n", "ola tudo bem?");
-  // ft_printf("%25s\n", "ola tudo bem?");
-  // ft_printf("%.35s\n", "ola tudo bem?");
-  // ft_printf("%16.23s\n", "ola tudo bem?");
-  // ft_printf("%3.s\n", "ola tudo bem?");
-  // ft_printf("%5.22s\n", "ola tudo bem?");
-  // ft_printf("%22.5s\n", "ola tudo bem?");
-  // ft_printf("%22.20s\n", "ola tudo bem?");
-  // ft_printf("%-24s coisas a frente\n", "ola tudo bem?");
-  // ft_printf("%-26.30s coisas a frente\n", "ola tudo bem?");
-  // ft_printf("%-14s coisas a frente\n", "ola tudo bem?");
-  // ft_printf("%-.23s coisas a frente\n", "ola tudo bem?");
-  // ft_printf("%023s\n", "ola tudo bem?");
-  // ft_printf("%012s\n", "ola tudo bem?");
-  // ft_printf("%0.24s\n", "ola tudo bem?");
-  // ft_printf("%0.12s\n", "ola tudo bem?");
-  // ft_printf("%024.28s\n", "ola tudo bem?");
-  // ft_printf("%028.24s\n", "ola tudo bem?");
-  // ft_printf("%0.0s\n", "ola tudo bem?");
-
 
 	// printf("TESTE STRING PRINTF = Este e o resultado do %s printf real %s \n", str, str);
 	// ft_printf("TESTE STRING MEU PRINTF = Este e o resultado do %s meu printf. %s\n", str, str);
@@ -257,17 +198,109 @@ int main()
 	// printf("\nTeste align real: .%-5d (-5d) , .%-*d (-*d)",  d, 8, d);
 	// ft_printf("\nTeste align meu: .%-*d (-*d)\n", 8, d);
 
+
+
+
+
+
+
+
+
+
+
+	// printf("\n exprimentar %3d\n", 3194);
+	// printf(" exprimentar %3s\n", "Claudia");
+	// printf(" exprimentar %f\n", 324.234);
+
+	// ft_printf("\n meu : exprimentar %3d\n", 3194);
+	// ft_printf(" meu : exprimentar %3s\n", "Claudia");
+
+	// printf("\n exprimentar %g\n", 3194.23);
+	// printf(" exprimentar %e\n", 324.234);
+
+	// printf("\n exprimentar %n\n", ptr);
+	// printf(" exprimentar %.3f\n", 324.234);
+	// printf(" exprimentar %.9f\n", 324.234); // (324.234000000) Fica 9 a partir da virgula 
+	// printf(" exprimentar %9f\n", 324.234); // width no float nao faz nada
+
+	
+	// printf("\n exprimentar %.1f\n", 3194.23); // 3194.2
+	// printf("\n exprimentar %1f\n", 3194.23); // Nada mudou
+	// printf("\n exprimentar %-9f ffef\n", 3194.23); //  Nada mudou
+	// printf("\n exprimentar % f\n", 3194.23); // espaço
+	// printf("\n exprimentar %#f\n", 3194.23); //  Nada mudou
+	// printf("\n exprimentar %+f\n", 3194.23); // sinal de mais
+	// printf("\n exprimentar %-f did\n", 3194.23); // nada mudou
+
+
+
+	// printf("\n exprimentar %4g\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %2g\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %1g\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %.6g\n", 3194.23); // Nao mudou nada
+
+
+
+	// printf("\n exprimentar %-3g\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %-63g\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %0g\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %.06g\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %0.0g\n", 3194.23); // notação cientifica
+	// printf("\n exprimentar % g\n", 3194.23); // Faz um espaco
+	// printf("\n exprimentar %#g\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %+g\n", 3194.23); // Adiciona um mais
+	
+
+
+
+	// printf("\n exprimentar %4e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %2e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %1e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %.6e\n", 3194.23); // Nao mudou nada
+
+
+
+	// printf("\n exprimentar %-3e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %-63e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %0e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %.06e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %0.0e\n", 3194.23); // 3e+003 corta os numeros do meio
+	// printf("\n exprimentar % e\n", 3194.23); // Faz um espaco
+	// printf("\n exprimentar %#e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %+e\n", 3194.23); // Adiciona um mais
+	
+
+
+
+	// printf("\n exprimentar %4e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %2e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %1e\n", 3194.23); // Nao mudou nada
+	// printf("\n exprimentar %.6e\n", 3194.23); // Nao mudou nada
+
+
+
+// ---------------------------------------------------------  O "n" nao pode ter formato ---------------------------------------------
+
+	// printf("\n exprimentar %-3n\n", ptr); // Nao mudou nada
+	// printf("\n exprimentar %-63n\n", ptr); // Nao mudou nada
+	// printf("\n exprimentar %0n\n", ptr); // Nao mudou nada
+	// printf("\n exprimentar %.06n\n", ptr); // Nao mudou nada
+	// printf("\n exprimentar %0.0n\n", ptr); // 3e+003 corta os numeros do meio
+	// printf("\n exprimentar % n\n", ptr); // Faz um espaco
+	// printf("\n exprimentar %#n\n", ptr); // Nao mudou nada
+	// printf("\n exprimentar %+n\n", ptr); // Adiciona um mais
+	
+
+
+
+
+
+
+
+
+
 	// printf("printf real = %10.5d\n", 10); // (  00010)
 	// ft_printf("meu printf = %10.5d\n", 10); // (  00010)
-
- 		// printf(" %-10d \n", number);
-    // printf(" %010d \n", number);
-    // printf(" %-#10x \n", number);  
-    // printf(" %#x \n", 100);
-    // printf(" %x \n", 100);
-
-    // printf(" %+d \n", 100);
-    // printf(" % d \n", -100);
 
 
 

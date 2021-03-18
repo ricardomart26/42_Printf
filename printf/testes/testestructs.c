@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+
 typedef struct main
 {
   int dot;
@@ -9,6 +10,9 @@ typedef struct main
 
 } main_t;
 
+void  see_signs(char *string, main_t *temp);
+int  init_struct(main_t *temp, char *string);
+
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
@@ -17,7 +21,21 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-void  see_signs(char *string, main_t temp)
+int  init_struct(main_t *temp, char *string)
+{
+  temp->align = 0;
+  temp->star = 0;
+  temp->dot = 0;
+  temp->digit = 0;
+  printf("star = %d\n", temp->star);
+  printf("align = %d\n", temp->align);
+  printf("dot = %d\n", temp->dot);
+  printf("digit = %d\n", temp->digit);
+
+  see_signs(string, temp);
+}
+
+void  see_signs(char *string, main_t *temp)
 {
   int c;
 
@@ -25,13 +43,13 @@ void  see_signs(char *string, main_t temp)
   while (string[c])
   {
     if (string[c] == '.')
-      temp.dot = 1;
+      temp->dot = 1;
     if (string[c] == '*')
-      temp.star = 1;
+      temp->star = 1;
     if (string[c] == '-')
-      temp.align = 1;
+      temp->align = 1;
     if (ft_isdigit(string[c]))
-      temp.digit = 1;
+      temp->digit = 1;
     c++;
   }
 }
@@ -42,8 +60,8 @@ int main(void)
   main_t temp;
 
   printf("%s\n", string);
-  see_signs(string, temp);
-
+  //see_signs(string, &temp);
+  init_struct(&temp, string);
   printf("star = %d\n", temp.star);
   printf("align = %d\n", temp.align);
   printf("dot = %d\n", temp.dot);

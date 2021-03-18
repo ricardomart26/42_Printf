@@ -8,6 +8,5 @@ int main(void)
 
   printf("%lf\n", temp);
   printf("%lf\n", temp1);
-  printf("%f", temp2);
-
+  printf("%x\n", 101);
 }
