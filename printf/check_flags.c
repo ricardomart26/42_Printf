@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_signs.c                                      :+:      :+:    :+:   */
+/*   check_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:25 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/18 18:17:18 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/19 18:54:02 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@ void init_struct(sign_t *st)
 // Fazer align depois de escrever a conversao
 // Funcao para saber o tamanho, para onde mandar mos o tamanho?
 
-void signs(sign_t *st, char *fmt, va_list args)
+void	with_flags(sign_t *st, char *fmt, va_list args)
 {
 	if (fmt[st->c_signs] == '-')
 		st->align = st->c_signs++;
 
-	if (fmt[st->c_signs] == '0' && fmt[st->c_signs - 1] != '-')
+	if (fmt[st->c_signs] == '0' && (!st->align))
 		st->zero = st->c_signs++;
 	else if (fmt[st->c_signs] == '0' && st->c != 's')
 		st->c_signs++;
-	
+
 	if (ft_isdigit(fmt[st->c_signs]) || fmt[st->c_signs] == '*')
 		width(st, fmt, args);
 	if (fmt[st->c_signs] == '.')
 		precision(st, fmt, args);
 
-	handle_signs(st, args);
+	middle_man(st, args);
 }
 
 void	width(sign_t *st, char *fmt, va_list args)
@@ -81,13 +81,14 @@ void	width(sign_t *st, char *fmt, va_list args)
 	}
 	else if (fmt[st->c_signs] == '*')
 		st->width = va_arg(args, int);
-				
+	printf("\nwidth = %d\n", st->width);
+
 }
 
 // default . e 6 sem certezas
 void	precision(sign_t *st, char *fmt, va_list args)
 {
-	char *temp; 
+	char *temp;
 	int counter;
 	int size;
 
@@ -104,14 +105,15 @@ void	precision(sign_t *st, char *fmt, va_list args)
 	while (ft_isdigit(fmt[st->c_signs]))
 	{
 		temp[counter++] = fmt[st->c_signs++];
-	}	
+	}
 	temp[counter] = '\0';
 	if (temp != NULL)
 	{
-		st->dot = ft_atoi(temp);	
+		st->dot = ft_atoi(temp);
 		if (st->c == 's')
 			st->edge_s = 1;
 	}
+	printf("\ndot = %d\n", st->dot);
 	free(temp);
 }
 
