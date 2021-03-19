@@ -17,126 +17,113 @@
 // Ver o 0
 // Perguntar se temos que meter o 0x ja que o # faz isso
 
-void free_if_needed(sign_t *signs)
+void free_if_needed(sign_t *st)
 {
-	if (signs->c == 'd' || signs->c == 'i' || signs->c == 'x' || signs->c == 'X' || signs->c == 'p' || signs->c == 'u' || signs->c == 'c')
+	if (st->c == 'd' || st->c == 'i' || st->c == 'x' || st->c == 'X' || st->c == 'p' || st->c == 'u' || st->c == 'c')
 	{
-		free(signs->conv);
-		signs->conv = NULL;
+		free(st->conv);
+		st->conv = NULL;
 	}
 }
 
-char *ft_letter(va_list args, sign_t *signs)
+char *ft_get_arg(va_list args, sign_t *st)
 {
-	if (signs->c == 's')
+	if (st->c == 's')
 		return (va_arg(args, char *));
-	else if (signs->c == 'c')
+	else if (st->c == 'c')
 		return (ft_convert_char(va_arg(args, int)));
-	else if (signs->c == 'i' || signs->c == 'd')
+	else if (st->c == 'i' || st->c == 'd')
 		return (ft_itoa(va_arg(args, int)));
-	else if (signs->c == 'u')
+	else if (st->c == 'u')
 		return (ft_unsigneditoa(va_arg(args, unsigned int)));
-	else if (signs->c == 'x')
+	else if (st->c == 'x')
 		return (ft_convhexa(va_arg(args, unsigned int), 0));
-	else if (signs->c == 'X')
+	else if (st->c == 'X')
 		return (ft_convhexa(va_arg(args, unsigned int), 1));
-	else if (signs->c == 'p')
+	else if (st->c == 'p')
 		return (ft_convadress(va_arg(args, long int)));
 	return (0);
 }
 
-int print_until_perc(char *format, sign_t *signs) // Write até ao %
+int print_until_perc(char *fmt, sign_t *st) // Write até ao %
 {
 	int c;
 
 	c = 0;
-	while (format[c] != '%' && format[c] != '\0')
+	while (fmt[c] != '%' && fmt[c] != '\0')
 	{
-		signs->counter_words++;
-		write(1, &format[c], 1);
+		st->words++;
+		write(1, &fmt[c], 1);
 		c++;
 	}
 	return (c);
 }
 
-int size_per(char *format, sign_t *signs)
+int size_per(char *fmt, sign_t *st)
 {
 	int counter;
 
 	counter = 0;
-	if (format[counter + 1] == '%')
-	{
-		signs->c = '%';
+	if (fmt[counter + 1] == '%')
 		return (2);
-	}
-	while ((!type(format[counter])))
-	{
-		//printf("counter = %d\n", counter);
-		//printf("format[counter] = %c\n", format[counter]);
+
+	while ((!type(fmt[counter])))
 		counter++;
-	}
-	if (type(format[counter]))
+	if (type(fmt[counter]))
 	{
-		signs->c = format[counter];
-		//printf("counter = %d", counter);
+		st->c = fmt[counter];
 		return (counter + 1);
 	}
 
-	return (0);
+	return (1);
 }
 
-void start_loop(char *format, va_list args, sign_t *signs)
+void	with_no_flags(char *fmt, va_list args, sign_t *st)
+{
+	st->conv = ft_letter(args, st);
+	st->words += ft_strlen(st->conv);
+	ft_putstr_fd(st->conv, 1);
+	free_if_needed(st);		
+}
+
+void start_loop(char *fmt, va_list args, sign_t *st)
 {
 	int size_perc;
 
-	signs->counter_words = 0;
-	while (*format != '\0')
+	st->words = 0;
+	while (*fmt != '\0')
 	{
-		init_struct(signs);
-		format += print_until_perc((char *)format, signs);
+		init_struct(st);
+		fmt += print_until_perc((char *)fmt, st);
 		
-		printf("format = %c", format[0]);
-		printf("format = %c", format[1]);
-		printf("format = %c", format[2]);
-		if (*format == '\0')
-			break;
-		size_perc = size_per((char *)format, signs);
-
-		// printf("size_perc = %d\n", size_perc);
+		if (*fmt == '\0')
+			break;	
+		size_perc = size_per((char *)fmt, st);
 		if (size_perc == 2)
-		{
-			if (format[1] == '%')
+			if (fmt[1] == '%')
 				write(1, "%%", 1);
 			else
-			{
-				signs->conv = ft_letter(args, signs);
-				signs->counter_words += ft_strlen(signs->conv);
-				ft_putstr_fd(signs->conv, 1);
-				free_if_needed(signs);
-				//free(signs->conv);
-			}
-		}
+				with_no_flags(fmt, args, st);
 		else if (size_perc > 2)
-			flags(signs, format, args);
-		format += size_perc;
-		//printf("format = %s\n", format);
+			with_flags(st, fmt, args);
+		fmt += size_perc;
 	}
 }
 
-int ft_printf(const char *format, ...)
+int ft_printf(const char *fmt, ...)
 {
 	va_list args;
-	sign_t signs;
+	sign_t st;
 
-	if (!format)
+	if (!fmt)
 		return (0);
-	if (invalid(format) != 0)
+	if (invalid(fmt) != 0)
 		return (-1);
 
-	va_start(args, (char *)format);
-	start_loop((char *)format, args, &signs);
+	va_start(args, (char *)fmt);
+	start_loop((char *)fmt, args, &st);
 	va_end(args);
-	return (signs.counter_words);
+	return (st.words);
 }
 
 // O 0 nem a precisao, nao funcionam para strings!
@@ -159,222 +146,228 @@ int main()
 	int i = 40;
 
 
-	// ft_printf("\n\n\t\tSEM FLAGS\n\n");
+	ft_printf("\n\n\t\tSEM FLAGS\n\n");
 
-	// printf("printf = %s\n", "ola tudo bem?");
-	// ft_printf("meu printf = %s\n", "ola tudo bem?");
-	// printf("printf = %d\n", 41);
-	// ft_printf("meu printf = %d\n", 41);
-	// printf("printf = %i\n", 41);
-	// ft_printf("meu printf = %i\n", 41);
-	// printf("printf = %x\n", 41);
-	// ft_printf("meu printf = %x\n", 41);
-	// printf("printf = %X\n", 41);
-	// ft_printf("meu printf = %X\n", 41);
-	// printf("printf = %c\n", "ola tudo bem?");
-	// ft_printf("meu printf = %c\n", "ola tudo bem?");
-	// printf("printf = %p\n", ptr);
-	// ft_printf("meu printf = %p\n", ptr);
-	// printf("printf = %u\n", -41);
-	// ft_printf("meu printf = %u\n", -41);
-
-
-	// ft_printf("\n\n\t\tCOM WIDTH A MAIS\n\n");
-
-	// printf("printf = %25s\n", "ola tudo bem?");
-	// ft_printf("meu printf = %25s\n", "ola tudo bem?");
-	// printf("printf = %5d\n", 41);
-	// ft_printf("meu printf = %5d\n", 41);
-	// printf("printf = %5i\n", 41);
-	// ft_printf("meu printf = %5i\n", 41);
-	// printf("printf = %5x\n", 41);
-	// ft_printf("meu printf = %5x\n", 41);
-	// printf("printf = %5X\n", 41);
-	// ft_printf("meu printf = %5X\n", 41);
-	// printf("printf = %5c\n", 'c');
-	// ft_printf("meu printf = %5c\n", 'c');
-	// printf("printf = %15p\n", ptr);
-	// ft_printf("meu printf = %15p\n", ptr);
-	// printf("printf = %5u\n", 41);
-	// ft_printf("meu printf = %5u\n", 41);
+	printf("printf = %s\n", "ola tudo bem?");
+	ft_printf("meu printf = %s\n", "ola tudo bem?");
+	printf("printf = %d\n", 41);
+	ft_printf("meu printf = %d\n", 41);
+	printf("printf = %i\n", 41);
+	ft_printf("meu printf = %i\n", 41);
+	printf("printf = %x\n", 41);
+	ft_printf("meu printf = %x\n", 41);
+	printf("printf = %X\n", 41);
+	ft_printf("meu printf = %X\n", 41);
+	printf("printf = %c\n", "ola tudo bem?");
+	ft_printf("meu printf = %c\n", "ola tudo bem?");
+	printf("printf = %p\n", ptr);
+	ft_printf("meu printf = %p\n", ptr);
+	printf("printf = %u\n", -41);
+	ft_printf("meu printf = %u\n", -41);
 
 
-	// ft_printf("\n\n\t\tCOM WIDTH A MENOS\n\n\n");
+	ft_printf("\n\n\t\tCOM WIDTH A MAIS\n\n");
+
+	printf("printf = %25s\n", "ola tudo bem?");
+	ft_printf("meu printf = %25s\n", "ola tudo bem?");
+	printf("printf = %5d\n", 41);
+	ft_printf("meu printf = %5d\n", 41);
+	printf("printf = %5i\n", 41);
+	ft_printf("meu printf = %5i\n", 41);
+	printf("printf = %5x\n", 41);
+	ft_printf("meu printf = %5x\n", 41);
+	printf("printf = %5X\n", 41);
+	ft_printf("meu printf = %5X\n", 41);
+	printf("printf = %5c\n", 'c');
+	ft_printf("meu printf = %5c\n", 'c');
+	printf("printf = %15p\n", ptr);
+	ft_printf("meu printf = %15p\n", ptr);
+	printf("printf = %5u\n", 41);
+	ft_printf("meu printf = %5u\n", 41);
+
+
+	ft_printf("\n\n\t\tCOM WIDTH A MENOS\n\n\n");
 	
-	// printf("printf = %5s\n", "ola tudo bem?");
-	// ft_printf("meu printf = %5s\n", "ola tudo bem?");
-	// printf("printf = %2d\n", 4153);
-	// ft_printf("meu printf = %2d\n", 4153);
-	// printf("printf = %2x\n", 4153);
-	// ft_printf("meu printf = %2x\n", 4153);
-	// printf("printf = %2X\n", 4123);
-	// ft_printf("meu printf = %2X\n", 4123);
-	// printf("printf = %2c\n", 'c');
-	// ft_printf("meu printf = %2c\n", 'c');
-	// printf("printf = %2p\n", ptr);
-	// ft_printf("meu printf = %2p\n", ptr);
-	// printf("printf = %2u\n", 4123);
-	// ft_printf("meu printf = %2u\n", 4123);
+	printf("printf = %5s\n", "ola tudo bem?");
+	ft_printf("meu printf = %5s\n", "ola tudo bem?");
+	printf("printf = %2d\n", 4153);
+	ft_printf("meu printf = %2d\n", 4153);
+	printf("printf = %2x\n", 4153);
+	ft_printf("meu printf = %2x\n", 4153);
+	printf("printf = %2X\n", 4123);
+	ft_printf("meu printf = %2X\n", 4123);
+	printf("printf = %2c\n", 'c');
+	ft_printf("meu printf = %2c\n", 'c');
+	printf("printf = %2p\n", ptr);
+	ft_printf("meu printf = %2p\n", ptr);
+	printf("printf = %2u\n", 4123);
+	ft_printf("meu printf = %2u\n", 4123);
 
 
-	// ft_printf("\n\n\t\tCOM PRECISAO MAIS\n\n\n");
-	// printf("printf = %.25s\n", "ola tudo bem?");
-	// ft_printf("meu printf = %.25s\n", "ola tudo bem?");
-	// printf("printf = %.5d\n", 4153);
-	// ft_printf("meu printf = %.5d\n", 4153);
-	// printf("printf = %.5x\n", 4153);
-	// ft_printf("meu printf = %.5x\n", 4153);
-	// printf("printf = %.5X\n", 4153);
-	// ft_printf("meu printf = %.5X\n", 4153);
-	// printf("printf = %.5c\n", 'c');
-	// ft_printf("meu printf = %.5c\n", 'c');
-	// printf("printf = %.5p\n", ptr);
-	// ft_printf("meu printf = %.5p\n", ptr);
-	// printf("printf = %.5u\n", 4153);
-	// ft_printf("meu printf = %.5u\n", 4153);
+	ft_printf("\n\n\t\tCOM PRECISAO MAIS\n\n\n");
+	printf("printf = %.25s\n", "ola tudo bem?");
+	ft_printf("meu printf = %.25s\n", "ola tudo bem?");
+	printf("printf = %.5d\n", 4153);
+	ft_printf("meu printf = %.5d\n", 4153);
+	printf("printf = %.5x\n", 4153);
+	ft_printf("meu printf = %.5x\n", 4153);
+	printf("printf = %.5X\n", 4153);
+	ft_printf("meu printf = %.5X\n", 4153);
+	printf("printf = %.5c\n", 'c');
+	ft_printf("meu printf = %.5c\n", 'c');
+	printf("printf = %.5p\n", ptr);
+	ft_printf("meu printf = %.5p\n", ptr);
+	printf("printf = %.5u\n", 4153);
+	ft_printf("meu printf = %.5u\n", 4153);
 
 	
-	// ft_printf("\n\n\t\tCOM PRECISAO MENOS\n\n\n");
+	ft_printf("\n\n\t\tCOM PRECISAO MENOS\n\n\n");
 
-	// printf("printf = %.5s\n", "ola tudo bem?");
-	// ft_printf("meu printf = %.5s\n", "ola tudo bem?");
-	// printf("printf = %.2d\n", 4123);
-	// ft_printf("meu printf = %.2d\n", 4123);
-	// printf("printf = %.2x\n", 4123);
-	// ft_printf("meu printf = %.2x\n", 4123);
-	// printf("printf = %.2X\n", 4123);
-	// ft_printf("meu printf = %.2X\n", 4123);
-	// printf("printf = %.2c\n", 'c');
-	// ft_printf("meu printf = %.2c\n", 'c');
-	// printf("printf = %.2p\n", ptr);
-	// ft_printf("meu printf = %.2p\n", ptr);
-	// printf("printf = %.2u\n", 4153);
-	// ft_printf("meu printf = %.5u\n", 4153);
-
-
-	// ft_printf("\n\n\t\tALIGN COM WIDTH MENOR\n\n\n");
-
-	// printf("printf = %25.30s ahahaha\n", "ola tudo bem?");
-	// ft_printf("meu printf = %25.30s ahahaha\n", "ola tudo bem?");
-	// printf("printf = %10.15d ahahaha\n", 4123);
-	// ft_printf("meu printf = %10.15d ahahaha\n", 4123);
-	// printf("printf = %10.15x ahahaha\n", 4123);
-	// ft_printf("meu printf = %10.15x ahahaha\n", 4123);
-	// printf("printf = %10.15X ahahaha\n", 4123);
-	// ft_printf("meu printf = %10.15X ahahaha\n", 4123);
-	// printf("printf = %10.15c ahahaha\n", 'c');
-	// ft_printf("meu printf = %10.15c ahahaha\n", 'c');
-	// printf("printf = %10.15p ahahaha\n", ptr);
-	// ft_printf("meu printf = %10.15p ahahaha\n", ptr);
-	// printf("printf = %10.15u ahahaha\n", 41103);
-	// ft_printf("meu printf = %10.15u ahahaha\n", 4153);
+	printf("printf = %.5s\n", "ola tudo bem?");
+	ft_printf("meu printf = %.5s\n", "ola tudo bem?");
+	printf("printf = %.2d\n", 4123);
+	ft_printf("meu printf = %.2d\n", 4123);
+	printf("printf = %.2x\n", 4123);
+	ft_printf("meu printf = %.2x\n", 4123);
+	printf("printf = %.2X\n", 4123);
+	ft_printf("meu printf = %.2X\n", 4123);
+	printf("printf = %.2c\n", 'c');
+	ft_printf("meu printf = %.2c\n", 'c');
+	printf("printf = %.2p\n", ptr);
+	ft_printf("meu printf = %.2p\n", ptr);
+	printf("printf = %.2u\n", 4153);
+	ft_printf("meu printf = %.5u\n", 4153);
 
 
-	// ft_printf("\n\n\t\tALIGN COM WIDTH MAIOR\n\n\n");
+	ft_printf("\n\n\t\tALIGN COM WIDTH MENOR\n\n\n");
+
+	printf("printf = %25.30s ahahaha\n", "ola tudo bem?");
+	ft_printf("meu printf = %25.30s ahahaha\n", "ola tudo bem?");
+	printf("printf = %10.15d ahahaha\n", 4123);
+	ft_printf("meu printf = %10.15d ahahaha\n", 4123);
+	printf("printf = %10.15x ahahaha\n", 4123);
+	ft_printf("meu printf = %10.15x ahahaha\n", 4123);
+	printf("printf = %10.15X ahahaha\n", 4123);
+	ft_printf("meu printf = %10.15X ahahaha\n", 4123);
+	printf("printf = %10.15c ahahaha\n", 'c');
+	ft_printf("meu printf = %10.15c ahahaha\n", 'c');
+	printf("printf = %10.15p ahahaha\n", ptr);
+	ft_printf("meu printf = %10.15p ahahaha\n", ptr);
+	printf("printf = %10.15u ahahaha\n", 41103);
+	ft_printf("meu printf = %10.15u ahahaha\n", 4153);
+
+
+	ft_printf("\n\n\t\tALIGN COM WIDTH MAIOR\n\n\n");
 
 	printf("printf = %30.25s ahahaha\n", "ola tudo bem?");
-	ft_printf("meu printf = %.25s ahahaha\n", "ola tudo bem?");
+	ft_printf("meu printf = %30.25s ahahaha\n", "ola tudo bem?");
 
-	// printf("printf = %20.10d ahahaha\n", 4123);
-	// ft_printf("meu printf = %20.10d ahahaha\n", 4123);
-	// printf("printf = %20.10x ahahaha\n", 4123);
-	// ft_printf("meu printf = %20.10x ahahaha\n", 4123);
-	// printf("printf = %20.10X ahahaha\n", 4123);
-	// ft_printf("meu printf = %20.10X ahahaha\n", 4123);
-	// printf("printf = %20.10c ahahaha\n", 'c');
-	// ft_printf("meu printf = %20.10c ahahaha\n", 'c');
-	// printf("printf = %20.10p ahahaha\n", ptr);
-	// ft_printf("meu printf = %20.10p ahahaha\n", ptr);
-	// printf("printf = %20.10u ahahaha\n", 41103);
-	// ft_printf("meu printf = %20.10u ahahaha\n", 4153);
-
-
-	// ft_printf("\n\n\t\tCOM ZERO\n\n\n");
-
-	// printf("printf = %0s\n", "ola tudo bem?");
-	// ft_printf("meu printf = %0s\n", "ola tudo bem?");
-	// printf("printf = %0d\n", 4123);
-	// ft_printf("meu printf = %0d\n", 4123);
-	// printf("printf = %0x\n", 4123);
-	// ft_printf("meu printf = %0x\n", 4123);
-	// printf("printf = %0X\n", 4123);
-	// ft_printf("meu printf = %0X\n", 4123);
-	// printf("printf = %0c\n", 'c');
-	// ft_printf("meu printf = %0c\n", 'c');
-	// printf("printf = %0p\n", ptr);
-	// ft_printf("meu printf = %0p\n", ptr);
-	// printf("printf = %0u\n", 4153);
-	// ft_printf("meu printf = %0u\n", 4153);
-
-	// ft_printf("\n\n\t\tALIGN COM WIDTH\n\n\n");
-
-	// printf("printf = %-25s ahahaha\n", "ola tudo bem?");
-	// ft_printf("meu printf = %-25s ahahaha\n", "ola tudo bem?");
-	// printf("printf = %-10d ahahaha\n", 4123);
-	// ft_printf("meu printf = %-10d ahahaha\n", 4123);
-	// printf("printf = %-10x ahahaha\n", 4123);
-	// ft_printf("meu printf = %-10x ahahaha\n", 4123);
-	// printf("printf = %-10X ahahaha\n", 4123);
-	// ft_printf("meu printf = %-10X ahahaha\n", 4123);
-	// printf("printf = %-10c ahahaha\n", 'c');
-	// ft_printf("meu printf = %-10c ahahaha\n", 'c');
-	// printf("printf = %-10p ahahaha\n", ptr);
-	// ft_printf("meu printf = %-10p ahahaha\n", ptr);
-	// printf("printf = %-10u ahahaha\n", 41103);
-	// ft_printf("meu printf = %-10u ahahaha\n", 4153);
-
-	// ft_printf("\n\n\t\tALIGN COM PRECISAO MAIS\n\n\n");
-
-	// printf("printf = %-.25s ahahaha\n", "ola tudo bem?");
-	// ft_printf("meu printf = %-.25s ahahaha\n", "ola tudo bem?");
-	// printf("printf = %-.10d ahahaha\n", 4123);
-	// ft_printf("meu printf = %-.10d ahahaha\n", 4123);
-	// printf("printf = %-.10x ahahaha\n", 4123);
-	// ft_printf("meu printf = %-.10x ahahaha\n", 4123);
-	// printf("printf = %-.10X ahahaha\n", 4123);
-	// ft_printf("meu printf = %-.10X ahahaha\n", 4123);
-	// printf("printf = %-.10c ahahaha\n", 'c');
-	// ft_printf("meu printf = %-.10c ahahaha\n", 'c');
-	// printf("printf = %-.10p ahahaha\n", ptr);
-	// ft_printf("meu printf = %-.10p ahahaha\n", ptr);
-	// printf("printf = %-.10u ahahaha\n", 41103);
-	// ft_printf("meu printf = %-.10u ahahaha\n", 4153);
+	printf("printf = %20.10d ahahaha\n", 4123);
+	ft_printf("meu printf = %20.10d ahahaha\n", 4123);
+	printf("printf = %20.10x ahahaha\n", 4123);
+	ft_printf("meu printf = %20.10x ahahaha\n", 4123);
+	printf("printf = %20.10X ahahaha\n", 4123);
+	ft_printf("meu printf = %20.10X ahahaha\n", 4123);
+	printf("printf = %20.10c ahahaha\n", 'c');
+	ft_printf("meu printf = %20.10c ahahaha\n", 'c');
+	printf("printf = %20.30p ahahaha\n", ptr);
+	ft_printf("meu printf = %20.10p ahahaha\n", ptr);
+	printf("printf = %20.10u ahahaha\n", 41103);
+	ft_printf("meu printf = %20.10u ahahaha\n", 4153);
 
 
-	// ft_printf("\n\n\t\tALIGN COM WIDTH MENOR\n\n\n");
+	ft_printf("\n\n\t\tCOM ZERO\n\n\n");
 
-	// printf("printf = %-25.30s ahahaha\n", "ola tudo bem?");
-	// ft_printf("meu printf = %-25.30s ahahaha\n", "ola tudo bem?");
-	// printf("printf = %-10.15d ahahaha\n", 4123);
-	// ft_printf("meu printf = %-10.15d ahahaha\n", 4123);
-	// printf("printf = %-10.15x ahahaha\n", 4123);
-	// ft_printf("meu printf = %-10.15x ahahaha\n", 4123);
-	// printf("printf = %-10.15X ahahaha\n", 4123);
-	// ft_printf("meu printf = %-10.15X ahahaha\n", 4123);
-	// printf("printf = %-10.15c ahahaha\n", 'c');
-	// ft_printf("meu printf = %-10.15c ahahaha\n", 'c');
-	// printf("printf = %-10.15p ahahaha\n", ptr);
-	// ft_printf("meu printf = %-10.15p ahahaha\n", ptr);
-	// printf("printf = %-10.15u ahahaha\n", 41103);
-	// ft_printf("meu printf = %-10.15u ahahaha\n", 41103);
+	printf("printf = %0s\n", "ola tudo bem?");
+	ft_printf("meu printf = %0s\n", "ola tudo bem?");
+	printf("printf = %0d\n", 4123);
+	ft_printf("meu printf = %0d\n", 4123);
+	printf("printf = %0x\n", 4123);
+	ft_printf("meu printf = %0x\n", 4123);
+	printf("printf = %0X\n", 4123);
+	ft_printf("meu printf = %0X\n", 4123);
+	printf("printf = %0c\n", 'c');
+	ft_printf("meu printf = %0c\n", 'c');
+	printf("printf = %0p\n", ptr);
+	ft_printf("meu printf = %0p\n", ptr);
+	printf("printf = %0u\n", 4153);
+	ft_printf("meu printf = %0u\n", 4153);
+
+	ft_printf("\n\n\t\tALIGN COM WIDTH\n\n\n");
+
+	printf("printf = %-25s ahahaha\n", "ola tudo bem?");
+	ft_printf("meu printf = %-25s ahahaha\n", "ola tudo bem?");
+	printf("printf = %-10d ahahaha\n", 4123);
+	ft_printf("meu printf = %-10d ahahaha\n", 4123);
+	printf("printf = %-10x ahahaha\n", 4123);
+	ft_printf("meu printf = %-10x ahahaha\n", 4123);
+	printf("printf = %-10X ahahaha\n", 4123);
+	ft_printf("meu printf = %-10X ahahaha\n", 4123);
+	printf("printf = %-10c ahahaha\n", 'c');
+	ft_printf("meu printf = %-10c ahahaha\n", 'c');
+	printf("printf = %-10p ahahaha\n", ptr);
+	ft_printf("meu printf = %-10p ahahaha\n", ptr);
+	printf("printf = %-10u ahahaha\n", 41103);
+	ft_printf("meu printf = %-10u ahahaha\n", 4153);
+
+	ft_printf("\n\n\t\tALIGN COM PRECISAO MAIS\n\n\n");
+
+	printf("printf = %-.25s ahahaha\n", "ola tudo bem?");
+	ft_printf("meu printf = %-.25s ahahaha\n", "ola tudo bem?");
+	printf("printf = %-.10d ahahaha\n", 4123);
+	ft_printf("meu printf = %-.10d ahahaha\n", 4123);
+	printf("printf = %-.10x ahahaha\n", 4123);
+	ft_printf("meu printf = %-.10x ahahaha\n", 4123);
+	printf("printf = %-.10X ahahaha\n", 4123);
+	ft_printf("meu printf = %-.10X ahahaha\n", 4123);
+	printf("printf = %-.10c ahahaha\n", 'c');
+	ft_printf("meu printf = %-.10c ahahaha\n", 'c');
+	printf("printf = %-.10p ahahaha\n", ptr);
+	ft_printf("meu printf = %-.10p ahahaha\n", ptr);
+	printf("printf = %-.10u ahahaha\n", 41103);
+	ft_printf("meu printf = %-.10u ahahaha\n", 4153);
+
+
+	ft_printf("\n\n\t\tALIGN COM WIDTH MENOR\n\n\n");
+
+	printf("printf = %-25.30s ahahaha\n", "ola tudo bem?");
+	ft_printf("meu printf = %-25.30s ahahaha\n", "ola tudo bem?");
+	printf("printf = %-10.15d ahahaha\n", 4123);
+	ft_printf("meu printf = %-10.15d ahahaha\n", 4123);
+	printf("printf = %-10.15x ahahaha\n", 4123);
+	ft_printf("meu printf = %-10.15x ahahaha\n", 4123);
+	printf("printf = %-10.15X ahahaha\n", 4123);
+	ft_printf("meu printf = %-10.15X ahahaha\n", 4123);
+	printf("printf = %-10.15c ahahaha\n", 'c');
+	ft_printf("meu printf = %-10.15c ahahaha\n", 'c');
+	printf("printf = %-10.15p ahahaha\n", ptr);
+	ft_printf("meu printf = %-10.15p ahahaha\n", ptr);
+
+
+
+	printf("printf = %-10.15u ahahaha\n", 41103);
+	ft_printf("meu printf = %-10.15u ahahaha\n", 41103);
+
+
 
 	
-	// ft_printf("\n\n\t\tALIGN COM WIDTH MAIOR\n\n\n");
+	ft_printf("\n\n\t\tALIGN COM WIDTH MAIOR\n\n\n");
 
-	// printf("printf = %-30.25s ahahaha\n", "ola tudo bem?");
-	// ft_printf("meu printf = %-.25s ahahaha\n", "ola tudo bem?");
-	// printf("printf = %-20.10d ahahaha\n", 4123);
-	// ft_printf("meu printf = %-20.10d ahahaha\n", 4123);
-	// printf("printf = %-20.10x ahahaha\n", 4123);
-	// ft_printf("meu printf = %-20.10x ahahaha\n", 4123);
-	// printf("printf = %-20.10X ahahaha\n", 4123);
-	// ft_printf("meu printf = %-20.10X ahahaha\n", 4123);
-	// printf("printf = %-20.10c ahahaha\n", 'c');
-	// ft_printf("meu printf = %-20.10c ahahaha\n", 'c');
-	// printf("printf = %-20.10p ahahaha\n", ptr);
-	// ft_printf("meu printf = %-20.10p ahahaha\n", ptr);
-	// printf("printf = %-20.10u ahahaha\n", 41103);
-	// ft_printf("meu printf = %-20.10u ahahaha\n", 4153);
+	printf("printf = %-30.25s ahahaha\n", "ola tudo bem?");
+	ft_printf("meu printf = %-.25s ahahaha\n", "ola tudo bem?");
+
+	printf("printf = %-20.10d ahahaha\n", 4123);
+	ft_printf("meu printf = %-20.10d ahahaha\n", 4123);
+	printf("printf = %-20.10x ahahaha\n", 4123);
+	ft_printf("meu printf = %-20.10x ahahaha\n", 4123);
+	printf("printf = %-20.10X ahahaha\n", 4123);
+	ft_printf("meu printf = %-20.10X ahahaha\n", 4123);
+	printf("printf = %-20.10c ahahaha\n", 'c');
+	ft_printf("meu printf = %-20.10c ahahaha\n", 'c');
+	printf("printf = %-20.10p ahahaha\n", ptr);
+	ft_printf("meu printf = %-20.10p ahahaha\n", ptr);
+	printf("printf = %-20.10u ahahaha\n", 41103);
+	ft_printf("meu printf = %-20.10u ahahaha\n", 4153);
 
 
 

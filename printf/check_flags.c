@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_flags.c                                      :+:      :+:    :+:   */
+/*   check_signs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,20 +12,20 @@
 
 #include "ft_printf.h"
 
-void init_struct(sign_t *signs)
+void init_struct(sign_t *st)
 {
-	signs->p_align = 0;
-	signs->p_zero = 0;
-	signs->v_precision = 0;
-	signs->v_width = 0;
-	signs->c = 48;
-	signs->conv = 0;
-	signs->size_conv = 0;
-	signs->new_precision = 0;
-	signs->counter_precision = 0;
-	signs->counter_flags = 1;
-	signs->counter_words = 0;
-	signs->precision_s = 0;
+	st->align = 0;
+	st->zero = 0;
+	st->dot = 0;
+	st->width = 0;
+	st->c = 48;
+	st->conv = 0;
+	st->size_c = 0;
+	st->temp_dot = 0;
+	st->c_dot = 0;
+	st->c_signs = 1;
+	st->words = 0;
+	st->edge_s = 0;
 }
 
 // Posso guardar os args na struct?
@@ -40,32 +40,25 @@ void init_struct(sign_t *signs)
 // Fazer align depois de escrever a conversao
 // Funcao para saber o tamanho, para onde mandar mos o tamanho?
 
-void flags(sign_t *signs, char *format, va_list args)
+void signs(sign_t *st, char *fmt, va_list args)
 {
-	printf("\nc = %c\n ", format[signs->counter_flags]);
-	printf("\nc = %d\n ", signs->counter_flags);
+	if (fmt[st->c_signs] == '-')
+		st->align = st->c_signs++;
 
-	if (format[signs->counter_flags] == '-')
-		signs->p_align = signs->counter_flags++;
-	if (format[signs->counter_flags] == '0' && format[signs->counter_flags - 1] != '-')
-		signs->p_zero = signs->counter_flags++;
-	else if (format[signs->counter_flags] == '0' && signs->c != 's')
-		signs->counter_flags++;
-	//printf("\nc = %c\n ", format[signs->counter_flags]);
+	if (fmt[st->c_signs] == '0' && fmt[st->c_signs - 1] != '-')
+		st->zero = st->c_signs++;
+	else if (fmt[st->c_signs] == '0' && st->c != 's')
+		st->c_signs++;
 	
-	if (ft_isdigit(format[signs->counter_flags]) || format[signs->counter_flags] == '*')
-		width(signs, format, args);
-	//printf("\nc = %c\n ", format[signs->counter_flags]);
-	if (format[signs->counter_flags] == '.')
-	{
-		//printf("Teste\n");
-		precision(signs, format, args);
-	}
-	//printf("precision %d\n",signs->v_precision);
-	handle_signs(signs, args);
+	if (ft_isdigit(fmt[st->c_signs]) || fmt[st->c_signs] == '*')
+		width(st, fmt, args);
+	if (fmt[st->c_signs] == '.')
+		precision(st, fmt, args);
+
+	handle_signs(st, args);
 }
 
-void	width(sign_t *signs, char *format, va_list args)
+void	width(sign_t *st, char *fmt, va_list args)
 {
 	char *temp;
 	int counter;
@@ -73,69 +66,55 @@ void	width(sign_t *signs, char *format, va_list args)
 
 	size = 0;
 	counter = 0;
-	while (ft_isdigit(format[size]))
+	while (ft_isdigit(fmt[size]))
 		size++;
 	temp = malloc(size);
 	// if (!temp)
 	// 	return (NULL);
-	if (ft_isdigit(format[signs->counter_flags]))
+	if (ft_isdigit(fmt[st->c_signs]))
 	{
-		while (ft_isdigit(format[signs->counter_flags]))
-			temp[counter++] = format[(signs->counter_flags)++];
+		while (ft_isdigit(fmt[st->c_signs]))
+			temp[counter++] = fmt[(st->c_signs)++];
 		temp[counter] = '\0';
-		signs->v_width = ft_atoi(temp);
-		printf("\nwidth = %d\n", signs->v_width);
+		st->width = ft_atoi(temp);
 		free(temp);
 	}
-	else if (format[signs->counter_flags] == '*')
-		star(signs, args);
-}
-
-void star(sign_t *signs, va_list args)
-{
-	signs->v_width = va_arg(args, int);
-	// printf("width = %d", signs->v_width);
+	else if (fmt[st->c_signs] == '*')
+		st->width = va_arg(args, int);
+				
 }
 
 // default . e 6 sem certezas
-void	precision(sign_t *signs, char *format, va_list args)
+void	precision(sign_t *st, char *fmt, va_list args)
 {
 	char *temp; 
 	int counter;
 	int size;
 
 	size = 0;
-	while (ft_isdigit(format[size]))
+	while (ft_isdigit(fmt[size]))
 		size++;
 	temp = malloc(size + 1);
 	// if (!temp)
 	// 	return (NULL);
-	signs->counter_flags++;
+	st->c_signs++;
 	counter = 0;
-	if (format[signs->counter_flags] == '*')
-		signs->v_precision = va_arg(args, int);
-	while (ft_isdigit(format[signs->counter_flags]))
+	if (fmt[st->c_signs] == '*')
+		st->dot = va_arg(args, int);
+	while (ft_isdigit(fmt[st->c_signs]))
 	{
-		//printf("format = %c", format[signs->counter_flags]);
-		temp[counter++] = format[signs->counter_flags++];
+		temp[counter++] = fmt[st->c_signs++];
 	}	
 	temp[counter] = '\0';
 	if (temp != NULL)
 	{
-		signs->v_precision = ft_atoi(temp);	
-		if (signs->c == 's')
-			signs->precision_s = 1;
-		//printf("str = %c\n", signs->c);
-		//printf("str = %d\n", signs->precision_s);
+		st->dot = ft_atoi(temp);	
+		if (st->c == 's')
+			st->edge_s = 1;
 	}
 	free(temp);
 }
 
 // Fazer caso especial para se for so 0?
-// Se aparecer o (-) entao escrever primeiro o arg e depois as flags
-// Verificar se flags existem.
-
-// void	signs_transform(char *format, sign_t *signs, char c)
-// {
-// 	if (signs->)
-// }
+// Se aparecer o (-) entao escrever primeiro o arg e depois as signs
+// Verificar se signs existem.
