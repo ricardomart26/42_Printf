@@ -12,8 +12,7 @@
 
 #include "ft_printf.h"
 
-
-static int			counter(int n)
+int			ft_intlen(int n)
 {
 	int len;
 
@@ -74,7 +73,7 @@ char		*ft_itoa(int n)
 	int		size;
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
-	size = counter(n);
+	size = ft_intlen(n);
 	str = malloc(size + 1);
 	if (!str)
 		return (NULL);
@@ -100,6 +99,8 @@ char *ft_convert_char(int inteiro)
 	char c;
 	char *temp;
 
+	if (!temp)
+		return (NULL);
 	temp = malloc(2);
 	c = (char)inteiro;
 	temp[0] = c;
