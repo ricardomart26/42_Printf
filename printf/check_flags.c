@@ -12,8 +12,6 @@
 
 #include "ft_printf.h"
 
-// Ligar o put_value ao programa
-
 void init_struct(sign_t *signs)
 {
 	signs->p_align = 0;
@@ -21,16 +19,14 @@ void init_struct(sign_t *signs)
 	signs->v_precision = 0;
 	signs->v_width = 0;
 	signs->c = 48;
-	signs->conv = NULL;
+	signs->conv = 0;
 	signs->size_conv = 0;
-	signs->counter_precision = 0;
 	signs->new_precision = 0;
+	signs->counter_precision = 0;
 	signs->counter_flags = 1;
 	signs->counter_words = 0;
-
+	signs->precision_s = 0;
 }
-
-// Nao funciona com dois width -5d -*d
 
 // Posso guardar os args na struct?
 // Como alocar memoria para variavel que vai guardar a string convertida?
@@ -46,37 +42,53 @@ void init_struct(sign_t *signs)
 
 void flags(sign_t *signs, char *format, va_list args)
 {
+	printf("\nc = %c\n ", format[signs->counter_flags]);
+	printf("\nc = %d\n ", signs->counter_flags);
+
 	if (format[signs->counter_flags] == '-')
 		signs->p_align = signs->counter_flags++;
 	if (format[signs->counter_flags] == '0' && format[signs->counter_flags - 1] != '-')
 		signs->p_zero = signs->counter_flags++;
 	else if (format[signs->counter_flags] == '0' && signs->c != 's')
 		signs->counter_flags++;
+	//printf("\nc = %c\n ", format[signs->counter_flags]);
+	
 	if (ft_isdigit(format[signs->counter_flags]) || format[signs->counter_flags] == '*')
 		width(signs, format, args);
-	if (format[signs->counter_flags] == '.' && signs->c != 's')
+	//printf("\nc = %c\n ", format[signs->counter_flags]);
+	if (format[signs->counter_flags] == '.')
+	{
+		//printf("Teste\n");
 		precision(signs, format, args);
-
+	}
+	//printf("precision %d\n",signs->v_precision);
 	handle_signs(signs, args);
 }
 
-void width(sign_t *signs, char *format, va_list args)
+void	width(sign_t *signs, char *format, va_list args)
 {
-	char *temp = malloc(2);
+	char *temp;
 	int counter;
+	int size;
 
+	size = 0;
 	counter = 0;
+	while (ft_isdigit(format[size]))
+		size++;
+	temp = malloc(size);
+	// if (!temp)
+	// 	return (NULL);
 	if (ft_isdigit(format[signs->counter_flags]))
 	{
 		while (ft_isdigit(format[signs->counter_flags]))
 			temp[counter++] = format[(signs->counter_flags)++];
 		temp[counter] = '\0';
 		signs->v_width = ft_atoi(temp);
+		printf("\nwidth = %d\n", signs->v_width);
+		free(temp);
 	}
 	else if (format[signs->counter_flags] == '*')
 		star(signs, args);
-
-	free(temp);
 }
 
 void star(sign_t *signs, va_list args)
@@ -86,20 +98,36 @@ void star(sign_t *signs, va_list args)
 }
 
 // default . e 6 sem certezas
-void precision(sign_t *signs, char *format, va_list args)
+void	precision(sign_t *signs, char *format, va_list args)
 {
-	char *temp = malloc(2);
+	char *temp; 
 	int counter;
+	int size;
 
+	size = 0;
+	while (ft_isdigit(format[size]))
+		size++;
+	temp = malloc(size + 1);
+	// if (!temp)
+	// 	return (NULL);
 	signs->counter_flags++;
 	counter = 0;
 	if (format[signs->counter_flags] == '*')
 		signs->v_precision = va_arg(args, int);
 	while (ft_isdigit(format[signs->counter_flags]))
+	{
+		//printf("format = %c", format[signs->counter_flags]);
 		temp[counter++] = format[signs->counter_flags++];
+	}	
 	temp[counter] = '\0';
 	if (temp != NULL)
-		signs->v_precision = ft_atoi(temp);
+	{
+		signs->v_precision = ft_atoi(temp);	
+		if (signs->c == 's')
+			signs->precision_s = 1;
+		//printf("str = %c\n", signs->c);
+		//printf("str = %d\n", signs->precision_s);
+	}
 	free(temp);
 }
 

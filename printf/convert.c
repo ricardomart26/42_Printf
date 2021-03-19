@@ -35,6 +35,8 @@ char	*ft_convhexa(unsigned int decimal, int control)
 
 	uni = count_uni_hexa(decimal) - 2;
 	hexa = malloc(uni + 1);
+  if (!hexa)
+		return (NULL);
 	hexa[uni] = '\0';
 	while (decimal > 0)
 	{
@@ -51,14 +53,16 @@ char	*ft_convhexa(unsigned int decimal, int control)
 char  *ft_convadress(long int adress)
 {
   int index;
-  char str[16] = "0123456789abcdef";
+  char str[16] = "0123456789ABCDEF";
   char *ret;
   int uni;
 
   uni = count_uni_hexa(adress);
   ret = malloc(uni + 1);
+  if (!ret)
+		return (NULL);
   ret[0] = '0';
-  ret[1] = 'x';
+  ret[1] = '0';
   ret[uni] = '\0';
   while (adress > 0)
   {

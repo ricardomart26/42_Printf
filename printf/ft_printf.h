@@ -17,18 +17,12 @@ typedef struct signs
 	char c;
 	char *conv;
 	int size_conv;
-	int ret_count;
-	int control; //Acrescentar no iniciar struct
 	int new_precision;
 	int	counter_precision;
 	int counter_flags;
 	int counter_words;
-
+	int precision_s;
 } sign_t;
-
-
-// Para parar programa
-
 
 // printf
 int		print_until_perc(char *format, sign_t *signs);
@@ -36,6 +30,7 @@ void	start_loop(char *format, va_list args, sign_t *signs);
 int		ft_printf(const char *format, ...);
 int		size_per(char *format, sign_t *signs);
 char	*ft_letter(va_list args, sign_t *signs);
+void	free_if_needed(sign_t *signs);
 
 // Validate
 int		type(char c);
@@ -56,6 +51,8 @@ char	*ft_itoa(int n);
 char	*ft_convadress(long int adress);
 char	*ft_convhexa(unsigned int decimal, int control);
 char	*ft_convert_char(int inteiro);
+int			ft_intlen(int n);
+
 
 // Check
 void	init_struct(sign_t *signs);
