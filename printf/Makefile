@@ -1,6 +1,9 @@
 CC = gcc
+
 FLAGS = -Wall -Wextra -Werror
+
 NAME = libftprintf.a
+
 SRCS = convert.c convert2.c do_flags.c check_flags.c ft_printf.c \
 	   utils.c validate.c
 
@@ -13,6 +16,7 @@ all: $(NAME)
 
 $(NAME) : $(OBJS)
 	ar -rc $(NAME) $(OBJS)
+	ranlib $(NAME)
 
 clean:
 	rm -f $(OBJS)

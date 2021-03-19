@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 02:51:43 by marvin            #+#    #+#             */
-/*   Updated: 2021/03/18 16:43:47 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/19 18:36:03 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		*ft_unsigneditoa(unsigned int n)
 	size_t	len;
 
 	len = ft_unsignedlen(n);
-	res = (char *)malloc(len + 1 * sizeof(char));
+	res = (char *)malloc(len + 1);
 	if (!res)
 		return (0);
 	res[len] = '\0';
@@ -74,7 +74,7 @@ char		*ft_itoa(int n)
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	size = ft_intlen(n);
-	str = malloc(size + 1);
+	str = (char *)malloc(size + 1);
 	if (!str)
 		return (NULL);
 	str[size] = '\0';
@@ -99,9 +99,9 @@ char *ft_convert_char(int inteiro)
 	char c;
 	char *temp;
 
+	temp = (char *)malloc(2);
 	if (!temp)
 		return (NULL);
-	temp = malloc(2);
 	c = (char)inteiro;
 	temp[0] = c;
 	temp[1] = '\0';

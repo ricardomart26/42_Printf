@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 03:01:08 by marvin            #+#    #+#             */
-/*   Updated: 2021/03/18 18:15:41 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:18:17 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char *edge_cases(va_list args, sign_t st)
 
 	c = 0;
 	temp = va_arg(args, char *);
-	str = malloc(st.dot);
+	str = malloc(st.dot + 1);
 	if (!str)
 		return (NULL);
 	while (st.dot > 0)
@@ -45,7 +45,7 @@ char *edge_cases(va_list args, sign_t st)
 		c++;
 		st.dot--;
 	}
-	str[c] == '\0';
+	str[c] = '\0';
 	return (str);
 }
 
@@ -54,7 +54,7 @@ void middle_man(sign_t *st, va_list args)
 	if (st->edge_s == 1)
 		st->conv = edge_cases(args, *st);
 	else
-		st->conv = ft_letter(args, st);
+		st->conv = ft_get_arg(args, st);
 
 	st->size_c = ft_strlen(st->conv);
 	st->words += st->size_c;
@@ -78,10 +78,14 @@ void handle_signs(sign_t *st)
 		if (st->dot > st->size_c)
 		{
 			st->temp_dot = st->dot;
+			printf("\n%d\n", st->dot);
 			if (st->dot > st->size_c)
 				st->dot -= st->size_c + 1;
+			printf("\n%d\n", st->dot);
 			st->size_c = st->temp_dot;
 		}
+		else
+			st->dot = 0;
 	}
 	do_width(st);
 }
@@ -91,7 +95,7 @@ void do_width(sign_t *st)
 	if (st->size_c < st->width)
 	{
 		st->width -= st->size_c;
-	st->words += st->width;
+		st->words += st->width;
 		while (st->width-- > 0)
 			if (st->zero)
 				write(1, "0", 1);
