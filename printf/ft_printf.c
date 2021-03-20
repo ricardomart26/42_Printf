@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:47:34 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/19 19:39:20 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:19:40 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char *ft_get_arg(va_list args, sign_t *st)
 	else if (st->c == 'X')
 		return (ft_convhexa(va_arg(args, unsigned int), 1));
 	else if (st->c == 'p')
-		return (ft_convadress(va_arg(args, long int)));
+		return (ft_convadress(va_arg(args, unsigned long)));
 	return (0);
 }
 
@@ -128,18 +128,37 @@ int ft_printf(const char *fmt, ...)
 }
 
 
+// String com so um . tem precision 0 e nao escreve
+// Com a width negativa
+// d = -2 Se tiver uma precisio de 10 o menos tem de ser antes do 0
 
 // int main(void)
 // {
-// 	printf("%s %s\n", "0", "1");
-// 	ft_printf("%s %s\n", "0", "1");
+// 	int b = -1;
+// 	int *ptr = &b;
+// 	//printf("%d\n", d);
+// 	ft_printf(" %p ", ptr);
+// 	printf(" %p ", ptr);
 
+// 	//printf("%d\n", d);
+// 	// d = printf("%*c  d\n", -2, '0');
+// 	// //printf("%d\n", d);
+// 	// d = ft_printf("%*c  d\n", -2, '0');
+// 	// //printf("%d\n", d);
+// 	// d = printf("%*c  d\n", -10, '0');
+// 	// //printf("%d\n", d);
+// 	// d = ft_printf("%*c  d\n", -10, '0');
+// 	// //printf("%d\n", d);
+
+
+// }
 
 // 	printf(" %s %s\n", "0", "1");
 // 	ft_printf(" %s %s\n", "0", "1");
 
 // 	return (0);
 // }
+
 // O 0 nem a precisao, nao funcionam para strings!
 
 // int main()

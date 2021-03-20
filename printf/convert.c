@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:19 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/10 20:55:12 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/20 19:18:31 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ char	*ft_convhexa(unsigned int decimal, int control)
 	return (hexa);
 }
 
-char  *ft_convadress(long int adress)
+char  *ft_convadress(unsigned long adress)
 {
   int index;
-  char str[16] = "0123456789ABCDEF";
+  char str[16] = "0123456789abcdef";
   char *ret;
   int uni;
 
@@ -62,7 +62,7 @@ char  *ft_convadress(long int adress)
   if (!ret)
 		return (NULL);
   ret[0] = '0';
-  ret[1] = '0';
+  ret[1] = 'x';
   ret[uni] = '\0';
   while (adress > 0)
   {
