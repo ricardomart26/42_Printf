@@ -49,7 +49,7 @@ int		ft_atoi(char *str);
 // Convert
 char	*ft_unsigneditoa(unsigned int n);
 char	*ft_itoa(int n);
-char	*ft_convadress(long int adress);
+char	*ft_convadress(unsigned long adress);
 char	*ft_convhexa(unsigned int decimal, int control);
 char	*ft_convert_char(int inteiro);
 int		ft_intlen(int n);
@@ -70,6 +70,6 @@ void	do_precision(sign_t *signs);
 void	do_width(sign_t *signs);
 void	if_width_or_precision(sign_t *st);
 void	if_align(sign_t *st);
-
+void	swap(sign_t *st);
 
 #endif

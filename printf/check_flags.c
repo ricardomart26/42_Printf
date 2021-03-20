@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:25 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/19 18:54:02 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/20 18:57:52 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void init_struct(sign_t *st)
 	st->temp_dot = 0;
 	st->c_dot = 0;
 	st->c_signs = 1;
-	st->words = 0;
 	st->edge_s = 0;
 }
 
@@ -49,11 +48,10 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 		st->zero = st->c_signs++;
 	else if (fmt[st->c_signs] == '0' && st->c != 's')
 		st->c_signs++;
-
 	if (ft_isdigit(fmt[st->c_signs]) || fmt[st->c_signs] == '*')
 		width(st, fmt, args);
 	if (fmt[st->c_signs] == '.')
-		precision(st, fmt, args);
+		precision(st, fmt + 1, args);
 
 	middle_man(st, args);
 }
@@ -69,20 +67,21 @@ void	width(sign_t *st, char *fmt, va_list args)
 	while (ft_isdigit(fmt[size]))
 		size++;
 	temp = malloc(size);
-	// if (!temp)
-	// 	return (NULL);
+	if (!temp)
+		return ;
 	if (ft_isdigit(fmt[st->c_signs]))
 	{
 		while (ft_isdigit(fmt[st->c_signs]))
 			temp[counter++] = fmt[(st->c_signs)++];
 		temp[counter] = '\0';
 		st->width = ft_atoi(temp);
-		free(temp);
 	}
 	else if (fmt[st->c_signs] == '*')
+	{
+		st->c_signs++;
 		st->width = va_arg(args, int);
-	printf("\nwidth = %d\n", st->width);
-
+	}
+	free(temp);
 }
 
 // default . e 6 sem certezas
@@ -96,24 +95,20 @@ void	precision(sign_t *st, char *fmt, va_list args)
 	while (ft_isdigit(fmt[size]))
 		size++;
 	temp = malloc(size + 1);
-	// if (!temp)
-	// 	return (NULL);
-	st->c_signs++;
+	if (!temp)
+		return ;
 	counter = 0;
 	if (fmt[st->c_signs] == '*')
 		st->dot = va_arg(args, int);
 	while (ft_isdigit(fmt[st->c_signs]))
-	{
 		temp[counter++] = fmt[st->c_signs++];
-	}
 	temp[counter] = '\0';
 	if (temp != NULL)
 	{
 		st->dot = ft_atoi(temp);
-		if (st->c == 's')
-			st->edge_s = 1;
+		// if (st->c == 's')
+		// 	st->edge_s = 1;
 	}
-	printf("\ndot = %d\n", st->dot);
 	free(temp);
 }
 
