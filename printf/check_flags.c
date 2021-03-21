@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:25 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/20 18:57:52 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/21 15:26:11 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 {
 	if (fmt[st->c_signs] == '-')
 		st->align = st->c_signs++;
-
 	if (fmt[st->c_signs] == '0' && (!st->align))
 		st->zero = st->c_signs++;
 	else if (fmt[st->c_signs] == '0' && st->c != 's')
@@ -80,6 +79,11 @@ void	width(sign_t *st, char *fmt, va_list args)
 	{
 		st->c_signs++;
 		st->width = va_arg(args, int);
+		if (st->width < 0 && st->c != 's')
+		{
+			st->width *= -1;
+			st->align = 1;
+		}
 	}
 	free(temp);
 }
@@ -106,8 +110,6 @@ void	precision(sign_t *st, char *fmt, va_list args)
 	if (temp != NULL)
 	{
 		st->dot = ft_atoi(temp);
-		// if (st->c == 's')
-		// 	st->edge_s = 1;
 	}
 	free(temp);
 }

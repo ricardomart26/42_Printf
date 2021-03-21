@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 03:01:08 by marvin            #+#    #+#             */
-/*   Updated: 2021/03/20 19:02:15 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/21 15:32:11 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void handle_signs(sign_t *st)
 {
 	if (st->c == 'p')
 		st->dot = 0;
-	else if (st->c != 's' && st->c != 'c')
+	else if (st->c != 's' && st->c != 'd')
 	{
 		if (st->dot > st->size_c)
 		{
@@ -85,7 +85,7 @@ void handle_signs(sign_t *st)
 		else
 			st->dot = 0;
 	}
-	else if (st->dot < st->size_c && st->c == 's')
+	else if (st->dot < st->size_c && st->c == 's' && st->c == 'd')
 	{
 		st->size_c = st->dot;
 		swap(st);
@@ -133,7 +133,7 @@ void do_width(sign_t *st)
 			else
 				write(1, " ", 1);
 	}
-	while (st->dot && (st->c != 's' && st->c != 'c'))
+	while (st->dot && (st->c != 's' && st->c == 'd'))
 	{
 		write(1, "0", 1);
 		st->dot--;
