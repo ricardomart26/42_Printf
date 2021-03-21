@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:47:34 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/20 19:19:40 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/21 15:31:02 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,19 +136,25 @@ int ft_printf(const char *fmt, ...)
 // {
 // 	int b = -1;
 // 	int *ptr = &b;
-// 	//printf("%d\n", d);
+// 	int d;
+
+// 	printf("%d\n", d);
 // 	ft_printf(" %p ", ptr);
 // 	printf(" %p ", ptr);
 
-// 	//printf("%d\n", d);
-// 	// d = printf("%*c  d\n", -2, '0');
-// 	// //printf("%d\n", d);
-// 	// d = ft_printf("%*c  d\n", -2, '0');
-// 	// //printf("%d\n", d);
-// 	// d = printf("%*c  d\n", -10, '0');
-// 	// //printf("%d\n", d);
-// 	// d = ft_printf("%*c  d\n", -10, '0');
-// 	// //printf("%d\n", d);
+// 	printf("%d\n", d);
+// 	d = printf("%*c  d\n", -2, '0');
+// 	printf("%d\n", d);
+// 	d = ft_printf("%*c  d\n", -2, '0');
+// 	printf("%d\n", d);
+// 	d = printf("%*c  d\n", -10, '0');
+// 	printf("%d\n", d);
+// 	d = ft_printf("%*c  d\n", -10, '0');
+// 	printf("%d\n", d);
+// 	d = printf("\n\n%-c%-c%c*\n", 1, '0', 0);
+// 	printf("d = %d\n", d);
+// 	d = ft_printf("%-c%-c%c*\n", 1, '0', 0);
+// 	printf("d = %d\n", d);
 
 
 // }
