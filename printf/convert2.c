@@ -73,14 +73,14 @@ char		*ft_itoa(int n)
 	int		size;
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
+	else if (n == 0)
+		return (ft_strdup("0"));
 	size = ft_intlen(n);
 	str = (char *)malloc(size + 1);
 	if (!str)
 		return (NULL);
 	str[size] = '\0';
-	if (n == 0)
-		str[0] = '0';
-	else if (n < 0)
+	if (n < 0)
 	{
 		str[0] = '-';
 		n *= -1;
@@ -91,6 +91,7 @@ char		*ft_itoa(int n)
 		n /= 10;
 		size--;
 	}
+	printf("\nstr = %s\n", str);
 	return (str);
 }
 

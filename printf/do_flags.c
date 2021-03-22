@@ -55,7 +55,7 @@ void middle_man(sign_t *st, va_list args)
 	// 	st->conv = edge_cases(args, *st);
 	// else
 	st->conv = ft_get_arg(args, st);
-
+	printf("\n\n st->conv = %s\n\n", st->conv);
 	st->size_c = ft_strlen(st->conv);
 	st->words += st->size_c;
 	if (st->align && !(st->dot > st->width))
@@ -73,19 +73,19 @@ void handle_signs(sign_t *st)
 {
 	if (st->c == 'p')
 		st->dot = 0;
-	else if (st->c != 's' && st->c != 'd')
+	else if (st->c != 's')
 	{
 		if (st->dot > st->size_c)
 		{
 			st->temp_dot = st->dot;
 			if (st->dot > st->size_c)
-				st->dot -= st->size_c + 1;
+				st->dot -= st->size_c;
 			st->size_c = st->temp_dot;
 		}
 		else
 			st->dot = 0;
 	}
-	else if (st->dot < st->size_c && st->c == 's' && st->c == 'd')
+	else if (st->dot < st->size_c && st->c == 's')
 	{
 		st->size_c = st->dot;
 		swap(st);
