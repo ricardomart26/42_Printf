@@ -64,7 +64,6 @@ void	star(sign_t *signs, va_list args);
 void	with_flags(sign_t *st, char *fmt, va_list args);
 
 // do
-void	handle_signs(sign_t *st);
 void	middle_man(sign_t *signs, va_list args);
 void	do_precision(sign_t *signs);
 void	do_width(sign_t *signs);

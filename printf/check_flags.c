@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:25 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/21 15:26:11 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/24 18:47:05 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ void	precision(sign_t *st, char *fmt, va_list args)
 	int size;
 
 	size = 0;
+	if (!ft_isdigit(fmt[size] && fmt[size] != '*'))
+	{
+		st->c_dot = 1;
+		return ;
+	}
 	while (ft_isdigit(fmt[size]))
 		size++;
 	temp = malloc(size + 1);

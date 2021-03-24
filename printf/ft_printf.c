@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:47:34 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/21 15:31:02 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/24 20:38:29 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int size_per(char *fmt, sign_t *st)
 		st->c = fmt[counter];
 		return (counter + 1);
 	}
-
 	return (1);
 }
 
@@ -130,11 +129,11 @@ int ft_printf(const char *fmt, ...)
 // Com a width negativa
 // d = -2 Se tiver uma precisio de 10 o menos tem de ser antes do 0
 
-int main(void)
-{
-	int b = -1;
-	int *ptr = &b;
-	int d;
+//int main(void)
+//{
+//	int b = -1;
+//	int *ptr = &b;
+//	int d;
 
 	// printf("%d\n", d);
 	// ft_printf(" %p ", ptr);
@@ -154,8 +153,8 @@ int main(void)
 	// d = ft_printf("%-c%-c%c*\n", 1, '0', 0);
 	// printf("d = %d\n", d);
 
-	printf(" %.d\n", 0);
-	printf(" %-.2d \n", 0);
+//	printf(" %.d\n", 0);
+//	printf(" %-.2d \n", 0);
 	// printf(" %-2.2d \n", 0);
 	// printf(" %-3.2d \n", 0);
 	// printf(" %-3.2d %10.42d \n", 0, 0);
@@ -164,8 +163,8 @@ int main(void)
 	// printf(" *%-*.*d* *%*.*d* \n", 4, 5, 10, 10, 21, -10);
 	// printf(" *%-*.*d* *%*.*d* \n\n", 6, 2, 102, 10, 21, -101);
 
-	ft_printf(" %.d \n", 0);
-	ft_printf(" %-.2d \n", 0);
+	// ft_printf(" %.d \n", 0);
+	// ft_printf(" %-.2d \n", 0);
 	// ft_printf(" %-2.2d \n", 0);
 	// ft_printf(" %-3.2d \n", 0);
 	// ft_printf(" %-3.2d %10.42d \n", 0, 0);
@@ -173,7 +172,7 @@ int main(void)
 	// ft_printf(" %-3.2d %10.42d \n", 10, -10);
 	// ft_printf(" *%-*.*d* *%*.*d* \n", 4, 5, 10, 10, 21, -10);
 	// ft_printf(" *%-*.*d* *%*.*d* \n\n", 6, 2, 102, 10, 21, -101);
-}
+// }
 
 // 	printf(" %s %s\n", "0", "1");
 // 	ft_printf(" %s %s\n", "0", "1");
@@ -198,364 +197,493 @@ int main(void)
 
 // 	ptr = &b;
 
-// ft_printf("\n\n\t\tSEM FLAGS\n\n");
+// 	ft_printf("\n\n\t\tSEM FLAGS\n\n"); //Tudo feito
 
-// printf("printf = %s\n", "ola tudo bem?");
-// ft_printf("meu printf = %s\n", "ola tudo bem?");
-// printf("printf = %d\n", 41);
-// ft_printf("meu printf = %d\n", 41);
-// printf("printf = %i\n", 41);
-// ft_printf("meu printf = %i\n", 41);
-// printf("printf = %x\n", 41);
-// ft_printf("meu printf = %x\n", 41);
-// printf("printf = %X\n", 41);
-// ft_printf("meu printf = %X\n", 41);
-// printf("printf = %c\n", "ola tudo bem?");
-// ft_printf("meu printf = %c\n", "ola tudo bem?");
-// printf("printf = %p\n", ptr);
-// ft_printf("meu printf = %p\n", ptr);
-// printf("printf = %u\n", -41);
-// ft_printf("meu printf = %u\n", -41);
+// 	printf("printf = %s\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %s\n", "ola tudo bem?");
+// 	printf("printf = %d\n", 41);
+// 	ft_printf("meu printf = %d\n", 41);
+// 	printf("printf = %i\n", 41);
+// 	ft_printf("meu printf = %i\n", 41);
+// 	printf("printf = %x\n", 41);
+// 	ft_printf("meu printf = %x\n", 41);
+// 	printf("printf = %X\n", 41);
+// 	ft_printf("meu printf = %X\n", 41);
+// 	printf("printf = %s\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %s\n", "ola tudo bem?");
+// 	printf("printf = %p\n", ptr);
+// 	ft_printf("meu printf = %p\n", ptr);
+// 	printf("printf = %u\n", -41);
+// 	ft_printf("meu printf = %u\n", -41);
 
-// ft_printf("\n\n\t\tCOM WIDTH A MAIS\n\n");
+// 	ft_printf("\n\n\t\tCOM WIDTH A MAIS\n\n");
 
-// printf("printf = %25s\n", "ola tudo bem?");
-// ft_printf("meu printf = %25s\n", "ola tudo bem?");
-// printf("printf = %5d\n", 41);
-// ft_printf("meu printf = %5d\n", 41);
-// printf("printf = %5i\n", 41);
-// ft_printf("meu printf = %5i\n", 41);
-// printf("printf = %5x\n", 41);
-// ft_printf("meu printf = %5x\n", 41);
-// printf("printf = %5X\n", 41);
-// ft_printf("meu printf = %5X\n", 41);
-// printf("printf = %5c\n", 'c');
-// ft_printf("meu printf = %5c\n", 'c');
-// printf("printf = %15p\n", ptr);
-// ft_printf("meu printf = %15p\n", ptr);
-// printf("printf = %5u\n", 41);
-// ft_printf("meu printf = %5u\n", 41);
+// 	printf("printf = %25s\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %25s\n", "ola tudo bem?");
+// 	printf("printf = %5d\n", 41);
+// 	ft_printf("meu printf = %5d\n", 41);
+// 	printf("printf = %5i\n", 41);
+// 	ft_printf("meu printf = %5i\n", 41);
+// 	printf("printf = %5x\n", 41);
+// 	ft_printf("meu printf = %5x\n", 41);
+// 	printf("printf = %5X\n", 41);
+// 	ft_printf("meu printf = %5X\n", 41);
+// 	printf("printf = %5c\n", 'c');
+// 	ft_printf("meu printf = %5c\n", 'c');
+// 	printf("printf = %15p\n", ptr);
+// 	ft_printf("meu printf = %15p\n", ptr);
+// 	printf("printf = %5u\n", 41);
+// 	ft_printf("meu printf = %5u\n", 41);
 
-// ft_printf("\n\n\t\tCOM WIDTH A MENOS\n\n\n");
+// 	ft_printf("\n\n\t\tCOM WIDTH A MENOS\n\n\n");
 
-// printf("printf = %5s\n", "ola tudo bem?");
-// ft_printf("meu printf = %5s\n", "ola tudo bem?");
-// printf("printf = %2d\n", 4153);
-// ft_printf("meu printf = %2d\n", 4153);
-// printf("printf = %2x\n", 4153);
-// ft_printf("meu printf = %2x\n", 4153);
-// printf("printf = %2X\n", 4123);
-// ft_printf("meu printf = %2X\n", 4123);
-// printf("printf = %2c\n", 'c');
-// ft_printf("meu printf = %2c\n", 'c');
-// printf("printf = %2p\n", ptr);
-// ft_printf("meu printf = %2p\n", ptr);
-// printf("printf = %2u\n", 4123);
-// ft_printf("meu printf = %2u\n", 4123);
+// 	printf("printf = %5s\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %5s\n", "ola tudo bem?");
+// 	printf("printf = %2d\n", 4153);
+// 	ft_printf("meu printf = %2d\n", 4153);
+// 	printf("printf = %2x\n", 4153);
+// 	ft_printf("meu printf = %2x\n", 4153);
+// 	printf("printf = %2X\n", 4123);
+// 	ft_printf("meu printf = %2X\n", 4123);
+// 	printf("printf = %2c\n", 'c');
+// 	ft_printf("meu printf = %2c\n", 'c');
+// 	printf("printf = %2p\n", ptr);
+// 	ft_printf("meu printf = %2p\n", ptr);
+// 	printf("printf = %2u\n", 4123);
+// 	ft_printf("meu printf = %2u\n", 4123);
 
-// ft_printf("\n\n\t\tCOM PRECISAO MAIS\n\n\n");
-// printf("printf = %.25s\n", "ola tudo bem?");
-// ft_printf("meu printf = %.25s\n", "ola tudo bem?");
-// printf("printf = %.5d\n", 4153);
-// ft_printf("meu printf = %.5d\n", 4153);
-// printf("printf = %.5x\n", 4153);
-// ft_printf("meu printf = %.5x\n", 4153);
-// printf("printf = %.5X\n", 4153);
-// ft_printf("meu printf = %.5X\n", 4153);
-// printf("printf = %.5c\n", 'c');
-// ft_printf("meu printf = %.5c\n", 'c');
-// printf("printf = %.5p\n", ptr);
-// ft_printf("meu printf = %.5p\n", ptr);
-// printf("printf = %.5u\n", 4153);
-// ft_printf("meu printf = %.5u\n", 4153);
+// 	ft_printf("\n\n\t\tCOM PRECISAO MAIS\n\n\n");// Tudo feito
 
-// ft_printf("\n\n\t\tCOM PRECISAO MENOS\n\n\n");
+// 	printf("printf = %.25s\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %.25s\n", "ola tudo bem?");
+// 	printf("printf = %.5d\n", 4153);
+// 	ft_printf("meu printf = %.5d\n", 4153);
+// 	printf("printf = %.5x\n", 4153);
+// 	ft_printf("meu printf = %.5x\n", 4153);
+// 	printf("printf = %.5X\n", 4153);
+// 	ft_printf("meu printf = %.5X\n", 4153);
+// 	// printf("printf = %.5c\n", 'c'); // Undefined behavior
+// 	// ft_printf("meu printf = %.5c\n", 'c');
+// 	// printf("printf = %.5p\n", ptr); // Undefined behavior
+// 	// ft_printf("meu printf = %.5p\n", ptr);
+// 	printf("printf = %.5u\n", 4153);
+// 	ft_printf("meu printf = %.5u\n", 4153);
 
-// printf("printf = %.5s\n", "ola tudo bem?");
-// ft_printf("meu printf = %.5s\n", "ola tudo bem?");
-// printf("printf = %.2d\n", 4123);
-// ft_printf("meu printf = %.2d\n", 4123);
-// printf("printf = %.2x\n", 4123);
-// ft_printf("meu printf = %.2x\n", 4123);
-// printf("printf = %.2X\n", 4123);
-// ft_printf("meu printf = %.2X\n", 4123);
-// printf("printf = %.2c\n", 'c');
-// ft_printf("meu printf = %.2c\n", 'c');
-// printf("printf = %.2p\n", ptr);
-// ft_printf("meu printf = %.2p\n", ptr);
-// printf("printf = %.2u\n", 4153);
-// ft_printf("meu printf = %.5u\n", 4153);
+// 	ft_printf("\n\n\t\tCOM PRECISAO MENOS\n\n\n");
 
-// ft_printf("\n\n\t\tALIGN COM WIDTH MENOR\n\n\n");
+// 	printf("printf = %.5s\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %.5s\n", "ola tudo bem?");
+// 	printf("printf = %.2d\n", 4123);
+// 	ft_printf("meu printf = %.2d\n", 4123);
+// 	printf("printf = %.2x\n", 4123);
+// 	ft_printf("meu printf = %.2x\n", 4123);
+// 	printf("printf = %.2X\n", 4123);
+// 	ft_printf("meu printf = %.2X\n", 4123);
+// 	printf("printf = %.2c\n", 'c'); // Undefined behavior
+// 	ft_printf("meu printf = %.2c\n", 'c');
+// 	printf("printf = %.2p\n", ptr); // Undefined behavior
+// 	ft_printf("meu printf = %.2p\n", ptr);
+// 	printf("printf = %.2u\n", 4153);
+// 	ft_printf("meu printf = %.2u\n", 4153);
 
-// printf("printf = %25.30s ahahaha\n", "ola tudo bem?");
-// ft_printf("meu printf = %25.30s ahahaha\n", "ola tudo bem?");
-// printf("printf = %10.15d ahahaha\n", 4123);
-// ft_printf("meu printf = %10.15d ahahaha\n", 4123);
-// printf("printf = %10.15x ahahaha\n", 4123);
-// ft_printf("meu printf = %10.15x ahahaha\n", 4123);
-// printf("printf = %10.15X ahahaha\n", 4123);
-// ft_printf("meu printf = %10.15X ahahaha\n", 4123);
-// printf("printf = %10.15c ahahaha\n", 'c');
-// ft_printf("meu printf = %10.15c ahahaha\n", 'c');
-// printf("printf = %10.15p ahahaha\n", ptr);
-// ft_printf("meu printf = %10.15p ahahaha\n", ptr);
-// printf("printf = %10.15u ahahaha\n", 41103);
-// ft_printf("meu printf = %10.15u ahahaha\n", 4153);
+// 	ft_printf("\n\n\t\tALIGN COM WIDTH MENOR\n\n\n");
 
-// ft_printf("\n\n\t\tALIGN COM WIDTH MAIOR\n\n\n");
+// 	printf("printf = %25.30s ahahaha\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %25.30s ahahaha\n", "ola tudo bem?");
+// 	printf("printf = %10.15d ahahaha\n", 4123);
+// 	ft_printf("meu printf = %10.15d ahahaha\n", 4123);
+// 	printf("printf = %10.15x ahahaha\n", 4123);
+// 	ft_printf("meu printf = %10.15x ahahaha\n", 4123);
+// 	printf("printf = %10.15X ahahaha\n", 4123);
+// 	ft_printf("meu printf = %10.15X ahahaha\n", 4123);
+// 	// printf("printf = %10.15c ahahaha\n", 'c'); // Undefined behavior
+// 	// ft_printf("meu printf = %10.15c ahahaha\n", 'c');
+// 	// printf("printf = %10.15p ahahaha\n", ptr); // Undefined behavior
+// 	// ft_printf("meu printf = %10.15p ahahaha\n", ptr);
+// 	printf("printf = %10.15u ahahaha\n", 41103);
+// 	ft_printf("meu printf = %10.15u ahahaha\n", 4153);
 
-// printf("printf = %30.25s ahahaha\n", "ola tudo bem?");
-// ft_printf("meu printf = %30.25s ahahaha\n", "ola tudo bem?");
+// 	ft_printf("\n\n\t\tALIGN COM WIDTH MAIOR\n\n\n");// FEITO
 
-// printf("printf = %20.10d ahahaha\n", 4123);
-// ft_printf("meu printf = %20.10d ahahaha\n", 4123);
-// printf("printf = %20.10x ahahaha\n", 4123);
-// ft_printf("meu printf = %20.10x ahahaha\n", 4123);
-// printf("printf = %20.10X ahahaha\n", 4123);
-// ft_printf("meu printf = %20.10X ahahaha\n", 4123);
-// printf("printf = %20.10c ahahaha\n", 'c');
-// ft_printf("meu printf = %20.10c ahahaha\n", 'c');
-// printf("printf = %20.30p ahahaha\n", ptr);
-// ft_printf("meu printf = %20.10p ahahaha\n", ptr);
-// printf("printf = %20.10u ahahaha\n", 41103);
-// ft_printf("meu printf = %20.10u ahahaha\n", 4153);
+// 	printf("printf = %30.25s ahahaha\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %30.25s ahahaha\n", "ola tudo bem?");
+// 	printf("printf = %20.10d ahahaha\n", 4123);
+// 	ft_printf("meu printf = %20.10d ahahaha\n", 4123);
+// 	printf("printf = %20.10x ahahaha\n", 4123);
+// 	ft_printf("meu printf = %20.10x ahahaha\n", 4123);
+// 	printf("printf = %20.10X ahahaha\n", 4123);
+// 	ft_printf("meu printf = %20.10X ahahaha\n", 4123);
+// 	// printf("printf = %20.10c ahahaha\n", 'c'); // Undefined behavior
+// 	// ft_printf("meu printf = %20.10c ahahaha\n", 'c');
+// 	// printf("printf = %20.30p ahahaha\n", ptr); // Undefined behavior
+// 	// ft_printf("meu printf = %20.10p ahahaha\n", ptr);
+// 	printf("printf = %20.10u ahahaha\n", 41103);
+// 	ft_printf("meu printf = %20.10u ahahaha\n", 4153);
 
-// ft_printf("\n\n\t\tCOM ZERO\n\n\n");
+// 	ft_printf("\n\n\t\tCOM ZERO\n\n\n");
 
-// printf("printf = %0s\n", "ola tudo bem?");
-// ft_printf("meu printf = %0s\n", "ola tudo bem?");
-// printf("printf = %0d\n", 4123);
-// ft_printf("meu printf = %0d\n", 4123);
-// printf("printf = %0x\n", 4123);
-// ft_printf("meu printf = %0x\n", 4123);
-// printf("printf = %0X\n", 4123);
-// ft_printf("meu printf = %0X\n", 4123);
-// printf("printf = %0c\n", 'c');
-// ft_printf("meu printf = %0c\n", 'c');
-// printf("printf = %0p\n", ptr);
-// ft_printf("meu printf = %0p\n", ptr);
-// printf("printf = %0u\n", 4153);
-// ft_printf("meu printf = %0u\n", 4153);
+// 	printf("printf = %0s\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %0s\n", "ola tudo bem?");
+// 	printf("printf = %0d\n", 4123);
+// 	ft_printf("meu printf = %0d\n", 4123);
+// 	printf("printf = %0x\n", 4123);
+// 	ft_printf("meu printf = %0x\n", 4123);
+// 	printf("printf = %0X\n", 4123);
+// 	ft_printf("meu printf = %0X\n", 4123);
+// 	printf("printf = %0c\n", 'c'); // Undefined behavior
+// 	ft_printf("meu printf = %0c\n", 'c');
+// 	printf("printf = %0p\n", ptr); // Undefined behavior
+// 	ft_printf("meu printf = %0p\n", ptr);
+// 	printf("printf = %0u\n", 4153); // Undefined behavior
+// 	ft_printf("meu printf = %0u\n", 4153);
 
-// ft_printf("\n\n\t\tALIGN COM WIDTH\n\n\n");
+// 	ft_printf("\n\n\t\tALIGN COM WIDTH\n\n\n");
 
-// printf("printf = %-25s ahahaha\n", "ola tudo bem?");
-// ft_printf("meu printf = %-25s ahahaha\n", "ola tudo bem?");
-// printf("printf = %-10d ahahaha\n", 4123);
-// ft_printf("meu printf = %-10d ahahaha\n", 4123);
-// printf("printf = %-10x ahahaha\n", 4123);
-// ft_printf("meu printf = %-10x ahahaha\n", 4123);
-// printf("printf = %-10X ahahaha\n", 4123);
-// ft_printf("meu printf = %-10X ahahaha\n", 4123);
-// printf("printf = %-10c ahahaha\n", 'c');
-// ft_printf("meu printf = %-10c ahahaha\n", 'c');
-// printf("printf = %-10p ahahaha\n", ptr);
-// ft_printf("meu printf = %-10p ahahaha\n", ptr);
-// printf("printf = %-10u ahahaha\n", 41103);
-// ft_printf("meu printf = %-10u ahahaha\n", 4153);
+// 	printf("printf = %-25s ahahaha\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %-25s ahahaha\n", "ola tudo bem?");
+// 	printf("printf = %-10d ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-10d ahahaha\n", 4123);
+// 	printf("printf = %-10x ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-10x ahahaha\n", 4123);
+// 	printf("printf = %-10X ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-10X ahahaha\n", 4123);
+// 	printf("printf = %-10c ahahaha\n", 'c');
+// 	ft_printf("meu printf = %-10c ahahaha\n", 'c');
+// 	printf("printf = %-10p ahahaha\n", ptr);
+// 	ft_printf("meu printf = %-10p ahahaha\n", ptr);
+// 	printf("printf = %-10u ahahaha\n", 41103);
+// 	ft_printf("meu printf = %-10u ahahaha\n", 4153);
 
-// ft_printf("\n\n\t\tALIGN COM PRECISAO MAIS\n\n\n");
+// 	ft_printf("\n\n\t\tALIGN COM PRECISAO MAIS\n\n\n");
 
-// printf("printf = %-.25s ahahaha\n", "ola tudo bem?");
-// ft_printf("meu printf = %-.25s ahahaha\n", "ola tudo bem?");
-// printf("printf = %-.10d ahahaha\n", 4123);
-// ft_printf("meu printf = %-.10d ahahaha\n", 4123);
-// printf("printf = %-.10x ahahaha\n", 4123);
-// ft_printf("meu printf = %-.10x ahahaha\n", 4123);
-// printf("printf = %-.10X ahahaha\n", 4123);
-// ft_printf("meu printf = %-.10X ahahaha\n", 4123);
-// printf("printf = %-.10c ahahaha\n", 'c');
-// ft_printf("meu printf = %-.10c ahahaha\n", 'c');
-// printf("printf = %-.10p ahahaha\n", ptr);
-// ft_printf("meu printf = %-.10p ahahaha\n", ptr);
-// printf("printf = %-.10u ahahaha\n", 41103);
-// ft_printf("meu printf = %-.10u ahahaha\n", 4153);
+// 	printf("printf = %-.25s ahahaha\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %-.25s ahahaha\n", "ola tudo bem?");
+// 	printf("printf = %-.10d ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-.10d ahahaha\n", 4123);
+// 	printf("printf = %-.10x ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-.10x ahahaha\n", 4123);
+// 	printf("printf = %-.10X ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-.10X ahahaha\n", 4123);
+// 	// printf("printf = %-.10c ahahaha\n", 'c'); // Undefined behavior
+// 	// ft_printf("meu printf = %-.10c ahahaha\n", 'c');
+// 	// printf("printf = %-.10p ahahaha\n", ptr); // Undefined behavior
+// 	// ft_printf("meu printf = %-.10p ahahaha\n", ptr);
+// 	printf("printf = %-.10u ahahaha\n", 41103);
+// 	ft_printf("meu printf = %-.10u ahahaha\n", 4153);
 
-// ft_printf("\n\n\t\tALIGN COM WIDTH MENOR\n\n\n");
+// 	ft_printf("\n\n\t\tALIGN COM WIDTH MENOR\n\n\n");
 
-// printf("printf = %-25.30s ahahaha\n", "ola tudo bem?");
-// ft_printf("meu printf = %-25.30s ahahaha\n", "ola tudo bem?");
-// printf("printf = %-10.15d ahahaha\n", 4123);
-// ft_printf("meu printf = %-10.15d ahahaha\n", 4123);
-// printf("printf = %-10.15x ahahaha\n", 4123);
-// ft_printf("meu printf = %-10.15x ahahaha\n", 4123);
-// printf("printf = %-10.15X ahahaha\n", 4123);
-// ft_printf("meu printf = %-10.15X ahahaha\n", 4123);
-// printf("printf = %-10.15c ahahaha\n", 'c');
-// ft_printf("meu printf = %-10.15c ahahaha\n", 'c');
-// printf("printf = %-10.15p ahahaha\n", ptr);
-// ft_printf("meu printf = %-10.15p ahahaha\n", ptr);
+// 	printf("printf = %-25.30s ahahaha\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %-25.30s ahahaha\n", "ola tudo bem?");
+// 	printf("printf = %-10.15d ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-10.15d ahahaha\n", 4123);
+// 	printf("printf = %-10.15x ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-10.15x ahahaha\n", 4123);
+// 	printf("printf = %-10.15X ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-10.15X ahahaha\n", 4123);
+// 	// printf("printf = %-10.15c ahahaha\n", 'c');
+// 	// ft_printf("meu printf = %-10.15c ahahaha\n", 'c');
+// 	// printf("printf = %-10.15p ahahaha\n", ptr);
+// 	// ft_printf("meu printf = %-10.15p ahahaha\n", ptr);
 
-// printf("printf = %-10.15u ahahaha\n", 41103);
-// ft_printf("meu printf = %-10.15u ahahaha\n", 41103);
+// 	printf("printf = %-10.15u ahahaha\n", 41103);
+// 	ft_printf("meu printf = %-10.15u ahahaha\n", 41103);
 
-// ft_printf("\n\n\t\tALIGN COM WIDTH MAIOR\n\n\n");
+// 	ft_printf("\n\n\t\tALIGN COM WIDTH MAIOR\n\n\n");
 
-// printf("printf = %-30.25s ahahaha\n", "ola tudo bem?");
-// ft_printf("meu printf = %-.25s ahahaha\n", "ola tudo bem?");
+// 	printf("printf = %-30.25s ahahaha\n", "ola tudo bem?");
+// 	ft_printf("meu printf = %-30.25s ahahaha\n", "ola tudo bem?");
 
-// printf("printf = %-20.10d ahahaha\n", 4123);
-// ft_printf("meu printf = %-20.10d ahahaha\n", 4123);
-// printf("printf = %-20.10x ahahaha\n", 4123);
-// ft_printf("meu printf = %-20.10x ahahaha\n", 4123);
-// printf("printf = %-20.10X ahahaha\n", 4123);
-// ft_printf("meu printf = %-20.10X ahahaha\n", 4123);
-// printf("printf = %-20.10c ahahaha\n", 'c');
-// ft_printf("meu printf = %-20.10c ahahaha\n", 'c');
-// printf("printf = %-20.10p ahahaha\n", ptr);
-// ft_printf("meu printf = %-20.10p ahahaha\n", ptr);
-// printf("printf = %-20.10u ahahaha\n", 41103);
-// ft_printf("meu printf = %-20.10u ahahaha\n", 4153);
+// 	printf("printf = %-20.10d ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-20.10d ahahaha\n", 4123);
+// 	printf("printf = %-20.10x ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-20.10x ahahaha\n", 4123);
+// 	printf("printf = %-20.10X ahahaha\n", 4123);
+// 	ft_printf("meu printf = %-20.10X ahahaha\n", 4123);
+// 	// printf("printf = %-20.10c ahahaha\n", 'c'); // Undefined behavior
+// 	// ft_printf("meu printf = %-20.10c ahahaha\n", 'c');
+// 	// printf("printf = %-20.10p ahahaha\n", ptr); // Undefined behavior
+// 	// ft_printf("meu printf = %-20.10p ahahaha\n", ptr);
+// 	printf("printf = %-20.10u ahahaha\n", 41103);
+// 	ft_printf("meu printf = %-20.10u ahahaha\n", 4153);
 
-// printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?");
-// printf("%s%s\n", "ola tudo", " bem?");
-// printf("%s %s\n", "ola tudo", " bem?");
-// printf("%5s\n", "ola tudo bem?");
-// printf("%25s\n", "ola tudo bem?");
-// printf("%.35s\n", "ola tudo bem?");
-// printf("%16.23s\n", "ola tudo bem?");
-// printf("%3.s\n", "ola tudo bem?");
-// printf("%5.22s\n", "ola tudo bem?");
-// printf("%22.5s\n", "ola tudo bem?");
-// printf("%22.20s\n", "ola tudo bem?");
-// printf("%-24s coisas a frente\n", "ola tudo bem?");
-// printf("%-26.30s coisas a frente\n", "ola tudo bem?");
-// printf("%-14s coisas a frente\n", "ola tudo bem?");
-// printf("%-.23s coisas a frente\n", "ola tudo bem?");
-// printf("%23s\n", "ola tudo bem?");
-// printf("%12s\n", "ola tudo bem?");
-// printf("%.24s\n", "ola tudo bem?");
-// printf("%.12s\n", "ola tudo bem?");
-// printf("%24.28s\n", "ola tudo bem?");
-// printf("%28.24s\n", "ola tudo bem?");
-// printf("%s\n", "ola tudo bem?");
+// 	printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?");
+// 	printf("%s%s\n", "ola tudo", " bem?");
+// 	printf("%s %s\n", "ola tudo", " bem?");
+// 	printf("%5s\n", "ola tudo bem?");
+// 	printf("%25s\n", "ola tudo bem?");
+// 	printf("%.35s\n", "ola tudo bem?");
+// 	printf("%16.23s\n", "ola tudo bem?");
+// 	printf("%3.s\n", "ola tudo bem?");
+// 	printf("%5.22s\n", "ola tudo bem?");
+// 	printf("%22.5s\n", "ola tudo bem?");
+// 	printf("%22.20s\n", "ola tudo bem?");
+// 	printf("%-24s coisas a frente\n", "ola tudo bem?");
+// 	printf("%-26.30s coisas a frente\n", "ola tudo bem?");
+// 	printf("%-14s coisas a frente\n", "ola tudo bem?");
+// 	printf("%-.23s coisas a frente\n", "ola tudo bem?");
+// 	printf("%23s\n", "ola tudo bem?");
+// 	printf("%12s\n", "ola tudo bem?");
+// 	printf("%.24s\n", "ola tudo bem?");
+// 	printf("%.12s\n", "ola tudo bem?");
+// 	printf("%24.28s\n", "ola tudo bem?");
+// 	printf("%28.24s\n", "ola tudo bem?");
+// 	printf("%s\n", "ola tudo bem?");
 
-// printf("%s\n", "ola tudo bem?");
-// printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?");
-// printf("%s%s\n", "ola tudo", " bem?");
-// printf("%s %s\n", "ola tudo", " bem?");
-// printf("%5s\n", "ola tudo bem?");
-// printf("%25s\n", "ola tudo bem?");
-// printf("%.35s\n", "ola tudo bem?");
-// printf("%16.23s\n", "ola tudo bem?");
-// printf("%3.s\n", "ola tudo bem?");
-// printf("%5.22s\n", "ola tudo bem?");
-// printf("%22.5s\n", "ola tudo bem?");
-// printf("%22.20s\n", "ola tudo bem?");
-// printf("%-24s coisas a frente\n", "ola tudo bem?");
-// printf("%-26.30s coisas a frente\n", "ola tudo bem?");
-// printf("%-14s coisas a frente\n", "ola tudo bem?");
-// printf("%-.23s coisas a frente\n", "ola tudo bem?");
-// printf("%23s\n", "ola tudo bem?");
-// printf("%12s\n", "ola tudo bem?");
-// printf("%.24s\n", "ola tudo bem?");
-// printf("%.12s\n", "ola tudo bem?");
-// printf("%24.28s\n", "ola tudo bem?");
-// printf("%28.24s\n", "ola tudo bem?");
-// printf("%s\n", "ola tudo bem?");
+// 	printf("%s\n", "ola tudo bem?");
+// 	printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?");
+// 	printf("%s%s\n", "ola tudo", " bem?");
+// 	printf("%s %s\n", "ola tudo", " bem?");
+// 	printf("%5s\n", "ola tudo bem?");
+// 	printf("%25s\n", "ola tudo bem?");
+// 	printf("%.35s\n", "ola tudo bem?");
+// 	printf("%16.23s\n", "ola tudo bem?");
+// 	printf("%3.s\n", "ola tudo bem?");
+// 	printf("%5.22s\n", "ola tudo bem?");
+// 	printf("%22.5s\n", "ola tudo bem?");
+// 	printf("%22.20s\n", "ola tudo bem?");
+// 	printf("%-24s coisas a frente\n", "ola tudo bem?");
+// 	printf("%-26.30s coisas a frente\n", "ola tudo bem?");
+// 	printf("%-14s coisas a frente\n", "ola tudo bem?");
+// 	printf("%-.23s coisas a frente\n", "ola tudo bem?");
+// 	printf("%23s\n", "ola tudo bem?");
+// 	printf("%12s\n", "ola tudo bem?");
+// 	printf("%.24s\n", "ola tudo bem?");
+// 	printf("%.12s\n", "ola tudo bem?");
+// 	printf("%24.28s\n", "ola tudo bem?");
+// 	printf("%28.24s\n", "ola tudo bem?");
+// 	printf("%s\n", "ola tudo bem?");
 
-// ft_printf("\n\n MEU PRINTF \n\n");
+// 	ft_printf("\n\n MEU PRINTF \n\n");
 
-// ft_printf("%s\n", "ola tudo bem?"); // Certo
-// ft_printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?"); // Certo
+// 	ft_printf("%s\n", "ola tudo bem?"); // Certo
+// 	ft_printf("%s\n%s\n", "ola tudo bem?", "sim e contigo?"); // Certo
 
-// ft_printf("%s%s\n", "ola tudo", " bem?"); // Certo
-// ft_printf("%s %s\n", "ola tudo", " bem?"); // Certo
-// ft_printf("%5s\n", "ola tudo bem?"); // Certo
-// ft_printf("%25s\n", "ola tudo bem?");
-// ft_printf("%.35s\n", "ola tudo bem?");
-// ft_printf("%16.23s\n", "ola tudo bem?");
-// ft_printf("%3.s\n", "ola tudo bem?");
-// ft_printf("%5.22s\n", "ola tudo bem?");
-// ft_printf("%22.5s\n", "ola tudo bem?");
-// ft_printf("%22.20s\n", "ola tudo bem?");
-// ft_printf("%-24s coisas a frente\n", "ola tudo bem?");
-// ft_printf("%-26.30s coisas a frente\n", "ola tudo bem?");
-// ft_printf("%-14s coisas a frente\n", "ola tudo bem?");
-// ft_printf("%-.23s coisas a frente\n", "ola tudo bem?");
-// ft_printf("%23s\n", "ola tudo bem?");
-// ft_printf("%12s\n", "ola tudo bem?");
-// ft_printf("%.24s\n", "ola tudo bem?");
-// ft_printf("%.12s\n", "ola tudo bem?");
-// ft_printf("%24.28s\n", "ola tudo bem?");
-// ft_printf("%28.24s\n", "ola tudo bem?");
-// ft_printf("%s\n", "ola tudo bem?");
+// 	ft_printf("%s%s\n", "ola tudo", " bem?"); // Certo
+// 	ft_printf("%s %s\n", "ola tudo", " bem?"); // Certo
+// 	ft_printf("%5s\n", "ola tudo bem?"); // Certo
+// 	ft_printf("%25s\n", "ola tudo bem?");
+// 	ft_printf("%.35s\n", "ola tudo bem?");
+// 	ft_printf("%16.23s\n", "ola tudo bem?");
+// 	ft_printf("%3.s\n", "ola tudo bem?");
+// 	ft_printf("%5.22s\n", "ola tudo bem?");
+// 	ft_printf("%22.5s\n", "ola tudo bem?");
+// 	ft_printf("%22.20s\n", "ola tudo bem?");
+// 	ft_printf("%-24s coisas a frente\n", "ola tudo bem?");
+// 	ft_printf("%-26.30s coisas a frente\n", "ola tudo bem?");
+// 	ft_printf("%-14s coisas a frente\n", "ola tudo bem?");
+// 	ft_printf("%-.23s coisas a frente\n", "ola tudo bem?");
+// 	ft_printf("%23s\n", "ola tudo bem?");
+// 	ft_printf("%12s\n", "ola tudo bem?");
+// 	ft_printf("%.24s\n", "ola tudo bem?");
+// 	ft_printf("%.12s\n", "ola tudo bem?");
+// 	ft_printf("%24.28s\n", "ola tudo bem?");
+// 	ft_printf("%28.24s\n", "ola tudo bem?");
+// 	ft_printf("%s\n", "ola tudo bem?");
 
-// printf("TESTE STRING PRINTF = Este e o resultado do %s printf real %s \n", str, str);
-// ft_printf("TESTE STRING MEU PRINTF = Este e o resultado do %s meu printf. %s\n", str, str);
+// 	printf("TESTE STRING PRINTF = Este e o resultado do %s printf real %s \n", str, str);
+// 	ft_printf("TESTE STRING MEU PRINTF = Este e o resultado do %s meu printf. %s\n", str, str);
 
-// printf("\nTESTE PRINTF = %% (precent) e sem args\n");
-// ft_printf("MEU PRINTF = %% (percent) e sem args\n");
+// 	printf("\nTESTE PRINTF = %% (precent) e sem args\n");
+// 	ft_printf("MEU PRINTF = %% (percent) e sem args\n");
 
-// printf("\nTESTE CHAR = %c (char)\n", c);
-//  ft_printf("MEU PRINTF CHAR = %c (char)\n", c);
+// 	printf("\nTESTE CHAR = %c (char)\n", c);
+// 	ft_printf("MEU PRINTF CHAR = %c (char)\n", c);
 
-// printf("\nTESTE NUMBER = %i = 10 (i) , %d (d)= 55 \n", i, d);
-// ft_printf("MEU PRINTF NUMBER = %i = 10 (i) , %d (d) = 55 \n", i, d );
+// 	// printf("\nTESTE NUMBER = %i = 10 (i) , %d (d)= 55 \n", i);
+// 	// ft_printf("MEU PRINTF NUMBER = %i = 10 (i) , %d (d) = 55 \n", i);
 
-// printf("\nTESTE UNSIGNED = %u = 60 (u) , %u (u) = 60 \n", u, v);
-// ft_printf("MEU PRINTF UNSIGNED = %u = 60 (u) , %u (u) = -60 \n", u, v);
+// 	printf("\nTESTE UNSIGNED = %u = 60 (u) , %u (u) = 60 \n", u, v);
+// 	ft_printf("MEU PRINTF UNSIGNED = %u = 60 (u) , %u (u) = -60 \n", u, v);
 
-// printf("\nHexadecimal = %x (x) , %X (X)\n", 10241241, 10241241);
-// ft_printf("MEU HEXA = %x (x), %X (X)\n", 10241241, 10241241); // nao funciona com numeros negativos.
+// 	printf("\nHexadecimal = %x (x) , %X (X)\n", 10241241, 10241241);
+// 	ft_printf("MEU HEXA = %x (x), %X (X)\n", 10241241, 10241241); // nao funciona com numeros negativos.
 
-// printf("\n\nTESTE POINTER: %p (p)\n", ptr);
-// ft_printf("MEU PTR = %p (p)\n\n", ptr);
+// 	printf("\n\nTESTE POINTER: %p (p)\n", ptr);
+// 	ft_printf("MEU PTR = %p (p)\n\n", ptr);
 
-// printf("Teste ao meu new-line.");
-// ft_printf("\nTeste s.kmfao meu new-line.");
+// 	// printf("Teste ao meu new-line.");
+// 	// ft_printf("\nTeste s.kmfao meu new-line.");
 
-// ft_printf("Teste\a ao meu\a bell char\n\n."); //TERMINAL DON'T RING
-// printf("Teste\a ao verdadeiro\a bell char\n\n."); //TERMINAL DON'T RING
+// 	// ft_printf("Teste\a ao meu\a bell char\n\n."); //TERMINAL DON'T RING
+// 	// printf("Teste\a ao verdadeiro\a bell char\n\n."); //TERMINAL DON'T RING
 
-// ft_printf("Teste\f ao meu\f form feed char\f.\n");
-// printf("\nTeste\f ao verdadeiro\f form feed char\f.\n");
+// 	// ft_printf("Teste\f ao meu\f form feed char\f.\n");
+// 	// printf("\nTeste\f ao verdadeiro\f form feed char\f.\n");
 
-// ft_printf("Teste\r ao meu\r return carriage char\r.\n");
-// printf("Teste\r ao verdadeiro\r return carriage char\r.\n");
+// 	// ft_printf("Teste\r ao meu\r return carriage char\r.\n");
+// 	// printf("Teste\r ao verdadeiro\r return carriage char\r.\n");
 
-// ft_printf("Teste\tao meu\ttab char\t.\n");
-// printf("Teste\t ao verdadeiro\ttab char\t.\n");
+// 	// ft_printf("Teste\tao meu\ttab char\t.\n");
+// 	// printf("Teste\t ao verdadeiro\ttab char\t.\n");
 
-// ft_printf("Teste\vao meu \vvertical tab char\v .\n");
-// printf("Teste\vao verdadeiro \vvertical tab char\v .\n");
+// 	// ft_printf("Teste\vao meu \vvertical tab char\v .\n");
+// 	// printf("Teste\vao verdadeiro \vvertical tab char\v .\n");
 
-// ft_printf("Teste\'ao meu \'single quote char\' .\n");
-// printf("Teste\'ao verdadeiro \'single quote char\' .\n");
+// 	// ft_printf("Teste\'ao meu \'single quote char\' .\n");
+// 	// printf("Teste\'ao verdadeiro \'single quote char\' .\n");
 
-// ft_printf("Teste\"ao meu \"double quote char\" .\n");
-// printf("Teste\"ao verdadeiro \"double quote char\" .\n");
+// 	// ft_printf("Teste\"ao meu \"double quote char\" .\n");
+// 	// printf("Teste\"ao verdadeiro \"double quote char\" .\n");
 
-// ft_printf("Teste\\ao meu \\backslash char\\ .\n");
-// printf("Teste\\ao verdadeiro \\backslash char\\ .\n");
+// 	// ft_printf("Teste\\ao meu \\backslash char\\ .\n");
+// 	// printf("Teste\\ao verdadeiro \\backslash char\\ .\n");
 
-// ft_printf("teste num \126\n");
-// printf("test num  \126\n");
+// 	ft_printf("teste num \126\n");
+// 	printf("test num  \126\n");
 
-// printf("Teste Width real: .%4d (d) , .%5d (5d)\n", d, d);
-// ft_printf("Teste Width: .%4d (d) , .%100d (5d)\n", d, d);
+// 	printf("Teste Width real: .%4d (d) , .%5d (5d)\n", d, d);
+// 	ft_printf("Teste Width: .%4d (d) , .%100d (5d)\n", d, d);
 
-// printf("\nTeste Width star real: .%*d (5d)\n", 5, d);
-// ft_printf("Teste Width star meu: .%*d (*8d)\n", 8, d);
+// 	printf("\nTeste Width star real: .%*d (5d)\n", 5, d);
+// 	ft_printf("Teste Width star meu: .%*d (*8d)\n", 8, d);
 
-// printf("\nTeste align real: .%-5d (-5d) , .%-*d (-*d)",  d, 8, d);
-// ft_printf("\nTeste align meu: .%-*d (-*d)\n", 8, d);
+// 	printf("\nTeste align real: .%-5d (-5d) , .%-*d (-*d)",  d, 8, d);
+// 	ft_printf("\nTeste align meu: .%-*d (-*d)\n", 8, d);
 
-// printf("printf real = %10.5d\n", 10); // (  00010)
-// ft_printf("meu printf = %10.5d\n", 10); // (  00010)
+// 	printf("printf real = %10.5d\n", 10); // (  00010)
+// 	ft_printf("meu printf = %10.5d\n", 10); // (  00010)
 
-// printf(" %-10d \n", number);
-// printf(" %010d \n", number);
-// printf(" %-#10x \n", number);
-// printf(" %#x \n", 100);
-// printf(" %x \n", 100);
+// 	printf(" %-10d \n", number);
+// 	printf(" %010d \n", number);
+// 	printf(" %-#10x \n", number);
+// 	printf(" %#x \n", 100);
+// 	printf(" %x \n", 100);
 
-// printf(" %+d \n", 100);
-// printf(" % d \n", -100);
+// 	printf(" %+d \n", 100);
+// 	printf(" % d \n", -100);
 
-// printf("\n%.6d\n", 42);
+// 	printf("\n%.6d\n", 42);
 // 	ft_printf("\nasgaijgfij %10.6d meu \n", 424242);
+
+
+// 	/////		Tripouillie Test		/////////////
+
+
+
+// 	int size;
+
+				// // c
+
+// 	size = printf("\n%*c", 0, '0');
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n%*c", 0, '0');
+// 	printf("\n	size = %d", size);
+
+
+// 	size = printf("\n%*c", 0, '0');
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n%*c", 0, '0');
+// 	printf("\n	size = %d", size);
+
+
+			// // s
+
+// 	size = printf("\n%*.s %.1s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n%*.s %.1s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+
+
+// 	size = printf("\n %*.0s %.2s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n %*.0s %.2s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+
+
+// 	size = printf("\n%*.3s %.3s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n%*.3s %.3s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+
+
+// 	size = printf("\n%*.4s %.4s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n%*.4s %.4s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+
+
+// 	size = printf("\n%*.s %.1s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n%*.s %.1s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+
+
+// 	size = printf("\n%*.5s %.5s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n%*.5s %.5s ", 10, "123", "4567");
+// 	printf("\n	size = %d", size);
+
+			// // d
+
+// 	size = printf("\n" %.d ", 0); // // leaks
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n" %.d ", 0);
+// 	printf("\n	size = %d", size);
+
+
+// 	size = printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+
+
+// 	size = printf("\n"%-2.2d ", 0);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n"%-2.2d ", 0);
+// 	printf("\n	size = %d", size);
+
+
+// 	size = printf("\n" %-3.2d ", 0);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n" %-3.2d ", 0);
+// 	printf("\n	size = %d", size);
+
+// 	size = printf("\n"  %-3.2d %10.42d ", 0, 0);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n"  %-3.2d %10.42d ", 0, 0);
+// 	printf("\n	size = %d", size);
+
+// 	size = printf("\n"%-3.2d %10.42d ", 1, -1);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n"%-3.2d %10.42d ", 1, -1);
+// 	printf("\n	size = %d", size);
+
+// 	size = printf("\n" %-3.2d %10.42d ", 10, -10);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n" %-3.2d %10.42d ", 10, -10);
+// 	printf("\n	size = %d", size);
+
+// 	size = printf("\n*%-*.*d* *%*.*d* ", 4, 5, 10, 10, 21, -10);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n"*%-*.*d* *%*.*d* ", 4, 5, 10, 10, 21, -10);
+// 	printf("\n	size = %d", size);
+
+// 	size = printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+
+// 	size = printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+
+// 	size = printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+
+// 	size = printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+
+// 	size = printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+// 	size = ft_printf("\n" %-.2d ", 0);
+// 	printf("\n	size = %d", size);
+
 
 // 	return 0;
 // }

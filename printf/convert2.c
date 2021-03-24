@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 02:51:43 by marvin            #+#    #+#             */
-/*   Updated: 2021/03/19 18:36:03 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:15:03 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char		*ft_itoa(int n)
 		n /= 10;
 		size--;
 	}
-	printf("\nstr = %s\n", str);
+	//printf("\nstr = %s\n", str);
 	return (str);
 }
 
