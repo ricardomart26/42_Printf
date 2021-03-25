@@ -14,18 +14,98 @@
 
 // Como passar arg para uma string se nao sabemos o tamanho a alojar na heap?
 
+// void if_width_or_precision(sign_t *st)
+// {
+// 	handle_signs(st);
+// 	ft_putstr_fd(st->conv, 1);
+// 	free_if_needed(st);
+// }
+
+// void if_align(sign_t *st)
+// {
+// 	ft_putstr_fd(st->conv, 1);
+// 	free_if_needed(st);
+// 	handle_signs(st);
+// }
+
+// char *edge_cases(va_list args, sign_t st)
+// {
+// 	char *temp;
+// 	char *str;
+// 	int c;
+
+// 	c = 0;
+// 	temp = va_arg(args, char *);
+// 	str = malloc(st.dot + 1);
+// 	if (!str)
+// 		return (NULL);
+// 	while (st.dot > 0)
+// 	{
+// 		str[c] = temp[c];
+// 		c++;
+// 		st.dot--;
+// 	}
+// 	str[c] = '\0';
+// 	return (str);
+// }
+#include "ft_printf.h"
+
+// Como passar arg para uma string se nao sabemos o tamanho a alojar na heap?
+
+// void if_zero(sign_t *st)
+// {
+// 	//printf("\nteste n1\n");
+// 	//printf("st -> dot = %d\n", st->dot);
+// 	if (st->dot > st->width)
+// 	{
+// 		do_precision(st);
+// 		do_width(st);
+// 	}
+// 	if (st->width > st->dot)
+// 	{
+// 		do_width(st);
+// 		do_precision(st);
+// 	}
+// 	ft_putstr_fd(st->conv, 1);
+// 	free_if_needed(st);
+// }
+
+
 void if_width_or_precision(sign_t *st)
 {
-	handle_signs(st);
-	ft_putstr_fd(st->conv, 1);
+	//printf("\nteste n1\n");
+	//printf("st -> dot = %d\n", st->dot);
+	if (st->dot > st->width && st->width)
+	{
+		do_precision(st);
+		do_width(st);
+		ft_putstr_fd(st->conv, 1);
+	}
+	else if (st->width > st->dot && st->dot)
+	{
+		do_width(st);
+		do_precision(st);
+		ft_putstr_fd(st->conv, 1);
+
+	}
+	else if (st->width > st->dot)
+	{
+		do_width(st);
+		ft_putstr_fd(st->conv, 1);
+	}
 	free_if_needed(st);
 }
 
 void if_align(sign_t *st)
 {
+	if (st->dot)
+		do_precision(st);
+	//printf("st->conv = %s\n", st->conv);
 	ft_putstr_fd(st->conv, 1);
 	free_if_needed(st);
-	handle_signs(st);
+	//printf("\nst->width = %d", st->width);
+
+	do_width(st);
 }
 
 // char *edge_cases(va_list args, sign_t st)
@@ -51,46 +131,54 @@ void if_align(sign_t *st)
 
 void middle_man(sign_t *st, va_list args)
 {
-	// if (st->edge_s == 1)
-	// 	st->conv = edge_cases(args, *st);
-	// else
 	st->conv = ft_get_arg(args, st);
-	printf("\n\n st->conv = %s\n\n", st->conv);
+	//printf("\n\n st->conv = %s\n\n", st->conv);
 	st->size_c = ft_strlen(st->conv);
 	st->words += st->size_c;
-	if (st->align && !(st->dot > st->width))
+	if (st->align)
 		if_align(st);
-	else if (st->width || st->dot)
+	else if (st->width || st->dot || st->zero)
 		if_width_or_precision(st);
-	else
-	{
-		ft_putstr_fd(st->conv, 1);
-		free_if_needed(st);
-	}
+	// else if (st->zero)
+	// 	if_zero(st);
 }
 
-void handle_signs(sign_t *st)
+void do_precision(sign_t *st)
 {
+	// printf("st->dot = %d", st->dot);
+	// printf("st->size_c = %d", st->size_c);
+	// //printf("\nteste n3\n");
 	if (st->c == 'p')
 		st->dot = 0;
 	else if (st->c != 's')
 	{
+		//printf("\nteste n1\n");
 		if (st->dot > st->size_c)
 		{
 			st->temp_dot = st->dot;
-			if (st->dot > st->size_c)
-				st->dot -= st->size_c;
+			st->dot -= st->size_c;
 			st->size_c = st->temp_dot;
+			//printf("st->dot = %d", st->dot);
+			//printf("st->size_c = %d", st->size_c);
 		}
 		else
 			st->dot = 0;
 	}
-	else if (st->dot < st->size_c && st->c == 's')
+	else if (st->dot < st->size_c)
 	{
+		//printf("\nteste n2\n");
 		st->size_c = st->dot;
 		swap(st);
+		st->dot = 0;
 	}
-	do_width(st);
+	else
+		return ;
+	while (st->dot)
+	{
+		write(1, "0", 1);
+		st->dot--;
+		st->words++;
+	}
 }
 
 void	swap(sign_t *st)
@@ -133,12 +221,5 @@ void do_width(sign_t *st)
 			else
 				write(1, " ", 1);
 	}
-	while (st->dot && (st->c != 's' && st->c == 'd'))
-	{
-		write(1, "0", 1);
-		st->dot--;
-		st->words++;
-	}
 }
-
 // void	get_arg_and_size(st)

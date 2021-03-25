@@ -91,7 +91,7 @@ char		*ft_itoa(int n)
 		n /= 10;
 		size--;
 	}
-	printf("\nstr = %s\n", str);
+	//printf("\nstr = %s\n", str);
 	return (str);
 }
 
