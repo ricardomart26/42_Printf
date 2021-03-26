@@ -26,6 +26,7 @@ void init_struct(sign_t *st)
 	st->c_signs = 1;
 	st->cminus = 0;
 	st->width_c = 0;
+	st->negprec = 0;
 }
 
 // Posso guardar os args na struct?
@@ -67,7 +68,7 @@ void	width(sign_t *st, char *fmt, va_list args)
 
 	if (fmt[st->c_signs] == '-')
 		st->cminus = 1;
-	st->c_signs++;
+	//st->c_signs++;
 	while (ft_isdigit(fmt[size]))
 		size++;
 	temp = malloc(size);
@@ -88,7 +89,6 @@ void	width(sign_t *st, char *fmt, va_list args)
 		{
 			st->width *= -1;
 			st->align = 1;
-			st->cminus = 1;
 		}
 	}
 	free(temp);
@@ -102,12 +102,24 @@ void	precision(sign_t *st, char *fmt, va_list args)
 	int size;
 
 	size = 0;
-	//printf("\nsign = %c ", fmt[st->c_signs]);
-	if (fmt[st->c_signs] == '-')
-		st->cminus = 1;
-	//st->c_signs++;
-	while (ft_isdigit(fmt[size]))
+	//printf("\nsign = %c", fmt[st->c_signs]);
+	//printf("\nsign size = %c", fmt[size]);
+	if (type(fmt[st->c_signs]))
+		st->dot = 0;
+	else if (fmt[st->c_signs] == '-')
+	{
+		//printf("\nteste n 1\n");
+		st->c_signs++;
+		st->negprec = 1;
 		size++;
+	}
+	while (ft_isdigit(fmt[st->c_signs]))
+	{
+		//printf("\nteste n 2\n");
+		st->c_signs++;
+		size++;
+	}
+	st->c_signs -= size;
 	temp = malloc(size + 1);
 	if (!temp)
 		return ;
@@ -116,23 +128,27 @@ void	precision(sign_t *st, char *fmt, va_list args)
 	{
 		//printf("\nsign = %c ", fmt[st->c_signs]);
 		st->c_signs++;
-		st->width = va_arg(args, int);
-		if (st->width < 0)
+		st->dot = va_arg(args, int);
+		//printf("\nst->dot = %d", st->dot);
+		if (st->dot < 0)
 		{
-			st->width *= -1;
-			st->align = 1;
-			st->cminus = 1;
+			st->dot *= -1;
+			st->negprec = 1;
 		}
 	}
-	//printf("\nsign = %c ", fmt[st->c_signs]);
-	while (ft_isdigit(fmt[st->c_signs]))
-		temp[counter++] = fmt[st->c_signs++];
-	temp[counter] = '\0';
-	if (temp != NULL)
-		st->dot = ft_atoi(temp);
-	//printf("\ntemp = %s", temp);
+	else
+	{
+		while (ft_isdigit(fmt[st->c_signs]))
+			temp[counter++] = fmt[st->c_signs++];
+		temp[counter] = '\0';
+		if (temp != NULL)
+			st->dot = ft_atoi(temp);
+		//printf("\ntemp = %s", temp);
+	}
 	//printf("\nst->dot = %d", st->dot);
-	
+	//printf("\n size_c = %d , dot = %d\n", st->size_c, st->dot);
+	if (st->negprec)
+		st->dot = 0;
 	free(temp);
 }
 

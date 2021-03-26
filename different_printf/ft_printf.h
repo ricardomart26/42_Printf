@@ -23,7 +23,8 @@ typedef struct signs
 	int words;
 	int cminus;
 	int width_c;
-
+	int negprec;
+	
 } sign_t;
 
 // printf
@@ -55,7 +56,7 @@ void	swap(sign_t *st);
 
 // Convert
 char	*ft_unsigneditoa(unsigned int n);
-char	*ft_itoa(int n);
+char	*ft_itoa(int n, sign_t *st);
 char	*ft_convadress(unsigned long adress);
 char	*ft_convhexa(unsigned int decimal, int control);
 char	*ft_convert_char(int inteiro);

@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:25:34 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/25 20:48:55 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/26 17:52:56 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	if_width(sign_t *st)
 	if (st->size_c < st->width)
 	{
 		st->width -= st->size_c;
-		//st->words += st->width;
 		while (st->width-- > 0)
 			if (st->zero)
 				ft_putstr_fd("0", 1, st);

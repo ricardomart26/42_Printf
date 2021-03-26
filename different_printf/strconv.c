@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:56:38 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/25 20:37:17 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:45:29 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,41 +17,35 @@
 
 // }
 
-void	width_s_precision_s(sign_t *st)
-{
-	// printf("\nteste n 3\n");
-	if (st->dot < st->size_c)
-	{
-		//// printf("\nteste n2\n");
-		st->size_c = st->dot;
-		swap(st);
-		st->dot = 0;
-	}
-}
+// void	width_s_precision_s(sign_t *st)
+// {
+// 	if (st->dot < st->size_c)
+// 	{
+// 		st->size_c = st->dot;
+// 		swap(st);
+// 		st->dot = 0;
+// 	}
+// }
 
-void	width_e_precision_s(sign_t *st)
-{
-	// printf("\nteste n 4\n");
-	if (st->dot < st->size_c)
-	{
-		//// printf("\nteste n2\n");
-		st->size_c = st->dot;
-		swap(st);
-		st->dot = 0;
-	}
-}
+// void	width_e_precision_s(sign_t *st)
+// {
+// 	if (st->dot < st->size_c)
+// 	{
+// 		st->size_c = st->dot;
+// 		swap(st);
+// 		st->dot = 0;
+// 	}
+// }
 
-void	if_precision_s(sign_t *st)
-{
-	// printf("\nteste n 5\n");
-	if (st->dot < st->size_c)
-	{
-		//// printf("\nteste n2\n");
-		st->size_c = st->dot;
-		swap(st);
-		st->dot = 0;
-	}
-}
+// void	if_precision_s(sign_t *st)
+// {
+// 	if (st->dot < st->size_c)
+// 	{
+// 		st->size_c = st->dot;
+// 		swap(st);
+// 		st->dot = 0;
+// 	}
+// }
 
 void specif_s(sign_t *st, va_list args)
 {

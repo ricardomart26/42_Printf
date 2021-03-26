@@ -18,10 +18,7 @@ int			ft_intlen(int n)
 
 	len = 0;
 	if (n < 0)
-	{
 		n *= -1;
-		len++;
-	}
 	while (n > 0)
 	{
 		len++;
@@ -67,7 +64,7 @@ char		*ft_unsigneditoa(unsigned int n)
 	return (res);
 }
 
-char		*ft_itoa(int n)
+char		*ft_itoa(int n, sign_t *st)
 {
 	char	*str;
 	int		size;
@@ -82,7 +79,7 @@ char		*ft_itoa(int n)
 	str[size] = '\0';
 	if (n < 0)
 	{
-		str[0] = '-';
+		st->cminus = 1;
 		n *= -1;
 	}
 	while (n > 0)

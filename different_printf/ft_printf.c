@@ -63,11 +63,11 @@ void start_loop(char *fmt, va_list args, sign_t *st)
 	st->words = 0;
 	while (*fmt != '\0')
 	{
-		printf("\nbe words = %d", st->words);
+		//printf("\nbe words = %d", st->words);
 		init_struct(st);
 		fmt += print_until_perc((char *)fmt, st);
-		printf("\naf words = %d", st->words);
-		
+		//printf("\naf words = %d", st->words);
+
 		if (*fmt == '\0')
 			break;
 		size_perc = size_per((char *)fmt, st);
@@ -102,73 +102,73 @@ int ft_printf(const char *fmt, ...)
 // Com a width negativa
 // d = -2 Se tiver uma precisio de 10 o menos tem de ser antes do 0
 
-	// int b = -1;
-	// int *ptr = &b;
-int main(void)
-{
-	int d;
+// 	// int b = -1;
+// 	// int *ptr = &b;
+// int main(void)
+// {
+// 	int d;
 
-	// printf("%d\n", d);
-	// ft_printf(" %p ", ptr);
-	// printf(" %p ", ptr);
+// 	// printf("%d\n", d);
+// 	// ft_printf(" %p ", ptr);
+// 	// printf(" %p ", ptr);
 
-	// printf("%d\n", d);
-	// d = printf("%*c  d\n", -2, '0');
-	// printf("%d\n", d);
-	// d = ft_printf("%*c  d\n", -2, '0');
-	// printf("%d\n", d);
-	// d = printf("%*c  d\n", -10, '0');
-	// printf("%d\n", d);
-	// d = ft_printf("%*c  d\n", -10, '0');
-	// printf("%d\n", d);
-	// d = printf("\n\n%-c%-c%c*\n", 1, '0', 0);
-	// printf("d = %d\n", d);
-	// d = ft_printf("%-c%-c%c*\n", 1, '0', 0);
-	// printf("d = %d\n", d);
+// 	// printf("%d\n", d);
+// 	// d = printf("%*c  d\n", -2, '0');
+// 	// printf("%d\n", d);
+// 	// d = ft_printf("%*c  d\n", -2, '0');
+// 	// printf("%d\n", d);
+// 	// d = printf("%*c  d\n", -10, '0');
+// 	// printf("%d\n", d);
+// 	// d = ft_printf("%*c  d\n", -10, '0');
+// 	// printf("%d\n", d);
+// 	// d = printf("\n\n%-c%-c%c*\n", 1, '0', 0);
+// 	// printf("d = %d\n", d);
+// 	// d = ft_printf("%-c%-c%c*\n", 1, '0', 0);
+// 	// printf("d = %d\n", d);
 
-	d = printf("teste %.d\n", 0);
-	printf("%d\n", d);
-	d = printf("teste %-.2d \n", 0);
-	printf("%d\n", d);
-	d = printf("teste %-2.2d \n", 0);
-	printf("%d\n", d);
-	d = printf("teste %-3.2d \n", 0);
-	printf("%d\n", d);
-	d = printf("teste %-3.2dteste %10.42d \n", 0, 0);
-	printf("%d\n", d);
-	d = printf("teste %-3.2dteste %10.42d \n", 1, -1);
-	printf("%d\n", d);
-	d = printf("teste %-3.2dteste %10.42d \n", 10, -10);
-	printf("%d\n", d);
-	d = printf(" *%-*.*d* *%*.*d* \n", 4, 5, 10, 10, 21, -10);
-	printf("%d\n", d);	
-	d = printf(" *%-*.*d* *%*.*d* \n", 6, 2, 102, 10, 21, -101);
-	printf("%d\n\n", d);
+// 	d = printf("teste %.d\n", 0);
+// 	printf("%d\n", d);
+// 	d = printf("teste %-.2d \n", 0);
+// 	printf("%d\n", d);
+// 	d = printf("teste %-2.2d \n", 0);
+// 	printf("%d\n", d);
+// 	d = printf("teste %-3.2d \n", 0);
+// 	printf("%d\n", d);
+// 	d = printf("teste %-3.2d teste %10.42d \n", 0, 0);
+// 	printf("%d\n", d);
+// 	d = printf("teste %-3.2d teste %*.42d \n",  ,  1, -1);
+// 	printf("%d\n", d);
+// 	d = printf("teste %-3.2dteste %10.42d \n", 10, -10);
+// 	printf("%d\n", d);
+// 	d = printf(" *%-*.*d* *%*.*d* \n", 4, 5, 10, 10, 21, -10);
+// 	printf("%d\n", d);
+// 	d = printf(" *%-*.*d* *%*.*d* \n", 6, 2, 102, 10, 21, -101);
+// 	printf("%d\n\n", d);
 
-	d = ft_printf("teste %.d\n", 0);
-	printf("%d\n", d);
-	d = ft_printf("teste %-.2d \n", 0);
-	printf("%d\n", d);
-	d = ft_printf("teste %-2.2d \n", 0);
-	printf("%d\n", d);
-	d = ft_printf("teste %-3.2d \n", 0);
-	printf("%d\n", d);
-	d = ft_printf("teste %-3.2d teste %10.42d \n", 0, 0);
-	printf("%d\n", d);
-	d = ft_printf("teste %-3.2d teste %10.42d \n", 1, -1);
-	printf("%d\n", d);
-	d = ft_printf("teste %-3.2d %10.42d \n", 10, -10);
-	printf("%d\n", d);
-	d = ft_printf(" *%-*.*d* *%*.*d* \n", 4, 5, 10, 10, 21, -10);
-	printf("%d\n", d);
-	d = ft_printf(" *%-*.*d* *%*.*d* \n\n", 6, 2, 102, 10, 21, -101);
-	printf("%d\n", d);
+// 	d = ft_printf("teste %.d\n", 0);
+// 	printf("\nsize = %d\n", d);
+// 	d = ft_printf("teste %-.2d \n", 0);
+// 	printf("\nsize = %d\n", d);
+// 	d = ft_printf("teste %-2.2d \n", 0);
+// 	printf("\nsize = %d\n", d);
+// 	d = ft_printf("teste %-3.2d \n", 0);
+// 	printf("\nsize = %d\n", d);
+// 	d = ft_printf("teste %-3.2d teste %10.42d \n", 0, 0);
+// 	printf("\nsize = %d\n", d);
+// 	d = ft_printf("teste %-3.2d teste %10.42d \n", 1, -1);
+// 	printf("\nsize = %d\n", d);
+// 	d = ft_printf("teste %-3.2d %10.42d \n", 10, -10);
+// 	printf("\nsize = %d\n", d);
+// 	d = ft_printf(" *%-*.*d* *%*.*d* \n", 4, 5, 10, 10, 21, -10);
+// 	printf("\nsize = %d\n", d);
+// 	d = ft_printf(" *%-*.*d* *%*.*d* \n\n", 6, 2, 102, 10, 21, -101);
+// 	printf("\nsize = %d\n", d);
 
-	// 	printf(" %s %s\n", "0", "1");
-	// 	ft_printf(" %s %s\n", "0", "1");
+// 	// 	printf(" %s %s\n", "0", "1");
+// 	// 	ft_printf(" %s %s\n", "0", "1");
 
-	// 	return (0);
-}
+// 	// 	return (0);
+// }
 
 
 
