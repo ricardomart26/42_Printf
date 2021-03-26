@@ -97,3 +97,31 @@ int	ft_atoi(char *str)
 	}
 	return (res);
 }
+
+void	swap(sign_t *st)
+{
+	char *temp;
+	int size;
+
+	size = st->dot;
+	if (size == 0)
+	{
+		temp = malloc(1);
+		temp[0] = '\0';
+		st->conv = temp;
+	}
+	else
+	{
+		temp = (char *)malloc(size + 1);
+		if (!temp)
+			return ;
+		while (size)
+		{
+			temp[size - 1] = st->conv[size - 1];
+			size--;
+		}
+		temp[st->dot + 1] = '\0';
+		st->conv = temp;
+	}
+	free(temp);
+}

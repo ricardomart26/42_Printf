@@ -31,9 +31,12 @@ int		print_until_perc(char *format, sign_t *signs);
 void	start_loop(char *format, va_list args, sign_t *signs);
 int		ft_printf(const char *format, ...);
 int		size_per(char *format, sign_t *signs);
-char	*ft_get_arg(va_list args, sign_t *signs);
 void	free_if_needed(sign_t *signs);
 void	with_no_flags(va_list args, sign_t *st);
+void	with_flags(sign_t *st, char *fmt, va_list args);
+
+// args
+char	*ft_get_arg(va_list args, sign_t *signs);
 void	do_arg(va_list args, sign_t *st);
 
 // Validate
@@ -48,7 +51,7 @@ char	*ft_strdup(char *src);
 int		ft_strlen(const char *str);
 int		ft_atoi(char *str);
 void	ft_putchar(char c, sign_t *st);
-void	if_align_int(sign_t *st);
+void	swap(sign_t *st);
 
 // Convert
 char	*ft_unsigneditoa(unsigned int n);
@@ -64,29 +67,34 @@ void	init_struct(sign_t *signs);
 void	precision(sign_t *signs, char *format, va_list args);
 void	width(sign_t *signs, char *format, va_list args);
 void	flags(sign_t *signs, char *format, va_list args);
-void	star(sign_t *signs, va_list args);
-void	with_flags(sign_t *st, char *fmt, va_list args);
 
-// do
-void	handle_signs(sign_t *st);
-void	if_align(sign_t *st);
-void	swap(sign_t *st);
-void 	specif_c(sign_t *st, va_list args);
-void 	specif_p(sign_t *st, va_list args);
-void 	specif_uint(sign_t *st, va_list args);
-void 	specif_x(sign_t *st, va_list args);
-void 	specif_int(sign_t *st, va_list args);
+
+
+
 void	if_width(sign_t *st);
-void	width_e_precision(sign_t *st);
-void	width_s_precision(sign_t *st);
-void	width_b_precision(sign_t *st);
 void	if_precision(sign_t *st);
+void	width_s_precision(sign_t *st);
+void	if_align(sign_t *st);
+void	width_b_precision(sign_t *st);
+void	width_e_precision(sign_t *st);
 
 
+// int
+void	if_align_int(sign_t *st);
+void 	specif_int(sign_t *st, va_list args);
+void 	specif_uint(sign_t *st, va_list args);
 
+// Strings
 void	if_precision_s(sign_t *st);
 void 	specif_s(sign_t *st, va_list args);
 void	width_s_precision_s(sign_t *st);
 void	width_e_precision_s(sign_t *st);
+void 	specif_c(sign_t *st, va_list args);
+
+
+// outros
+void 	specif_x(sign_t *st, va_list args);
+void 	specif_p(sign_t *st, va_list args);
+
 
 #endif

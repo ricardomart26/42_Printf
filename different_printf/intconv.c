@@ -29,17 +29,20 @@ void	if_width_int(sign_t *st)
 
 void	if_precision_int(sign_t *st, int control)
 {
+	//printf("\nst->dot = %d", st->dot);
 	if (st->dot < st->size_c && st->dot != -1)
 	{
-		st->size_c = st->dot;
+		st->size_c = st->dot; // O size fica com 0
 		st->c_dot = 1;
 		swap(st);
 	}
 	else if (st->dot > st->size_c)
 	{
+
+		// printf("\nteste");
 		if (control == 0)
 			st->size_c -= 1;
-
+	
 		st->dot -= st->size_c;
 		while (st->dot > 0)
 		{
@@ -68,17 +71,16 @@ void specif_int(sign_t *st, va_list args)
 	if (st->align)
 		if_align_int(st);
 	// if (st->width && !(st->dot))
-	// 	if_width(st);
+	// 	if_width(st);z
 	// else if (!(st->width) && st->dot)
 	// 	if_precision(st);
 	if (st->dot > st->width && !(st->align))
 		if_precision_int(st, 0);
 	else
-
-	if (st->width)
-	{
-
-	}
+		if_precision_int(st, 1);
+	if (st->width > st->size_c && !(st->align))
+		if_width_int(st);
+	printf("\nwords = %d", st->words);
 	free_if_needed(st);
 }
 

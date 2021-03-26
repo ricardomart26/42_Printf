@@ -102,9 +102,10 @@ void	precision(sign_t *st, char *fmt, va_list args)
 	int size;
 
 	size = 0;
+	//printf("\nsign = %c ", fmt[st->c_signs]);
 	if (fmt[st->c_signs] == '-')
 		st->cminus = 1;
-	st->c_signs++;
+	//st->c_signs++;
 	while (ft_isdigit(fmt[size]))
 		size++;
 	temp = malloc(size + 1);
@@ -113,6 +114,7 @@ void	precision(sign_t *st, char *fmt, va_list args)
 	counter = 0;
 	if (fmt[st->c_signs] == '*')
 	{
+		//printf("\nsign = %c ", fmt[st->c_signs]);
 		st->c_signs++;
 		st->width = va_arg(args, int);
 		if (st->width < 0)
@@ -122,11 +124,15 @@ void	precision(sign_t *st, char *fmt, va_list args)
 			st->cminus = 1;
 		}
 	}
+	//printf("\nsign = %c ", fmt[st->c_signs]);
 	while (ft_isdigit(fmt[st->c_signs]))
 		temp[counter++] = fmt[st->c_signs++];
 	temp[counter] = '\0';
 	if (temp != NULL)
 		st->dot = ft_atoi(temp);
+	//printf("\ntemp = %s", temp);
+	//printf("\nst->dot = %d", st->dot);
+	
 	free(temp);
 }
 
