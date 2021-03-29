@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:56:38 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/26 16:45:29 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:41:22 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@
 void specif_s(sign_t *st, va_list args)
 {
 	st->conv = ft_get_arg(args, st);
-	st->size_c = ft_strlen(st->conv);
-
+	if ((!st->conv))
+		st->conv = "(null)";
+	if (st->conv)
+		st->size_c = ft_strlen(st->conv);
+	//printf("\ndot = %d\n", st->dot);
+	if (st->negprec)
+		st->dot = st->size_c;
 	if (st->dot < st->size_c && st->dot != -1)
 	{
 		st->size_c = st->dot;

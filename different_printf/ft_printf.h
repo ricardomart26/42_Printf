@@ -11,11 +11,11 @@
 typedef struct signs
 {
 	int zero;
-	int align;
-	int width;
-	int	dot;
-	char c;
-	char *conv;
+	int		align;
+	int		width;
+	int		dot;
+	char	c;
+	char	*conv;
 	int size_c;
 	int temp_dot;
 	int	c_dot;
@@ -24,7 +24,7 @@ typedef struct signs
 	int cminus;
 	int width_c;
 	int negprec;
-	
+
 } sign_t;
 
 // printf

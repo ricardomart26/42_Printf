@@ -104,7 +104,7 @@ void	swap(sign_t *st)
 	int size;
 
 	size = st->dot;
-	printf("size = %d \n", size);
+	//printf("size = %d \n", size);
 	if (size == 0)
 	{
 		temp = malloc(1);
@@ -124,5 +124,4 @@ void	swap(sign_t *st)
 		temp[st->dot + 1] = '\0';
 		st->conv = temp;
 	}
-	free(temp);
 }

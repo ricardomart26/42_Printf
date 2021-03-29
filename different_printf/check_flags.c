@@ -43,16 +43,28 @@ void init_struct(sign_t *st)
 
 void	with_flags(sign_t *st, char *fmt, va_list args)
 {
-	if (fmt[st->c_signs] == '-')
-		st->align = st->c_signs++;
-	if (fmt[st->c_signs] == '0' && (!st->align))
-		st->zero = st->c_signs++;
-	else if (fmt[st->c_signs] == '0' && st->c != 's')
-		st->c_signs++;
+	while (fmt[st->c_signs] == '0' || fmt[st->c_signs] == '-')
+	{
+		if (fmt[st->c_signs] == '0' )
+			st->zero = st->c_signs++;
+		if (fmt[st->c_signs] == '-')
+			st->align = st->c_signs++;
+	}
+	//printf("\nzero = %d\n", st->zero);
+
 	if (ft_isdigit(fmt[st->c_signs]) || fmt[st->c_signs] == '*')
 		width(st, fmt, args);
 	if (fmt[st->c_signs] == '.')
 		precision(st, fmt + 1, args);
+	if (st->zero && (st->dot != -1 || st->align))
+		st->zero = 0;
+
+	//printf("\nalign = %d", st->align);
+	//printf("\ndot = %d", st->dot);
+	//printf("\nzero = %d\n", st->zero);
+	// printf("\nwidth = %d ", st->width);
+	//printf("\nalign = %d", st->align);
+	//printf("\nalign = %d", st->align);
 
 	do_arg(args, st);
 }
@@ -91,6 +103,8 @@ void	width(sign_t *st, char *fmt, va_list args)
 			st->align = 1;
 		}
 	}
+	// printf("\nwidth = %d", st->width);
+
 	free(temp);
 }
 
@@ -130,7 +144,7 @@ void	precision(sign_t *st, char *fmt, va_list args)
 		st->c_signs++;
 		st->dot = va_arg(args, int);
 		//printf("\nst->dot = %d", st->dot);
-		if (st->dot < 0)
+		if (st->dot < 0 )
 		{
 			st->dot *= -1;
 			st->negprec = 1;

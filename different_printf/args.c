@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:26:30 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/25 18:26:52 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:36:02 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char *ft_get_arg(va_list args, sign_t *st)
 	else if (st->c == 'c')
 		return (ft_convert_char(va_arg(args, int)));
 	else if (st->c == 'i' || st->c == 'd')
-		return (ft_itoa(va_arg(args, int)));
+		return (ft_itoa(va_arg(args, int), st));
 	else if (st->c == 'u')
 		return (ft_unsigneditoa(va_arg(args, unsigned int)));
 	else if (st->c == 'x')
