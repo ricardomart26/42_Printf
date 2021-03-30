@@ -53,9 +53,9 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 	//printf("\nzero = %d\n", st->zero);
 
 	if (ft_isdigit(fmt[st->c_signs]) || fmt[st->c_signs] == '*')
-		width(st, fmt, args);
+		see_width(st, fmt, args);
 	if (fmt[st->c_signs] == '.')
-		precision(st, fmt + 1, args);
+		see_precision(st, fmt + 1, args);
 	if (st->zero && (st->dot != -1 || st->align))
 		st->zero = 0;
 
@@ -69,7 +69,7 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 	do_arg(args, st);
 }
 
-void	width(sign_t *st, char *fmt, va_list args)
+void	see_width(sign_t *st, char *fmt, va_list args)
 {
 	char *temp;
 	int counter;
@@ -109,7 +109,7 @@ void	width(sign_t *st, char *fmt, va_list args)
 }
 
 // default . e 6 sem certezas
-void	precision(sign_t *st, char *fmt, va_list args)
+void	see_precision(sign_t *st, char *fmt, va_list args)
 {
 	char *temp;
 	int counter;

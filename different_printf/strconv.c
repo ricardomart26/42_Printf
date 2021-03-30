@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-// void	if_align_s(sign_t *st);
+// void	align_s(sign_t *st);
 // {
 
 // }
@@ -37,7 +37,7 @@
 // 	}
 // }
 
-// void	if_precision_s(sign_t *st)
+// void	precision_s(sign_t *st)
 // {
 // 	if (st->dot < st->size_c)
 // 	{
@@ -47,9 +47,24 @@
 // 	}
 // }
 
-void specif_s(sign_t *st, va_list args)
+void specific_c(sign_t *st, va_list args)
 {
-	st->conv = ft_get_arg(args, st);
+	st->conv = get_arg(args, st);
+	st->size_c = 1;
+	if (st->align && st->width)
+		ft_putchar(st->conv[0], st);
+	//printf("\nteste width = %d\n", st->width);
+	if (st->width)
+		width(st);
+	else
+		ft_putchar(st->conv[0], st);
+
+	free_needed(st);
+}
+
+void specific_s(sign_t *st, va_list args)
+{
+	st->conv = get_arg(args, st);
 	if ((!st->conv))
 		st->conv = "(null)";
 	if (st->conv)
@@ -67,11 +82,11 @@ void specif_s(sign_t *st, va_list args)
 		ft_putstr_fd(st->conv, 1, st);
 
 	if (st->width)
-		if_width(st);
+		width(st);
 	else if (st->c_dot != 1 && !(st->align))
 		ft_putstr_fd(st->conv, 1, st);
 	else if (st->c_dot == 1)
 		ft_putstr_fd(st->conv, 1, st);
 
-	free_if_needed(st);
+	free_needed(st);
 }

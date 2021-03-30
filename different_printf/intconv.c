@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	if_width_neg(sign_t *st, int control)
+void	width_neg(sign_t *st, int control)
 {
 	int temp;
 
@@ -48,15 +48,16 @@ void	if_width_neg(sign_t *st, int control)
 
 }
 
-void	if_width_int(sign_t *st)
+void	width_int(sign_t *st)
 {
 	//printf("\n size_c = %d , width = %d\n", st->size_c, st->width);
-	int temp;
+	//int temp;
 
+	//temp = 0;
 	if (st->temp_dot > st->size_c && !(st->cminus))
 		st->size_c = st->temp_dot;
-	else if (st->temp_dot > st->size_c)
-		temp = st->temp_dot;
+	//else if (st->temp_dot > st->size_c)
+		//temp = st->temp_dot;
 	if (st->size_c < st->width)
 	{
 		st->width -= st->size_c;
@@ -67,13 +68,10 @@ void	if_width_int(sign_t *st)
 				ft_putstr_fd(" ", 1, st);
 	}
 	if (!(st->align) && !(st->cminus))
-	{
-		//printf("printing");
 		ft_putstr_fd(st->conv, 1, st);
-	}
 }
 
-void	if_precision_int(sign_t *st, int control)
+void	precision_int(sign_t *st, int control)
 {
 	//printf("\n size_c = %d , width = %d\n", st->size_c, st->dot);
 	//printf("\nst->size_c = %d \n", st->size_c);
@@ -102,66 +100,73 @@ void	negative_int(sign_t *st)
 	if (st->dot > st->width)
 	{
 		ft_putchar('-', st);
-		if_precision_int(st, 0);
+		precision_int(st, 0);
 		if (st->align)
-			if_align_int(st);
+			align_int(st);
 		else if (st->dot)
-			if_precision_int(st, 1);
-		ft_putstr_fd(st->conv, 1, st);
+			precision_int(st, 1);
 	}
 	else if (st->dot < st->width)
 	{
 		if (st->zero)
-			if_width_neg(st, 0);
+			width_neg(st, 0);
 		else
-			if_width_neg(st, 1);
+			width_neg(st, 1);
 		if (st->align)
-			if_align_int(st);
+			align_int(st);
 		if (st->dot != -1)
-			if_precision_int(st, 1);
+			precision_int(st, 1);
+	}
+	if (!st->cminus)
 		ft_putstr_fd(st->conv, 1, st);
+}
+
+void align_int(sign_t *st)
+{
+	if (st->cminus)
+	{
+		ft_putstr_fd(st->conv, 1, st);
+		negative_int(st);
+	}
+	else if (st->dot > st->size_c)
+	{
+		precision_int(st, 1);
+		ft_putstr_fd(st->conv, 1, st);
+		width_int(st);
 	}
 }
 
-void if_align_int(sign_t *st)
-{
-	if (st->dot > st->size_c)
-		if_precision_int(st, 1);
-	ft_putstr_fd(st->conv, 1, st);
-	if_width_int(st);
-}
-
-void specif_int(sign_t *st, va_list args)
+void specific_i(sign_t *st, va_list args)
 {
 
-	st->conv = ft_get_arg(args, st);
+	st->conv = get_arg(args, st);
 	st->size_c = ft_strlen(st->conv);
 	//printf("\n\n size_c = %d", st->size_c);
 
 	st->temp_dot = st->dot;
 	//printf("\nst->minus = %d \n", st->cminus);
 	//printf("\nst->dot = %d \n", st->dot);
-	if (st->cminus)
+	if (st->align)
+		align_int(st);
+	else if (st->cminus)
 		negative_int(st);
-	else if (st->align)
-		if_align_int(st);
 	else
 	{
 		if (st->dot > st->width && !(st->align))
-			if_precision_int(st, 0);
+			precision_int(st, 0);
 		else if (st->dot >= 1 && !(st->align))
-			if_precision_int(st, 1);
+			precision_int(st, 1);
 		if (st->width > st->temp_dot && !(st->align))
-			if_width_int(st);
+			width_int(st);
 		else if (st->dot != 0 && !(st->align))
 			ft_putstr_fd(st->conv, 1, st);
 	}
 	// if (st->width && !(st->dot))
-	// 	if_width(st);z
+	// 	width(st);z
 	// else if (!(st->width) && st->dot)
-	// 	if_precision(st);
+	// 	precision(st);
 	//printf("\nwords = %d", st->words);
-	free_if_needed(st);
+	free_needed(st);
 }
 
 
@@ -180,28 +185,28 @@ void specif_int(sign_t *st, va_list args)
 
 
 
-void specif_uint(sign_t *st, va_list args)
+void specific_u(sign_t *st, va_list args)
 {
-	st->conv = ft_get_arg(args, st);
+	st->conv = get_arg(args, st);
 	//printf("\n\n st->conv = %s\n\n", st->conv);
 	st->size_c = ft_strlen(st->conv);
 	if (st->align)
 	{
 		st->zero = 0;
-		if_align(st);
+		align_int(st);
 	}
 	else if (st->width && !(st->dot))
-		if_width(st);
-	else if (!(st->width) && st->dot != -1)
-		if_precision(st);
-	else if (st->width > !(st->dot))
-		width_b_precision(st);
-	else if (st->width < st->dot)
-		width_s_precision(st);
+		width(st);
+	// else if (!(st->width) && st->dot != -1)
+	// 	precision(st);
+	// else if (st->width > !(st->dot))
+	// 	width_b_precision(st);
+	// else if (st->width < st->dot)
+	// 	width_s_precision(st);
 	// else if (st->width == st->dot)
 	// 	width_e_precision(st);
 
-	free_if_needed(st);
+	free_needed(st);
 
 }
 

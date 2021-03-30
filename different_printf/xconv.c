@@ -12,27 +12,27 @@
 
 #include "ft_printf.h"
 
-void specif_x(sign_t *st, va_list args)
+void specific_x(sign_t *st, va_list args)
 {
 	// printf("\nteste n 10\n");
-	st->conv = ft_get_arg(args, st);
+	st->conv = get_arg(args, st);
 	//printf("\n\n st->conv = %s\n\n", st->conv);
 	st->size_c = ft_strlen(st->conv);
 	if (st->align)
 	{
 		st->zero = 0;
-		if_align(st);
+		align_int(st);
 	}
 	else if (st->width && !(st->dot))
-		if_width(st);
-	else if (!(st->width) && st->dot)
-		if_precision(st);
-	else if (st->width > !(st->dot))
-		width_b_precision(st);
-	else if (st->width < st->dot)
-		width_s_precision(st);
-	else if (st->width == st->dot)
-		width_e_precision(st);
+		width(st);
+	// else if (!(st->width) && st->dot)
+	// 	precision(st);
+	// else if (st->width > !(st->dot))
+	// 	width_b_precision(st);
+	// else if (st->width < st->dot)
+	// 	width_s_precision(st);
+	// else if (st->width == st->dot)
+	// 	width_e_precision(st);
 
-	free_if_needed(st);
+	free_needed(st);
 }

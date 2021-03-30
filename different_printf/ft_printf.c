@@ -48,12 +48,12 @@ int size_per(char *fmt, sign_t *st)
 
 void with_no_flags(va_list args, sign_t *st)
 {
-	st->conv = ft_get_arg(args, st);
+	st->conv = get_arg(args, st);
 	if (st->c == 'c')
 		ft_putchar(st->conv[0], st);
 	else
 		ft_putstr_fd(st->conv, 1, st);
-	free_if_needed(st);
+	free_needed(st);
 }
 
 void start_loop(char *fmt, va_list args, sign_t *st)
