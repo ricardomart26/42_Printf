@@ -22,7 +22,6 @@ typedef struct signs
 	int c_signs;
 	int words;
 	int cminus;
-	int width_c;
 	int negprec;
 
 } sign_t;

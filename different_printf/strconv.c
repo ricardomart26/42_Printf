@@ -65,14 +65,14 @@ void specific_c(sign_t *st, va_list args)
 void specific_s(sign_t *st, va_list args)
 {
 	st->conv = get_arg(args, st);
-	if ((!st->conv))
+	if (!st->conv)
 		st->conv = "(null)";
-	if (st->conv)
-		st->size_c = ft_strlen(st->conv);
+	
+	st->size_c = ft_strlen(st->conv);
 	//printf("\ndot = %d\n", st->dot);
 	if (st->negprec)
 		st->dot = st->size_c;
-	if (st->dot < st->size_c && st->dot != -1)
+	else if (st->dot < st->size_c && st->dot != -1)
 	{
 		st->size_c = st->dot;
 		st->c_dot = 1;
@@ -80,7 +80,6 @@ void specific_s(sign_t *st, va_list args)
 	}
 	if (st->align)
 		ft_putstr_fd(st->conv, 1, st);
-
 	if (st->width)
 		width(st);
 	else if (st->c_dot != 1 && !(st->align))

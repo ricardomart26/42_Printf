@@ -45,7 +45,6 @@ void	width_neg(sign_t *st, int control)
 	}
 	if (control == 1)
 		ft_putchar('-', st);
-
 }
 
 void	width_int(sign_t *st)
@@ -117,7 +116,7 @@ void	negative_int(sign_t *st)
 		if (st->dot != -1)
 			precision_int(st, 1);
 	}
-	if (!st->cminus)
+	if (!st->align)
 		ft_putstr_fd(st->conv, 1, st);
 }
 
@@ -125,12 +124,18 @@ void align_int(sign_t *st)
 {
 	if (st->cminus)
 	{
+		ft_putchar('-', st);
 		ft_putstr_fd(st->conv, 1, st);
 		negative_int(st);
 	}
 	else if (st->dot > st->size_c)
 	{
 		precision_int(st, 1);
+		ft_putstr_fd(st->conv, 1, st);
+		width_int(st);
+	}
+	else if (st->width > st->size_c)
+	{
 		ft_putstr_fd(st->conv, 1, st);
 		width_int(st);
 	}

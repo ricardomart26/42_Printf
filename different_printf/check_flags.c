@@ -25,7 +25,6 @@ void init_struct(sign_t *st)
 	st->c_dot = 0;
 	st->c_signs = 1;
 	st->cminus = 0;
-	st->width_c = 0;
 	st->negprec = 0;
 }
 
@@ -54,44 +53,36 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 
 	if (ft_isdigit(fmt[st->c_signs]) || fmt[st->c_signs] == '*')
 		see_width(st, fmt, args);
-	if (fmt[st->c_signs] == '.')
+	//printf("\nfmt = %c", *fmt);
+	//printf("\nsign = %c", fmt[st->c_signs]);
+	//printf("\nc_signs = %d", st->c_signs);
+	fmt += st->c_signs;
+	//printf("\nfmt = %c", *fmt);
+
+	if (*fmt == '.')
 		see_precision(st, fmt + 1, args);
+	
 	if (st->zero && (st->dot != -1 || st->align))
 		st->zero = 0;
 
-	//printf("\nalign = %d", st->align);
-	//printf("\ndot = %d", st->dot);
-	//printf("\nzero = %d\n", st->zero);
+	// printf("\nalign = %d", st->align);
+	// printf("\ndot = %d", st->dot);
+	// printf("\nzero = %d\n", st->zero);
 	// printf("\nwidth = %d ", st->width);
-	//printf("\nalign = %d", st->align);
-	//printf("\nalign = %d", st->align);
-
 	do_arg(args, st);
 }
 
 void	see_width(sign_t *st, char *fmt, va_list args)
 {
-	char *temp;
-	int counter;
-	int size;
-
-	size = 0;
-	counter = 0;
-
 	if (fmt[st->c_signs] == '-')
+	{
+		st->c_signs++;
 		st->cminus = 1;
-	//st->c_signs++;
-	while (ft_isdigit(fmt[size]))
-		size++;
-	temp = malloc(size);
-	if (!temp)
-		return ;
+	}
 	if (ft_isdigit(fmt[st->c_signs]))
 	{
-		while (ft_isdigit(fmt[st->c_signs]))
-			temp[counter++] = fmt[(st->c_signs)++];
-		temp[counter] = '\0';
-		st->width = ft_atoi(temp);
+		st->width = ft_atoi(fmt + st->c_signs);
+		st->c_signs += ft_intlen(st->width);
 	}
 	else if (fmt[st->c_signs] == '*')
 	{
@@ -104,44 +95,22 @@ void	see_width(sign_t *st, char *fmt, va_list args)
 		}
 	}
 	// printf("\nwidth = %d", st->width);
-
-	free(temp);
 }
 
 // default . e 6 sem certezas
 void	see_precision(sign_t *st, char *fmt, va_list args)
 {
-	char *temp;
-	int counter;
-	int size;
-
-	size = 0;
-	//printf("\nsign = %c", fmt[st->c_signs]);
-	//printf("\nsign size = %c", fmt[size]);
-	if (type(fmt[st->c_signs]))
+	//printf("\nsign = %c", *fmt);
+	if (type(*fmt))
 		st->dot = 0;
-	else if (fmt[st->c_signs] == '-')
+	else if (*fmt == '-')
 	{
-		//printf("\nteste n 1\n");
-		st->c_signs++;
+		fmt++;
 		st->negprec = 1;
-		size++;
 	}
-	while (ft_isdigit(fmt[st->c_signs]))
-	{
-		//printf("\nteste n 2\n");
-		st->c_signs++;
-		size++;
-	}
-	st->c_signs -= size;
-	temp = malloc(size + 1);
-	if (!temp)
-		return ;
-	counter = 0;
-	if (fmt[st->c_signs] == '*')
+	else if (*fmt == '*')
 	{
 		//printf("\nsign = %c ", fmt[st->c_signs]);
-		st->c_signs++;
 		st->dot = va_arg(args, int);
 		//printf("\nst->dot = %d", st->dot);
 		if (st->dot < 0 )
@@ -150,20 +119,12 @@ void	see_precision(sign_t *st, char *fmt, va_list args)
 			st->negprec = 1;
 		}
 	}
-	else
-	{
-		while (ft_isdigit(fmt[st->c_signs]))
-			temp[counter++] = fmt[st->c_signs++];
-		temp[counter] = '\0';
-		if (temp != NULL)
-			st->dot = ft_atoi(temp);
-		//printf("\ntemp = %s", temp);
-	}
+	if (ft_isdigit(*fmt))
+		st->dot = ft_atoi(fmt);
 	//printf("\nst->dot = %d", st->dot);
 	//printf("\n size_c = %d , dot = %d\n", st->size_c, st->dot);
 	if (st->negprec)
 		st->dot = 0;
-	free(temp);
 }
 
 // Fazer caso especial para se for so 0?

@@ -23,7 +23,10 @@ int print_until_perc(char *fmt, sign_t *st) // Write até ao %
 
 	c = 0;
 	while (fmt[c] != '%' && fmt[c] != '\0')
-		ft_putchar(fmt[c++], st);
+		c++;
+
+	write(1, fmt, c);
+	st->words += c;
 	return (c);
 }
 
@@ -67,7 +70,6 @@ void start_loop(char *fmt, va_list args, sign_t *st)
 		init_struct(st);
 		fmt += print_until_perc((char *)fmt, st);
 		//printf("\naf words = %d", st->words);
-
 		if (*fmt == '\0')
 			break;
 		size_perc = size_per((char *)fmt, st);
