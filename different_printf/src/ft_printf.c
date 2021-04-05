@@ -55,7 +55,7 @@ void with_no_flags(va_list args, sign_t *st)
 	if (st->c == 'c')
 		ft_putchar(st->conv[0], st);
 	else
-		ft_putstr_fd(st->conv, 1, st);
+		ft_putstr(st->conv, st);
 	free_needed(st);
 }
 

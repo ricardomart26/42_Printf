@@ -21,16 +21,26 @@ int	ft_isdigit(char c)
 		return (0);
 }
 
-void	ft_putstr_fd(char *s, int fd, sign_t *st)
+void	mult_char(char c, sign_t *st, int size)
 {
+	st->words += size;
+	while (size--)
+		write(1, &c, 1);
+}
+
+void	ft_putstr(char *s, sign_t *st)
+{
+	int size;
+
 	if (!s)
 		return ;
+	size = 0;
 	while (*s)
 	{
-		write(fd, s, 1);
-		st->words++;
-		s++;
+		size++;
+		write(1, s++, 1);
 	}
+	st->words += size;
 }
 
 void	ft_putchar(char c, sign_t *st)
@@ -98,12 +108,10 @@ int	ft_atoi(char *str)
 	return (res);
 }
 
-void	swap(sign_t *st)
+void	swap(sign_t *st, int size)
 {
 	char *temp;
-	int size;
 
-	size = st->dot;
 	//printf("size = %d \n", size);
 	if (size == 0)
 	{

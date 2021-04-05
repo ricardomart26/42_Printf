@@ -76,16 +76,14 @@ void specific_s(sign_t *st, va_list args)
 	{
 		st->size_c = st->dot;
 		st->c_dot = 1;
-		swap(st);
+		swap(st, st->size_c);
 	}
 	if (st->align)
-		ft_putstr_fd(st->conv, 1, st);
+		ft_putstr(st->conv, st);
 	if (st->width)
 		width(st);
-	else if (st->c_dot != 1 && !(st->align))
-		ft_putstr_fd(st->conv, 1, st);
-	else if (st->c_dot == 1)
-		ft_putstr_fd(st->conv, 1, st);
+	else if (!(st->align))
+		ft_putstr(st->conv, st);
 
 	free_needed(st);
 }

@@ -46,12 +46,12 @@ int		invalid(char const *str);
 
 // utils
 int		ft_isdigit(char c);
-void	ft_putstr_fd(char *s, int fd, sign_t *st);
+void	ft_putstr(char *s, sign_t *st);
 char	*ft_strdup(char *src);
 int		ft_strlen(const char *str);
 int		ft_atoi(char *str);
 void	ft_putchar(char c, sign_t *st);
-void	swap(sign_t *st);
+void	swap(sign_t *st, int size);
 
 // Convert
 char	*ft_unsigneditoa(unsigned int n);
@@ -68,6 +68,7 @@ void	see_precision(sign_t *signs, char *format, va_list args);
 void	see_width(sign_t *signs, char *format, va_list args);
 void	flags(sign_t *signs, char *format, va_list args);
 
+void	mult_char(char c, sign_t *st, int size);
 
 
 
@@ -84,10 +85,11 @@ void	align_int(sign_t *st);
 void 	specific_i(sign_t *st, va_list args);
 void 	specific_u(sign_t *st, va_list args);
 void	width_int(sign_t *st);
-void	width_neg(sign_t *st, int control);
-void	precision_int(sign_t *st, int control);
-void	negative_int(sign_t *st);
+void	width_neg(sign_t *st);
 
+void	zero_neg_width(sign_t *st);
+void	negative_int(sign_t *st);
+void	precision_inteiro(sign_t *st);
 // Strings
 void	precision_s(sign_t *st);
 void 	specific_s(sign_t *st, va_list args);

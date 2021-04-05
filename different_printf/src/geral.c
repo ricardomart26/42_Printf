@@ -31,19 +31,29 @@ void free_needed(sign_t *st)
 // 	width(st);
 // }
 
+// void	write_size(sign_t *st, int size)
+// {
+// 	if (!st->conv)
+// 		return ;
+// 	st->words += size;
+// 	while (size--)
+// 		write(1, st->conv++, 1);
+	
+// }
+
 void	width(sign_t *st)
 {
 	if (st->size_c < st->width)
 	{
 		st->width -= st->size_c;
-		while (st->width-- > 0)
 			if (st->zero)
-				ft_putstr_fd("0", 1, st);
+				mult_char('0', st, st->width);
 			else
-				ft_putstr_fd(" ", 1, st);
+				mult_char(' ', st, st->width);
+				
 	}
 	if (!(st->align))
-		ft_putstr_fd(st->conv, 1, st);
+		ft_putstr(st->conv, st);
 }
 
 void	width_s_precision(sign_t *st)
@@ -51,7 +61,7 @@ void	width_s_precision(sign_t *st)
 	if (st->dot < st->size_c)
 	{
 		st->size_c = st->dot;
-		swap(st);
+		swap(st, st->size_c);
 		st->dot = 0;
 	}
 }
