@@ -1,0 +1,106 @@
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdarg.h>
+# include <stdint.h>
+# include <stdio.h>
+
+typedef struct signs
+{
+	int		zero;
+	int		align;
+	int		width;
+	int		dot;
+	char	c;
+	char	*conv;
+	int		size_c;
+	int		temp_dot;
+	int		c_dot;
+	int		c_signs;
+	int		words;
+	int		cminus;
+	int		negprec;
+
+} sign_t;
+
+// printf
+int		print_until_perc(char *format, int *words);
+void	start_loop(char *format, va_list args, sign_t *signs);
+int		ft_printf(const char *format, ...);
+int		size_per(char *fmt, char *c);
+//void	free_needed(char *string, char c);
+void	with_no_flags(va_list args, char *conv, int *words, char c);
+void	with_flags(sign_t *st, char *fmt, va_list args);
+
+// args
+char	*get_arg(va_list args, char c, int *cminus);
+void	do_arg(va_list args, sign_t *st);
+
+// Validate
+int		type(char c);
+int		sign(char c);
+int		invalid(char const *str);
+
+// utils
+int		ft_isdigit(char c);
+void	ft_putstr(char *string, int *words);
+char	*ft_strdup(char *src);
+int		ft_strlen(const char *str);
+int		ft_atoi(char *str);
+void	ft_putchar(char c, int *words);
+void	swap(char **string, int *size, int *dot);
+
+// Convert
+char	*ft_unsigneditoa(unsigned int n);
+char	*ft_itoa(int n, int cminus);
+char	*ft_convadress(unsigned long adress, int cminus);
+char	*ft_convhexa(unsigned int decimal, int control, int c_minus);
+char	*ft_convert_char(int inteiro);
+int		ft_intlen(int n);
+
+
+// Check
+void	init_struct(sign_t *signs);
+void	see_precision(sign_t *signs, char *format, va_list args);
+void	see_width(sign_t *signs, char *format, va_list args);
+void	flags(sign_t *signs, char *format, va_list args);
+
+void	mult_char(char c, int *words, int *size);
+
+
+
+void	width(sign_t *st);
+//void	precision(sign_t *st);
+void	width_s_precision(sign_t *st);
+void	align(sign_t *st);
+void	width_b_precision(sign_t *st);
+void	width_e_precision(sign_t *st);
+
+
+// int
+void	align_int(sign_t *st);
+void 	specific_i(sign_t *st, va_list args);
+void 	specific_u(sign_t *st, va_list args);
+void	width_int(sign_t *st);
+void	width_neg(sign_t *st);
+
+void	zero_neg_width(sign_t *st);
+void	negative_int(sign_t *st);
+void	precision_inteiro(sign_t *st);
+// Strings
+void	precision_s(sign_t *st);
+void 	specific_s(sign_t *st, va_list args);
+//void	width_s_precision_s(sign_t *st);
+//void	width_e_precision_s(sign_t *st);
+void 	specific_c(sign_t *st, va_list args);
+
+
+// outros
+void 	specific_x(sign_t *st, va_list args);
+void 	specific_p(sign_t *st, va_list args);
+
+
+#endif
