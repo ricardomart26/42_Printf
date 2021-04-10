@@ -22,9 +22,6 @@ void init_struct(sign_t *st)
 	st->conv = 0;
 	st->size_c = 0;
 	st->temp_dot = 0;
-	st->c_dot = 0;
-	st->c_signs = 1;
-	st->cminus = 0;
 	st->negprec = 0;
 }
 
@@ -42,25 +39,27 @@ void init_struct(sign_t *st)
 
 void	with_flags(sign_t *st, char *fmt, va_list args)
 {
-	while (fmt[st->c_signs] == '0' || fmt[st->c_signs] == '-')
+	int c_signs;
+
+	c_signs = 1;
+	while (fmt[c_signs] == '0' || fmt[c_signs] == '-')
 	{
-		if (fmt[st->c_signs] == '0' )
-			st->zero = st->c_signs++;
-		if (fmt[st->c_signs] == '-')
-			st->align = st->c_signs++;
+		if (fmt[c_signs] == '0' )
+			st->zero = c_signs++;
+		if (fmt[c_signs] == '-')
+			st->align = c_signs++;
 	}
 	//printf("\nzero = %d\n", st->zero);
-	if (ft_isdigit(fmt[st->c_signs]) || fmt[st->c_signs] == '*')
-		see_width(st, fmt, args);
+	if (ft_isdigit(fmt[c_signs]) || fmt[c_signs] == '*')
+		see_width(st, fmt, args, &c_signs);
 	//printf("\nfmt = %c", *fmt);
-	//printf("\nsign = %c", fmt[st->c_signs]);
-	//printf("\nc_signs = %d", st->c_signs);
-	fmt += st->c_signs;
+	//printf("\nsign = %c", fmt[c_signs]);
+	//printf("\nc_signs = %d", c_signs);
+	fmt += c_signs;
 	//printf("\nfmt = %c", *fmt);
 
 	if (*fmt == '.')
 		see_precision(st, fmt + 1, args);
-
 	if (st->zero && (st->dot != -1 || st->align))
 		st->zero = 0;
 
@@ -71,19 +70,14 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 	do_arg(args, st);
 }
 
-void	see_width(sign_t *st, char *fmt, va_list args)
+void	see_width(sign_t *st, char *fmt, va_list args, int *c_signs)
 {
-	if (fmt[st->c_signs] == '-')
+	if (ft_isdigit(fmt[*c_signs]))
 	{
-		st->c_signs++;
-		st->cminus = 1;
+		st->width = ft_atoi(fmt + *c_signs);
+		c_signs += ft_intlen(st->width);
 	}
-	if (ft_isdigit(fmt[st->c_signs]))
-	{
-		st->width = ft_atoi(fmt + st->c_signs);
-		st->c_signs += ft_intlen(st->width);
-	}
-	else if (fmt[st->c_signs++] == '*')
+	else if (fmt[(*c_signs)++] == '*')
 	{
 		st->width = va_arg(args, int);
 		if (st->width < 0)
@@ -108,7 +102,7 @@ void	see_precision(sign_t *st, char *fmt, va_list args)
 	}
 	else if (*fmt == '*')
 	{
-		//printf("\nsign = %c ", fmt[st->c_signs]);
+		//printf("\nsign = %c ", fmt[c_signs]);
 		st->dot = va_arg(args, int);
 		//printf("\nst->dot = %d", st->dot);
 		if (st->dot < 0 )

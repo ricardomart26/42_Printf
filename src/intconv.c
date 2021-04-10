@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:23:48 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/08 18:03:16 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/10 19:11:27 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ void	precision_inteiro(sign_t *st)
 	if (st->dot < st->size_c && st->dot != -1) //&& (!st->align)
 	{
 		st->size_c = st->dot; // O size fica com 0
-		st->c_dot = 1;
 	}
 	else if (st->dot > st->size_c)
 	{
+		//printf(" %d ", st->size_c);
 		st->dot -= st->size_c;
-		mult_char('0', &st->words, &st->dot);
+		//printf("dot = %d", st->dot);
+		mult_char('0', &st->words, st->dot);
 		st->size_c -= st->dot;
 	}
-	if (!st->align)
-		ft_putstr(st->conv, &st->words);
+	// if (!st->align)
+	// 	ft_putstr(st->conv, &st->words);
 }
 
 
@@ -52,7 +53,7 @@ void	zero_neg_width(sign_t *st)
 		if (size < st->width)
 		{
 			st->width -= size;
-			mult_char(' ', &st->words, &st->width);
+			mult_char(' ', &st->words, st->width);
 			ft_putchar('-', &st->words);
 		}
 	}
@@ -70,13 +71,13 @@ void	width_neg(sign_t *st)
 	if (size < st->width)
 	{
 		st->width -= size + 1;
-		mult_char(' ', &st->words, &st->width);
+		mult_char(' ', &st->words, st->width);
 		ft_putchar('-', &st->words);
 	}
 	if (st->dot > st->size_c)
 	{
 		st->dot -= st->size_c;
-		mult_char('0', &st->words, &st->width);
+		mult_char('0', &st->words, st->width);
 		st->size_c -= st->dot;
 	}
 	if (!st->align)
@@ -89,19 +90,21 @@ void	width_int(sign_t *st)
 	//int temp;
 	int size;
 	//printf("teste");
-
-
+	size = st->size_c;
 	//temp = 0;
-	size = st->temp_dot;
+	//printf("size = %d ", st->temp_dot);
+	if (st->temp_dot > size)
+		size += st->temp_dot;
+	//printf("size = %d ", size);
 	//else if (st->temp_dot > size)
 		//temp = st->temp_dot;
 	if (size < st->width)
 	{
 		st->width -= size;
 		if (st->zero)
-			mult_char('0', &st->words, &st->width);
+			mult_char('0', &st->words, st->width);
 		else
-			mult_char(' ', &st->words, &st->width);
+			mult_char(' ', &st->words, st->width);
 	}
 
 }
@@ -112,23 +115,19 @@ void	negative_int(sign_t *st)
 	if (st->dot >= st->width)
 	{
 		ft_putchar('-', &st->words);
-		if (st->align)
-			align_int(st);
-		else if (st->dot)
-			precision_inteiro(st);
+		precision_inteiro(st);
+		ft_putstr(st->conv, &st->words);
 	}
 	else if (st->width && st->dot == -1)
 	{
 		ft_putchar('-', &st->words);
 		st->width -= st->size_c + 1;
-		mult_char('0', &st->words, &st->width);
+		mult_char('0', &st->words, st->width);
 		ft_putstr(st->conv, &st->words);
 	}
 	else if (st->dot < st->width)
 	{
-		if (st->align)
-		 	align_int(st);
-		else if (st->zero)
+		if (st->zero)
 			zero_neg_width(st);
 		else
 			width_neg(st);
@@ -141,17 +140,13 @@ void	negative_int(sign_t *st)
 
 static void align_width(sign_t *st)
 {
-	int size;
-
-
-	size = st->size_c;
-	if (size < st->width)
+	if (st->size_c < st->width)
 	{
-		st->width -= size;
+		st->width -= st->size_c;
 		if (st->zero)
-			mult_char('0', &st->words, &st->width);
+			mult_char('0', &st->words, st->width);
 		else
-			mult_char(' ', &st->words, &st->width);
+			mult_char(' ', &st->words, st->width);
 	}
 
 }
@@ -163,6 +158,7 @@ void align_int(sign_t *st)
 	temp = 0;
 	if (st->cminus)
 	{
+		//printf("\nteste n\n");
 		ft_putchar('-', &st->words);
 		ft_putstr(st->conv, &st->words);
 		negative_int(st);
@@ -172,13 +168,15 @@ void align_int(sign_t *st)
 		precision_inteiro(st);
 		//printf("teste");
 		ft_putstr(st->conv, &st->words);
-		//width_int(st);
 		width_int(st);
 	}
 	else if (st->width > st->size_c)
 	{
+		ft_putchar('-', &st->words);
+		st->width--;
 		ft_putstr(st->conv, &st->words);
 		align_width(st);
+		// align_width(st->size_c, &st->width, &st->words, st->zero);
 	}
 }
 
@@ -199,13 +197,13 @@ void specific_i(sign_t *st, va_list args)
 	else
 	{
 		//printf("teste 2");
-		if (st->width)
+		if (st->width > st->dot)
 			width_int(st);
 		if (st->dot != -1)
 			precision_inteiro(st);
 		// if (st->width > st->temp_dot)
 		// 	width_int(st);
-		else if (st->dot != 0)
+		if (st->dot != 0)
 			ft_putstr(st->conv, &st->words);
 	}
 	// if (st->width && !(st->dot))

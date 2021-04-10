@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:56:38 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/08 18:15:30 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/10 18:39:56 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void specific_c(sign_t *st, va_list args)
 		width(st);
 	else
 		ft_putchar(st->conv[0], &st->words);
-
 	free(st->conv);
 	st->conv = NULL;
 }
@@ -78,7 +77,6 @@ void specific_s(sign_t *st, va_list args)
 	{
 		//printf("\nteste n\n");
 		st->size_c = st->dot;
-		st->c_dot = 1;
 		swap(&st->conv, &st->size_c, &st->dot);
 	}
 	if (st->align)

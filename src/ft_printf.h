@@ -18,7 +18,6 @@ typedef struct signs
 	char	*conv;
 	int		size_c;
 	int		temp_dot;
-	int		c_dot;
 	int		c_signs;
 	int		words;
 	int		cminus;
@@ -55,9 +54,9 @@ void	swap(char **string, int *size, int *dot);
 
 // Convert
 char	*ft_unsigneditoa(unsigned int n);
-char	*ft_itoa(int n, int cminus);
-char	*ft_convadress(unsigned long adress, int cminus);
-char	*ft_convhexa(unsigned int decimal, int control, int c_minus);
+char	*ft_itoa(int n, int **cminus);
+char	*ft_convadress(unsigned long adress, int **cminus);
+char	*ft_convhexa(unsigned int decimal, int control, int **c_minus);
 char	*ft_convert_char(int inteiro);
 int		ft_intlen(int n);
 
@@ -65,10 +64,12 @@ int		ft_intlen(int n);
 // Check
 void	init_struct(sign_t *signs);
 void	see_precision(sign_t *signs, char *format, va_list args);
-void	see_width(sign_t *signs, char *format, va_list args);
+void	see_width(sign_t *signs, char *format, va_list args, int *c_signs);
 void	flags(sign_t *signs, char *format, va_list args);
 
-void	mult_char(char c, int *words, int *size);
+
+
+void	mult_char(char c, int *words, int size);
 
 
 

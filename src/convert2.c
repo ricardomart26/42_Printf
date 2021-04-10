@@ -64,7 +64,7 @@ char		*ft_unsigneditoa(unsigned int n)
 	return (res);
 }
 
-char		*ft_itoa(int n, int cminus)
+char		*ft_itoa(int n, int **cminus)
 {
 	char	*str;
 	int		size;
@@ -79,7 +79,7 @@ char		*ft_itoa(int n, int cminus)
 	str[size] = '\0';
 	if (n < 0)
 	{
-		cminus = 1;
+		**cminus = 1;
 		n *= -1;
 	}
 	while (n > 0)

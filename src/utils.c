@@ -21,10 +21,10 @@ int	ft_isdigit(char c)
 		return (0);
 }
 
-void	mult_char(char c, int *words, int *size)
+void	mult_char(char c, int *words, int size)
 {
-	*words += *size;
-	while ((*size)--)
+	*words += size;
+	while (size--)
 		write(1, &c, 1);
 }
 
