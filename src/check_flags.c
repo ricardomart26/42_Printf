@@ -23,6 +23,7 @@ void init_struct(sign_t *st)
 	st->size_c = 0;
 	st->temp_dot = 0;
 	st->negprec = 0;
+	st->cminus = 0;
 }
 
 // Posso guardar os args na struct?
@@ -56,7 +57,7 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 	//printf("\nsign = %c", fmt[c_signs]);
 	//printf("\nc_signs = %d", c_signs);
 	fmt += c_signs;
-	//printf("\nfmt = %c", *fmt);
+//	printf("\nfmt = %c", *fmt);
 
 	if (*fmt == '.')
 		see_precision(st, fmt + 1, args);
@@ -75,7 +76,7 @@ void	see_width(sign_t *st, char *fmt, va_list args, int *c_signs)
 	if (ft_isdigit(fmt[*c_signs]))
 	{
 		st->width = ft_atoi(fmt + *c_signs);
-		c_signs += ft_intlen(st->width);
+		*c_signs += ft_intlen(st->width);
 	}
 	else if (fmt[(*c_signs)++] == '*')
 	{
@@ -94,7 +95,10 @@ void	see_precision(sign_t *st, char *fmt, va_list args)
 {
 	//printf("\nsign = %c", *fmt);
 	if (type(*fmt))
+	{
+		//printf("\nteste n\n");
 		st->dot = 0;
+	}
 	else if (*fmt == '-')
 	{
 		fmt++;
@@ -113,6 +117,7 @@ void	see_precision(sign_t *st, char *fmt, va_list args)
 	}
 	if (ft_isdigit(*fmt))
 		st->dot = ft_atoi(fmt);
+
 	//printf("\nst->dot = %d", st->dot);
 	//printf("\n size_c = %d , dot = %d\n", st->size_c, st->dot);
 	if (st->negprec)

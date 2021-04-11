@@ -6,13 +6,13 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:26:30 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/10 18:28:19 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/11 19:31:51 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char *get_arg(va_list args, char c, int *cminus)
+char *get_arg(va_list args, char c, int cminus)
 {
 	if (c == 's')
 		return (va_arg(args, char *));
@@ -38,7 +38,10 @@ void	do_arg(va_list args, sign_t *st)
 	else if (st->c == 'c')
 		return (specific_c(st, args));
 	else if (st->c == 'i' || st->c == 'd')
-		return (specific_i(st, args));
+		if (st->cminus)
+			return (specific_i_neg(st, args));
+		else
+			return (specific_i(st, args));
 	else if (st->c == 'u')
 		return (specific_u(st, args));
 	else if (st->c == 'x')

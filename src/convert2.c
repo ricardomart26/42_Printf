@@ -64,8 +64,9 @@ char		*ft_unsigneditoa(unsigned int n)
 	return (res);
 }
 
-char		*ft_itoa(int n, int **cminus)
+char		*ft_itoa(int n, int *cminus)
 {
+	//printf(" minus = %d", *cminus);
 	char	*str;
 	int		size;
 	if (n == -2147483648)
@@ -74,12 +75,14 @@ char		*ft_itoa(int n, int **cminus)
 		return (ft_strdup("0"));
 	size = ft_intlen(n);
 	str = (char *)malloc(size + 1);
+
 	if (!str)
 		return (NULL);
+
 	str[size] = '\0';
 	if (n < 0)
 	{
-		**cminus = 1;
+		*cminus = 1;
 		n *= -1;
 	}
 	while (n > 0)
@@ -88,6 +91,8 @@ char		*ft_itoa(int n, int **cminus)
 		n /= 10;
 		size--;
 	}
+	//printf(" minus = %d", *cminus);
+
 	return (str);
 }
 

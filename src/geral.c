@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:25:34 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/10 18:40:37 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/11 19:23:23 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	width(sign_t *st)
 	{
 		st->width -= st->size_c;
 			if (st->zero)
-				mult_char('0', &st->words, &st->width);
+				mult_char('0', &st->words, st->width);
 			else
-				mult_char(' ', &st->words, &st->width);
+				mult_char(' ', &st->words, st->width);
 
 	}
 	if (!(st->align))
