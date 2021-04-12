@@ -50,24 +50,14 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 		if (fmt[c_signs] == '-')
 			st->align = c_signs++;
 	}
-	//printf("\nzero = %d\n", st->zero);
 	if (ft_isdigit(fmt[c_signs]) || fmt[c_signs] == '*')
 		see_width(st, fmt, args, &c_signs);
-	//printf("\nfmt = %c", *fmt);
-	//printf("\nsign = %c", fmt[c_signs]);
-	//printf("\nc_signs = %d", c_signs);
 	fmt += c_signs;
-//	printf("\nfmt = %c", *fmt);
-
 	if (*fmt == '.')
 		see_precision(st, fmt + 1, args);
 	if (st->zero && (st->dot != -1 || st->align))
 		st->zero = 0;
-
-	// printf("\nalign = %d", st->align);
-	// printf("\ndot = %d", st->dot);
-	// printf("\nzero = %d\n", st->zero);
-	// printf("\nwidth = %d ", st->width);
+	st->temp_dot = st->dot;
 	do_arg(args, st);
 }
 

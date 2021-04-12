@@ -25,7 +25,7 @@ static int count_uni_hexa(long int adress)
   return (counter + 2);
 }
 
-char	*ft_convhexa(unsigned int decimal, int control, int *c_minus)
+char	*ft_convhexa(unsigned int decimal, int control, int **cminus)
 {
 	char	*hexa;
 	int		index;
@@ -42,7 +42,7 @@ char	*ft_convhexa(unsigned int decimal, int control, int *c_minus)
 	hexa[uni] = '\0';
   if (n < 0)
 	{
-		*c_minus = 1;
+		**cminus = 1;
 		n *= -1;
 	}
 	while (decimal > 0)
@@ -57,7 +57,7 @@ char	*ft_convhexa(unsigned int decimal, int control, int *c_minus)
 	return (hexa);
 }
 
-char  *ft_convadress(unsigned long adress, int *cminus)
+char  *ft_convadress(unsigned long adress, int **cminus)
 {
   int index;
   char str[16] = "0123456789abcdef";
@@ -72,7 +72,7 @@ char  *ft_convadress(unsigned long adress, int *cminus)
 		return (NULL);
 	if (n < 0)
 	{
-		*cminus = 1;
+		**cminus = 1;
 		n *= -1;
 	}
   ret[0] = '0';

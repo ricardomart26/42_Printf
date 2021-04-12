@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:45:47 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/11 19:51:24 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:44:40 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,16 @@ void negative_align(sign_t *st)
 	st->width--;
 	if (st->dot >= st->width)
 	{
-		//precision_inteiro(st);
+		precision_inteiro(st);
 		ft_putstr(st->conv, &st->words);
 	}
 	else if (st->width > st->size_c)
 	{
 		if (st->dot > st->size_c)
 			st->size_c = st->dot;
-		st->width -= st->size_c + 1;
-		mult_char('0', &st->words, st->width);
+		st->width -= st->size_c;
 		ft_putstr(st->conv, &st->words);
+		mult_char(' ', &st->words, st->width);
 	}
 }
 
@@ -138,17 +138,56 @@ void negative_align(sign_t *st)
 
 // 	}
 // }
+void	see_if_zero_neg(sign_t *st)
+{
+	if (!st->zero)
+	{
+		mult_char(' ', &st->words, st->width);
+		ft_putchar('-', &st->words);
+	}
+	else
+	{
+		ft_putchar('-', &st->words);
+		mult_char('0', &st->words, st->width);
+	}
+	mult_char('0', &st->words, st->temp_dot);
 
+}
 
-void specific_i_neg(sign_t *st, va_list args)
+void	width_negative(sign_t *st)
+{
+	if (st->dot > st->size_c)
+	{
+		st->temp_dot -= st->size_c;
+		st->width -= st->dot + 1;
+	}
+	else
+		st->width -= st->size_c + 1;
+
+	
+}
+
+void specific_i_neg(sign_t *st)
 {
 	//printf("\nteste n\n");
-	//printf("teste 1");
-	st->conv = get_arg(args, st->c, st->cminus);
-	st->size_c = ft_strlen(st->conv);
 
 	if (st->align)
 		negative_align(st);
+	else if (st->dot > st->width)
+	{
+		ft_putchar('-', &st->words);
+		precision_inteiro(st);
+		ft_putstr(st->conv, &st->words);
+	}
+	else if (st->width > st->size_c)
+	{
+		width_negative(st);
+		see_if_zero_neg(st);
+		ft_putstr(st->conv, &st->words);
+
+	}
+	free(st->conv);
+	st->conv = NULL;
 }
 
 // if (st->cminus)

@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:56:38 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/11 19:32:50 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:22:42 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@
 // 	}
 // }
 
-void specific_c(sign_t *st, va_list args)
+void specific_c(sign_t *st)
 {
-	st->conv = get_arg(args, st->c , st->cminus);
-	st->size_c = 1;
 	if (st->align && st->width)
 		ft_putchar(st->conv[0], &st->words);
 	//printf("\nteste width = %d\n", st->width);
@@ -62,14 +60,11 @@ void specific_c(sign_t *st, va_list args)
 	st->conv = NULL;
 }
 
-void specific_s(sign_t *st, va_list args)
+void specific_s(sign_t *st)
 {
-	st->conv = get_arg(args, st->c , st->cminus);
 	//printf("conv = %s ", st->conv);
 	if (!st->conv)
 		st->conv = "(null)";
-
-	st->size_c = ft_strlen(st->conv);
 	//printf("\ndot = %d\n", st->dot);
 	if (st->negprec)
 		st->dot = st->size_c;

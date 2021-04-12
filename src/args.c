@@ -6,13 +6,13 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:26:30 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/11 19:31:51 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:28:21 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char *get_arg(va_list args, char c, int cminus)
+char *get_arg(va_list args, char c, int *cminus)
 {
 	if (c == 's')
 		return (va_arg(args, char *));
@@ -33,21 +33,23 @@ char *get_arg(va_list args, char c, int cminus)
 
 void	do_arg(va_list args, sign_t *st)
 {
+	st->conv = get_arg(args, st->c, &st->cminus);
+	st->size_c = ft_strlen(st->conv);
 	if (st->c == 's')
-		return (specific_s(st, args));
+		return (specific_s(st));
 	else if (st->c == 'c')
-		return (specific_c(st, args));
+		return (specific_c(st));
 	else if (st->c == 'i' || st->c == 'd')
 		if (st->cminus)
-			return (specific_i_neg(st, args));
+			return (specific_i_neg(st));
 		else
-			return (specific_i(st, args));
+			return (specific_i(st));
 	else if (st->c == 'u')
-		return (specific_u(st, args));
+		return (specific_u(st));
 	else if (st->c == 'x')
-		return (specific_x(st, args));
+		return (specific_x(st));
 	else if (st->c == 'X')
-		return (specific_x(st, args));
+		return (specific_x(st));
 	else if (st->c == 'p')
-		return (specific_p(st , args));
+		return (specific_p(st ));
 }

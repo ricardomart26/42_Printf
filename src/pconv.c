@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:22:36 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/11 19:32:20 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:22:49 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,9 @@ void	negative_p(sign_t *st)
 		ft_putstr(st->conv, &st->words);
 }
 
-void specific_p(sign_t *st, va_list args)
+void specific_p(sign_t *st)
 {
 	// printf("teste");
-	st->conv = get_arg(args, st->c, st->cminus);
-	// printf("\n\n st->conv = %s\n\n", st->conv);
-	st->size_c = ft_strlen(st->conv);
 	// printf("\nwidth = %d", st->width);
 	// printf("\ndot = %d", st->dot);
 	// printf("\nalign = %d", st->align);
