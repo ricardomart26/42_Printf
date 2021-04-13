@@ -51,7 +51,7 @@ int size_per(char *fmt, char *c)
 
 void with_no_flags(va_list args, char *conv, int *words, char c)
 {
-	conv = get_arg(args, c, 0);
+	conv = get_arg(args, c, 0, 0);
 	if (c == 'c')
 		ft_putchar(conv[0], words);
 	else

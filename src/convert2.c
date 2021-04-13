@@ -27,7 +27,7 @@ int			ft_intlen(int n)
 	return (len);
 }
 
-static	int	ft_unsignedlen(unsigned int n)
+static	int	ft_unsignedlen(unsigned long long n)
 {
 	int	len;
 
@@ -42,7 +42,7 @@ static	int	ft_unsignedlen(unsigned int n)
 	return (len);
 }
 
-char		*ft_unsigneditoa(unsigned int n)
+char		*ft_unsigneditoa(unsigned long long n)
 {
 	char	*res;
 	size_t	len;
@@ -64,7 +64,7 @@ char		*ft_unsigneditoa(unsigned int n)
 	return (res);
 }
 
-char		*ft_itoa(int n, int **cminus)
+char		*ft_itoa(int n, int **cminus, int **max)
 {
 	//printf(" minus = %d", *cminus);
 	char	*str;
@@ -73,6 +73,11 @@ char		*ft_itoa(int n, int **cminus)
 		return (ft_strdup("-2147483648"));
 	else if (n == 0)
 		return (ft_strdup("0"));
+	else if (n == 2147483647)
+	{
+		**max = 1;
+		return (ft_strdup("2147483647"));
+	}
 	size = ft_intlen(n);
 	str = (char *)malloc(size + 1);
 

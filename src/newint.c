@@ -6,19 +6,26 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:45:47 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/12 18:44:40 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/13 18:26:25 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+void	precision_inteiro_neg(sign_t *st)
+{
+	int temp;
 
-
-// // void do_width_int
-// // {
-
-// // }
-
+	temp = st->dot;
+	if (st->dot < st->size_c && st->dot != -1) //&& (!st->align)
+		st->size_c = st->dot; // O size fica com 0
+	else if (st->dot > st->size_c)
+	{
+		temp -= st->size_c;
+		mult_char('0', &st->words, temp);
+		st->size_c = st->dot;
+	}
+}
 
 void	zero_neg_width(sign_t *st)
 {
@@ -37,8 +44,6 @@ void	zero_neg_width(sign_t *st)
 		}
 	}
 }
-
-
 
 void	width_neg(sign_t *st)
 {
@@ -64,9 +69,6 @@ void	width_neg(sign_t *st)
 	if (!st->align)
 		ft_putstr(st->conv, &st->words);
 }
-
-
-
 
 
 void	negative_int(sign_t *st)
@@ -101,43 +103,22 @@ void negative_align(sign_t *st)
 	st->width--;
 	if (st->dot >= st->width)
 	{
-		precision_inteiro(st);
+		precision_inteiro_neg(st);
 		ft_putstr(st->conv, &st->words);
 	}
 	else if (st->width > st->size_c)
 	{
 		if (st->dot > st->size_c)
-			st->size_c = st->dot;
+			precision_inteiro_neg(st);
+		//printf(" size_c = %d", st->size_c);
+		//printf(" width = %d", st->dot);
+
 		st->width -= st->size_c;
 		ft_putstr(st->conv, &st->words);
 		mult_char(' ', &st->words, st->width);
 	}
 }
 
-
-// void do_align(sign_t *st)
-// {
-// 	if (st->cminus)
-// 		negative_align(st);
-// 	else if (st->dot > st->size_c)
-// 	{
-// 		if (st->dot < st->width)
-// 		{
-// 			mult_char(' ', &st->words, st->width - st->dot);
-// 			mult_char('0', &st->words, st->dot - st->size_c);
-// 			ft_putstr(st->conv, &st->words);
-// 		}
-// 		else
-// 		{
-// 			mult_char('0', &st->words, st->dot - st->size_c);
-// 			ft_putstr(st->conv, &st->words);
-// 		}
-// 	}
-// 	else if (st->width > st->size_c)
-// 	{
-
-// 	}
-// }
 void	see_if_zero_neg(sign_t *st)
 {
 	if (!st->zero)
@@ -150,7 +131,8 @@ void	see_if_zero_neg(sign_t *st)
 		ft_putchar('-', &st->words);
 		mult_char('0', &st->words, st->width);
 	}
-	mult_char('0', &st->words, st->temp_dot);
+	if (st->dot > st->size_c)
+		mult_char('0', &st->words, st->temp_dot);
 
 }
 
@@ -163,28 +145,26 @@ void	width_negative(sign_t *st)
 	}
 	else
 		st->width -= st->size_c + 1;
-
-	
+	see_if_zero_neg(st);
 }
+
 
 void specific_i_neg(sign_t *st)
 {
-	//printf("\nteste n\n");
-
 	if (st->align)
+	{
 		negative_align(st);
-	else if (st->dot > st->width)
+	}
+	else if (st->dot >= st->width)
 	{
 		ft_putchar('-', &st->words);
-		precision_inteiro(st);
+		precision_inteiro_neg(st);
 		ft_putstr(st->conv, &st->words);
 	}
 	else if (st->width > st->size_c)
 	{
 		width_negative(st);
-		see_if_zero_neg(st);
 		ft_putstr(st->conv, &st->words);
-
 	}
 	free(st->conv);
 	st->conv = NULL;

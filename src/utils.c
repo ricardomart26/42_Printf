@@ -104,12 +104,12 @@ int	ft_atoi(char *str)
 	return (res);
 }
 
-void	swap(char **string, int *size, int *dot)
+void	swap(char **string, int size, int *dot)
 {
 	char *temp;
 
 	//printf("size = %d \n", size);
-	if (*size == 0)
+	if (size == 0)
 	{
 		temp = malloc(1);
 		temp[0] = '\0';
@@ -117,13 +117,13 @@ void	swap(char **string, int *size, int *dot)
 	}
 	else
 	{
-		temp = (char *)malloc(*size + 1);
+		temp = (char *)malloc(size + 1);
 		if (!temp)
 			return ;
-		while (*size)
+		while (size)
 		{
-			temp[(*size) - 1] = string[0][(*size) - 1];
-			(*size)--;
+			temp[size - 1] = string[0][size - 1];
+			size--;
 		}
 		temp[*dot + 1] = '\0';
 		*string = temp;

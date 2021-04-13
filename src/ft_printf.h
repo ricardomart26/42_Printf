@@ -22,7 +22,7 @@ typedef struct signs
 	int		words;
 	int		cminus;
 	int		negprec;
-
+	int		max_value;
 } sign_t;
 
 // printf
@@ -35,7 +35,7 @@ void	with_no_flags(va_list args, char *conv, int *words, char c);
 void	with_flags(sign_t *st, char *fmt, va_list args);
 
 // args
-char	*get_arg(va_list args, char c, int *cminus);
+char	*get_arg(va_list args, char c, int *cminus, int *max);
 void	do_arg(va_list args, sign_t *st);
 
 // Validate
@@ -50,11 +50,11 @@ char	*ft_strdup(char *src);
 int		ft_strlen(const char *str);
 int		ft_atoi(char *str);
 void	ft_putchar(char c, int *words);
-void	swap(char **string, int *size, int *dot);
+void	swap(char **string, int size, int *dot);
 
 // Convert
-char	*ft_unsigneditoa(unsigned int n);
-char	*ft_itoa(int n, int **cminus);
+char	*ft_unsigneditoa(unsigned long long n);
+char	*ft_itoa(int n, int **cminus, int **max);
 char	*ft_convadress(unsigned long adress, int **cminus);
 char	*ft_convhexa(unsigned int decimal, int control, int **c_minus);
 char	*ft_convert_char(int inteiro);
@@ -95,6 +95,7 @@ void 	specific_i_neg(sign_t *st);
 void	zero_neg_width(sign_t *st);
 void	negative_int(sign_t *st);
 void negative_align(sign_t *st);
+void	precision_inteiro_neg(sign_t *st);
 
 
 void 	specific_u(sign_t *st);

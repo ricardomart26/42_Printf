@@ -24,6 +24,7 @@ void init_struct(sign_t *st)
 	st->temp_dot = 0;
 	st->negprec = 0;
 	st->cminus = 0;
+	st->max_value = 0;
 }
 
 // Posso guardar os args na struct?
