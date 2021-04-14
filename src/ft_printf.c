@@ -45,13 +45,14 @@ int size_per(char *fmt, char *c)
 		*c = fmt[counter];
 		return (counter + 1);
 	}
-
 	return (1);
 }
 
 void with_no_flags(va_list args, char *conv, int *words, char c)
 {
 	conv = get_arg(args, c, 0, 0);
+	//printf("  %s  ", conv);
+
 	if (c == 'c')
 		ft_putchar(conv[0], words);
 	else
@@ -90,10 +91,10 @@ int ft_printf(const char *fmt, ...)
 	va_list args;
 	sign_t st;
 
-	// if (!fmt)
-	// 	return (0);
-	// if (invalid(fmt) != 0)
-	// 	return (-1);
+	if (!fmt)
+		return (0);
+	if (invalid(fmt) != 0)
+		return (-1);
 
 	va_start(args, (char *)fmt);
 	start_loop((char *)fmt, args, &st);
@@ -103,6 +104,8 @@ int ft_printf(const char *fmt, ...)
 
 // int main(void)
 // {
-// 	printf(" 0*%-0*.10d*0 0*%-0*.0d*0 ", 21, 1021, 21, -1011);
+// 	unsigned long long nbr = 18446744073709551615;
+// 	unsigned long *ptr = &nbr;
+// 	printf(" %p ", ptr);
 // 	ft_printf(" 0*%-0*.10d*0 0*%-0*.0d*0 ", 21, 1021, 21, -1011);
 // }

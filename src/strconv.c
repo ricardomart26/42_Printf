@@ -6,46 +6,12 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:56:38 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/13 19:36:58 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/14 19:28:50 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-// void	align_s(sign_t *st);
-// {
-
-// }
-
-// void	width_s_precision_s(sign_t *st)
-// {
-// 	if (st->dot < st->size_c)
-// 	{
-// 		st->size_c = st->dot;
-// 		swap(st);
-// 		st->dot = 0;
-// 	}
-// }
-
-// void	width_e_precision_s(sign_t *st)
-// {
-// 	if (st->dot < st->size_c)
-// 	{
-// 		st->size_c = st->dot;
-// 		swap(st);
-// 		st->dot = 0;
-// 	}
-// }
-
-// void	precision_s(sign_t *st)
-// {
-// 	if (st->dot < st->size_c)
-// 	{
-// 		st->size_c = st->dot;
-// 		swap(st);
-// 		st->dot = 0;
-// 	}
-// }
 
 
 void	width(sign_t *st)
@@ -77,7 +43,7 @@ void specific_c(sign_t *st)
 	}
 	else if (st->width)
 	{
-			printf(" words = %d ", st->words);
+			//printf(" words = %d ", st->words);
 
 		width(st);
 	}

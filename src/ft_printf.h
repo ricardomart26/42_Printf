@@ -55,8 +55,8 @@ void	swap(char **string, int size, int *dot);
 // Convert
 char	*ft_unsigneditoa(unsigned long long n);
 char	*ft_itoa(int n, int **cminus, int **max);
-char	*ft_convadress(unsigned long adress, int **cminus);
-char	*ft_convhexa(unsigned int decimal, int control, int **c_minus);
+char	*ft_convadress(unsigned long long adress);
+char	*ft_convhexa(unsigned long long decimal, int control);
 char	*ft_convert_char(int inteiro);
 int		ft_intlen(int n);
 
@@ -83,22 +83,27 @@ void	width_e_precision(sign_t *st);
 
 // int
 void	align_int(sign_t *st);
-void 	specific_i(sign_t *st);
+void	specific_i(sign_t *st);
 void	width_int(sign_t *st);
 void	precision_inteiro(sign_t *st);
-void align_width(sign_t *st);
+void	align_width(sign_t *st);
 
 
 // Neg int
 void	width_neg(sign_t *st);
-void 	specific_i_neg(sign_t *st);
+void	specific_i_neg(sign_t *st);
 void	zero_neg_width(sign_t *st);
 void	negative_int(sign_t *st);
-void negative_align(sign_t *st);
+void	negative_align(sign_t *st);
 void	precision_inteiro_neg(sign_t *st);
 
 
-void 	specific_u(sign_t *st);
+// Uint
+void	specific_u(sign_t *st);
+int		check_max_u_int(int size_c);
+void	align_int_u(sign_t *st, int uintmax);
+void	align_width_u(sign_t *st);
+void	width_int_u(sign_t *st, int uintmax);
 
 
 // Strings

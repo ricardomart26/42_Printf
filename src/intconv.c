@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:23:48 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/13 19:23:46 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/14 19:38:04 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	width_int_u(sign_t *st, int uintmax)
 
 }
 
-static void align_width_u(sign_t *st)
+void align_width_u(sign_t *st)
 {
 	if (st->size_c < st->width)
 	{
@@ -140,7 +140,7 @@ static void align_width_u(sign_t *st)
 
 
 
-static void align_int_u(sign_t *st, int uintmax)
+void align_int_u(sign_t *st, int uintmax)
 {
 	// if (mst->size_c = 0;
 	if (st->dot > st->size_c)
@@ -173,26 +173,6 @@ static void align_int_u(sign_t *st, int uintmax)
 
 int	check_max_u_int(int size_c)
 {
-	// char str[10];
-	// int c;
-
-	// str[0] = '4';
-	// str[1] = '2';
-	// str[2] = '9';
-	// str[3] = '4';
-	// str[4] = '9';
-	// str[5] = '6';
-	// str[6] = '7';
-	// str[7] = '2';
-	// str[8] = '9';
-	// str[9] = '5';
-	// c = 0;
-	// while (str[c] != '\0' && conv[c] != '\0')
-	// {
-	// 	if (str[c] != conv[c])
-	// 		break;
-	// 	c++;
-	// }
 
 	if (size_c > 9)
 		return (1);

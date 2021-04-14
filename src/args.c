@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:26:30 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/13 16:22:55 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/14 19:27:59 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ char *get_arg(va_list args, char c, int *cminus, int *max)
 	else if (c == 'u')
 		return (ft_unsigneditoa(va_arg(args, unsigned int)));
 	else if (c == 'x')
-		return (ft_convhexa(va_arg(args, unsigned int), 0, &cminus));
+		return (ft_convhexa(va_arg(args, unsigned long long), 0));
 	else if (c == 'X')
-		return (ft_convhexa(va_arg(args, unsigned int), 1, &cminus));
+		return (ft_convhexa(va_arg(args, unsigned long long), 1));
 	else if (c == 'p')
-		return (ft_convadress(va_arg(args, unsigned long), &cminus));
+		return (ft_convadress(va_arg(args, unsigned long long)));
 	return (0);
 }
 

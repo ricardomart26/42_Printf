@@ -12,11 +12,13 @@
 
 #include "ft_printf.h"
 
-static int count_uni_hexa(long int adress)
+static int count_uni_hexa(unsigned long long adress)
 {
   int counter;
 
   counter = 0;
+  if (adress == 0)
+    return (3);
   while (adress > 0)
   {
     adress /= 16;
@@ -25,7 +27,7 @@ static int count_uni_hexa(long int adress)
   return (counter + 2);
 }
 
-char	*ft_convhexa(unsigned int decimal, int control, int **cminus)
+char	*ft_convhexa(unsigned long long decimal, int control)
 {
 	char	*hexa;
 	int		index;
@@ -36,15 +38,15 @@ char	*ft_convhexa(unsigned int decimal, int control, int **cminus)
 
   n = 0;
 	uni = count_uni_hexa(decimal) - 2;
+  if (decimal == 0)
+    return (ft_strdup("0"));
 	hexa = malloc(uni + 1);
   if (!hexa)
 		return (NULL);
+
 	hexa[uni] = '\0';
   if (n < 0)
-	{
-		**cminus = 1;
 		n *= -1;
-	}
 	while (decimal > 0)
 	{
 		index = decimal % 16;
@@ -57,7 +59,7 @@ char	*ft_convhexa(unsigned int decimal, int control, int **cminus)
 	return (hexa);
 }
 
-char  *ft_convadress(unsigned long adress, int **cminus)
+char  *ft_convadress(unsigned long long adress)
 {
   int index;
   char str[16] = "0123456789abcdef";
@@ -67,14 +69,13 @@ char  *ft_convadress(unsigned long adress, int **cminus)
 
   n = 0;
   uni = count_uni_hexa(adress);
+  if (adress == 0)
+    return (ft_strdup("0x0"));
   ret = malloc(uni + 1);
   if (!ret)
 		return (NULL);
 	if (n < 0)
-	{
-		**cminus = 1;
 		n *= -1;
-	}
   ret[0] = '0';
   ret[1] = 'x';
   ret[uni] = '\0';
@@ -84,6 +85,7 @@ char  *ft_convadress(unsigned long adress, int **cminus)
     ret[--uni] = str[index];
     adress /= 16;
   }
+  //printf("ret = %s\n", ret);
   return (ret);
 }
 
