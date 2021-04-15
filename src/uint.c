@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xconv.c                                            :+:      :+:    :+:   */
+/*   uint.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 18:27:15 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/15 10:49:37 by rimartin         ###   ########.fr       */
+/*   Created: 2021/04/15 09:19:46 by rimartin          #+#    #+#             */
+/*   Updated: 2021/04/15 09:20:20 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
-
-void	precision_inteiro_x(sign_t *st)
-{
-	if (st->dot < st->size_c && st->dot != -1) //&& (!st->align)
-		st->size_c = st->dot; // O size fica com 0
-	else if (st->dot > st->size_c)
-	{
-		st->dot -= st->size_c;
-		mult_char('0', &st->words, st->dot);
-		st->size_c -= st->dot;
-	}
-}
-
-
-
-
-void	width_int_x(sign_t *st, int uintmax)
+void	width_int_u(sign_t *st, int uintmax)
 {
 	int size;
 	size = st->size_c;
@@ -48,7 +31,7 @@ void	width_int_x(sign_t *st, int uintmax)
 
 }
 
-void align_width_x(sign_t *st)
+void align_width_u(sign_t *st)
 {
 	if (st->size_c < st->width)
 	{
@@ -60,60 +43,70 @@ void align_width_x(sign_t *st)
 	}
 }
 
-void align_int_x(sign_t *st, int uintmax)
+
+
+
+void align_int_u(sign_t *st, int uintmax)
 {
 	// if (mst->size_c = 0;
 	if (st->dot > st->size_c)
 	{
-
-		precision_inteiro_x(st);
+		precision_inteiro(st);
 		//printf("teste");
 		ft_putstr(st->conv, &st->words);
-		width_int_x(st, uintmax);
-		//printf("\n words 1 = %d\n", st->words);
+		width_int(st);
 	}
 	else if (st->width > st->size_c)
 	{
-		if (st->dot != 0 || uintmax == 1 || st->cdot > 0)
-			ft_putstr(st->conv, &st->words);
-		else
-			st->size_c = 0;
-		align_width_x(st);
-	}
-	else if (uintmax == 1)
-	{
-		ft_putstr(st->conv, &st->words);
-	}
-}
-
-int	check_max_x_int(int size_c)
-{
-	if (size_c > 5)
-		return (1);
-	else
-		return (0);
-}
-
-
-void specific_x(sign_t *st)
-{
-	int uintmax;
-	//printf(" conv = %s ", st->conv);
-	uintmax = check_max_x_int(st->size_c);
-	if (st->align)
-		align_int_x(st, uintmax);
-	else
-	{
-		if (st->width > st->dot)
-			width_int_x(st, uintmax);
-		if (st->dot != -1)
-			precision_inteiro_x(st);
-		// printf("cdot = %d", st->cdot);
-		if (st->dot != 0 || (st->cdot == 0 && uintmax == 1))
+		if (st->dot != 0 || uintmax == 1)
 		{
 			ft_putstr(st->conv, &st->words);
 		}
+		else
+			st->size_c = 0;
+		align_width_u(st);
 	}
+	else if (uintmax == 1)
+		ft_putstr(st->conv, &st->words);
+
+	// else if (st->dot == 0)
+	// {
+	// 	align_width(st);
+	// }
+}
+
+
+
+int	check_max_u_int(int size_c)
+{
+
+	if (size_c > 9)
+		return (1);
+	else
+		return (0);
+
+}
+
+void specific_u(sign_t *st)
+{
+	int uintmax;
+
+	uintmax = check_max_u_int(st->size_c);
+	if (st->dot == 0 && !st->width && !st->align && st->conv[0] != '0')
+		ft_putstr(st->conv, &st->words);
+	if (st->align)
+		align_int_u(st, uintmax);
+	else
+	{
+		if (st->width > st->dot)
+			width_int_u(st, uintmax);
+		if (st->dot != -1)
+			precision_inteiro(st);
+		if (st->dot != 0 || uintmax == 1)
+			ft_putstr(st->conv, &st->words);
+	}
+
 	free(st->conv);
 	st->conv = NULL;
 }
+

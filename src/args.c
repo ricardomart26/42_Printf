@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:26:30 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/14 19:27:59 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/15 09:58:53 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char *get_arg(va_list args, char c, int *cminus, int *max)
 	else if (c == 'u')
 		return (ft_unsigneditoa(va_arg(args, unsigned int)));
 	else if (c == 'x')
-		return (ft_convhexa(va_arg(args, unsigned long long), 0));
+		return (ft_convhexa(va_arg(args, unsigned int), 0));
 	else if (c == 'X')
-		return (ft_convhexa(va_arg(args, unsigned long long), 1));
+		return (ft_convhexa(va_arg(args, unsigned int), 1));
 	else if (c == 'p')
 		return (ft_convadress(va_arg(args, unsigned long long)));
 	return (0);
@@ -46,10 +46,10 @@ void	do_arg(va_list args, sign_t *st)
 			return (specific_i(st));
 	else if (st->c == 'u')
 		return (specific_u(st));
-	else if (st->c == 'x')
+	else if (st->c == 'x' || st->c == 'X')
 		return (specific_x(st));
-	else if (st->c == 'X')
-		return (specific_x(st));
+	// else if (st->c == 'X')
+	// 	return (specific_x(st));
 	else if (st->c == 'p')
 		return (specific_p(st ));
 }

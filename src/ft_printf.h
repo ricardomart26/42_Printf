@@ -14,11 +14,11 @@ typedef struct signs
 	int		align;
 	int		width;
 	int		dot;
+	int		cdot;
 	char	c;
 	char	*conv;
 	int		size_c;
 	int		temp_dot;
-	int		c_signs;
 	int		words;
 	int		cminus;
 	int		negprec;
@@ -56,7 +56,7 @@ void	swap(char **string, int size, int *dot);
 char	*ft_unsigneditoa(unsigned long long n);
 char	*ft_itoa(int n, int **cminus, int **max);
 char	*ft_convadress(unsigned long long adress);
-char	*ft_convhexa(unsigned long long decimal, int control);
+char	*ft_convhexa(unsigned int decimal, int control);
 char	*ft_convert_char(int inteiro);
 int		ft_intlen(int n);
 
@@ -116,6 +116,14 @@ void 	specific_c(sign_t *st);
 
 // outros
 void 	specific_x(sign_t *st);
+void	precision_inteiro_x(sign_t *st);
+int		check_max_x_int(int size_c);
+void	align_int_x(sign_t *st, int uintmax);
+void	align_width_x(sign_t *st);
+void	width_int_x(sign_t *st, int uintmax);
+
+
+
 void 	specific_p(sign_t *st);
 
 

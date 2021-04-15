@@ -17,6 +17,7 @@ void init_struct(sign_t *st)
 	st->align = 0;
 	st->zero = 0;
 	st->dot = -1;
+	st->cdot = 0;
 	st->width = 0;
 	st->c = 48;
 	st->conv = 0;
@@ -87,7 +88,7 @@ void	see_precision(sign_t *st, char *fmt, va_list args)
 	//printf("\nsign = %c", *fmt);
 	if (type(*fmt))
 	{
-		//printf("\nteste n\n");
+		st->cdot = 1;
 		st->dot = 0;
 	}
 	else if (*fmt == '-')
@@ -100,7 +101,7 @@ void	see_precision(sign_t *st, char *fmt, va_list args)
 		//printf("\nsign = %c ", fmt[c_signs]);
 		st->dot = va_arg(args, int);
 		//printf("\nst->dot = %d", st->dot);
-		if (st->dot < 0 )
+		if (st->dot < 0)
 		{
 			st->dot *= -1;
 			st->negprec = 1;

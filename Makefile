@@ -12,7 +12,7 @@ SRCS = src/*.c
 
 OBJS = objs/convert.o objs/convert2.o objs/check_flags.o objs/ft_printf.o objs/args.o \
 	   objs/utils.o objs/validate.o objs/strconv.o objs/intconv.o objs/pconv.o objs/geral.o objs/xconv.o \
-	   objs/newint.o \
+	   objs/newint.o objs/uint.o\
 
 all: $(NAME)
 
