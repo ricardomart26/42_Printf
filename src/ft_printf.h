@@ -33,16 +33,13 @@ int		size_per(char *fmt, char *c);
 //void	free_needed(char *string, char c);
 void	with_no_flags(va_list args, char *conv, int *words, char c);
 void	with_flags(sign_t *st, char *fmt, va_list args);
-
 // args
 char	*get_arg(va_list args, char c, int *cminus, int *max);
 void	do_arg(va_list args, sign_t *st);
-
 // Validate
 int		type(char c);
 int		sign(char c);
 int		invalid(char const *str);
-
 // utils
 int		ft_isdigit(char c);
 void	ft_putstr(char *string, int *words);
@@ -51,7 +48,6 @@ int		ft_strlen(const char *str);
 int		ft_atoi(char *str);
 void	ft_putchar(char c, int *words);
 void	swap(char **string, int size, int *dot);
-
 // Convert
 char	*ft_unsigneditoa(unsigned long long n);
 char	*ft_itoa(int n, int **cminus, int **max);
@@ -59,27 +55,15 @@ char	*ft_convadress(unsigned long long adress);
 char	*ft_convhexa(unsigned int decimal, int control);
 char	*ft_convert_char(int inteiro);
 int		ft_intlen(int n);
-
-
 // Check
 void	init_struct(sign_t *signs);
 void	see_precision(sign_t *signs, char *format, va_list args);
 void	see_width(sign_t *signs, char *format, va_list args, int *c_signs);
 void	flags(sign_t *signs, char *format, va_list args);
 
-
-
 void	mult_char(char c, int *words, int size);
-
-
-
 void	width(sign_t *st);
-//void	precision(sign_t *st);
-void	width_s_precision(sign_t *st);
 void	align(sign_t *st);
-void	width_b_precision(sign_t *st);
-void	width_e_precision(sign_t *st);
-
 
 // int
 void	align_int(sign_t *st);
@@ -109,8 +93,6 @@ void	width_int_u(sign_t *st, int uintmax);
 // Strings
 void	precision_s(sign_t *st);
 void 	specific_s(sign_t *st);
-//void	width_s_precision_s(sign_t *st);
-//void	width_e_precision_s(sign_t *st);
 void 	specific_c(sign_t *st);
 
 
@@ -122,9 +104,5 @@ void	align_int_x(sign_t *st, int uintmax);
 void	align_width_x(sign_t *st);
 void	width_int_x(sign_t *st, int uintmax);
 
-
-
 void 	specific_p(sign_t *st);
-
-
 #endif

@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:26:30 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/15 09:58:53 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/16 20:31:58 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ char *get_arg(va_list args, char c, int *cminus, int *max)
 void	do_arg(va_list args, sign_t *st)
 {
 	st->conv = get_arg(args, st->c, &st->cminus, &st->max_value);
-	st->size_c = ft_strlen(st->conv);
+	if (st->conv != NULL)
+		st->size_c = ft_strlen(st->conv);
 	if (st->c == 's')
 		return (specific_s(st));
 	else if (st->c == 'c')
@@ -48,8 +49,6 @@ void	do_arg(va_list args, sign_t *st)
 		return (specific_u(st));
 	else if (st->c == 'x' || st->c == 'X')
 		return (specific_x(st));
-	// else if (st->c == 'X')
-	// 	return (specific_x(st));
 	else if (st->c == 'p')
 		return (specific_p(st ));
 }

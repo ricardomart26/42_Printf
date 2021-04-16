@@ -6,13 +6,11 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:27:15 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/15 10:49:37 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/16 19:40:33 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-
 
 void	precision_inteiro_x(sign_t *st)
 {
@@ -25,9 +23,6 @@ void	precision_inteiro_x(sign_t *st)
 		st->size_c -= st->dot;
 	}
 }
-
-
-
 
 void	width_int_x(sign_t *st, int uintmax)
 {
@@ -60,30 +55,27 @@ void align_width_x(sign_t *st)
 	}
 }
 
-void align_int_x(sign_t *st, int uintmax)
+void align_int_x(sign_t *st, int xintmax)
 {
-	// if (mst->size_c = 0;
 	if (st->dot > st->size_c)
 	{
 
 		precision_inteiro_x(st);
 		//printf("teste");
 		ft_putstr(st->conv, &st->words);
-		width_int_x(st, uintmax);
+		width_int_x(st, xintmax);
 		//printf("\n words 1 = %d\n", st->words);
 	}
 	else if (st->width > st->size_c)
 	{
-		if (st->dot != 0 || uintmax == 1 || st->cdot > 0)
+		if (st->dot != 0 || xintmax == 1 || st->cdot > 0)
 			ft_putstr(st->conv, &st->words);
 		else
 			st->size_c = 0;
 		align_width_x(st);
 	}
-	else if (uintmax == 1)
-	{
+	else if (xintmax == 1)
 		ft_putstr(st->conv, &st->words);
-	}
 }
 
 int	check_max_x_int(int size_c)
@@ -94,22 +86,22 @@ int	check_max_x_int(int size_c)
 		return (0);
 }
 
-
 void specific_x(sign_t *st)
 {
-	int uintmax;
+	int xintmax;
 	//printf(" conv = %s ", st->conv);
-	uintmax = check_max_x_int(st->size_c);
+	xintmax = check_max_x_int(st->size_c);
 	if (st->align)
-		align_int_x(st, uintmax);
+		align_int_x(st, xintmax);
 	else
 	{
 		if (st->width > st->dot)
-			width_int_x(st, uintmax);
+			width_int_x(st, xintmax);
 		if (st->dot != -1)
 			precision_inteiro_x(st);
-		// printf("cdot = %d", st->cdot);
-		if (st->dot != 0 || (st->cdot == 0 && uintmax == 1))
+		//printf("cdot = %d", st->cdot);
+		// printf("cdot = %s", st->conv);
+		if (st->dot != 0 || st->conv[0] != '0')
 		{
 			ft_putstr(st->conv, &st->words);
 		}

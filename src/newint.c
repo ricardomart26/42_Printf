@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:45:47 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/13 18:26:25 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/16 18:59:50 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,11 @@ void	width_neg(sign_t *st)
 		ft_putstr(st->conv, &st->words);
 }
 
-
 void	negative_int(sign_t *st)
 {
 	if (st->dot >= st->width)
 	{
 		ft_putchar('-', &st->words);
-		//precision_inteiro(st);
 		ft_putstr(st->conv, &st->words);
 	}
 	else if (st->width && st->dot == -1)
@@ -110,9 +108,6 @@ void negative_align(sign_t *st)
 	{
 		if (st->dot > st->size_c)
 			precision_inteiro_neg(st);
-		//printf(" size_c = %d", st->size_c);
-		//printf(" width = %d", st->dot);
-
 		st->width -= st->size_c;
 		ft_putstr(st->conv, &st->words);
 		mult_char(' ', &st->words, st->width);
@@ -152,9 +147,7 @@ void	width_negative(sign_t *st)
 void specific_i_neg(sign_t *st)
 {
 	if (st->align)
-	{
 		negative_align(st);
-	}
 	else if (st->dot >= st->width)
 	{
 		ft_putchar('-', &st->words);
@@ -169,11 +162,3 @@ void specific_i_neg(sign_t *st)
 	free(st->conv);
 	st->conv = NULL;
 }
-
-// if (st->cminus)
-// {
-// 	//printf("\nteste n\n");
-// 	ft_putchar('-', &st->words);
-// 	ft_putstr(st->conv, &st->words);
-// 	negative_int(st);
-// }

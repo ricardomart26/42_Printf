@@ -39,7 +39,6 @@ int invalid(char const *str)
 	return (0);
 }
 
-
 int type(char c)
 {
 	if (c == 'c' || c == 'd' || c == 's' || c == 'i'

@@ -50,7 +50,9 @@ char	*ft_strdup(char *src)
 	char	*dest;
 	int		i;
 
-	if ((dest = malloc(ft_strlen(src) * sizeof(char) + 1)) == NULL)
+	dest = malloc(ft_strlen(src) * sizeof(char) + 1);
+
+	if (!dest)
 		return (0);
 	i = 0;
 	while (src[i] != '\0')
@@ -62,8 +64,6 @@ char	*ft_strdup(char *src)
 	return (dest);
 }
 
-
-
 int	ft_strlen(const char *str)
 {
 	int c;
@@ -73,7 +73,6 @@ int	ft_strlen(const char *str)
 		c++;
 	return (c);
 }
-
 
 int	ft_atoi(char *str)
 {
@@ -108,7 +107,6 @@ void	swap(char **string, int size, int *dot)
 {
 	char *temp;
 
-	//printf("size = %d \n", size);
 	if (size == 0)
 	{
 		temp = malloc(1);
@@ -129,5 +127,4 @@ void	swap(char **string, int size, int *dot)
 		*string = temp;
 	}
 	free(*string);
-
 }

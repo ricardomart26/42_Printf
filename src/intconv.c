@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:23:48 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/15 09:19:39 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/16 19:22:13 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	precision_inteiro(sign_t *st)
 		st->size_c -= st->dot;
 	}
 }
-
-
 
 void	width_int(sign_t *st)
 {
@@ -44,7 +42,6 @@ void	width_int(sign_t *st)
 	}
 
 }
-
 
 void align_width(sign_t *st)
 {
@@ -76,10 +73,6 @@ void align_int(sign_t *st)
 			ft_putstr(st->conv, &st->words);
 		align_width(st);
 	}
-	// else if (st->dot == 0)
-	// {
-	// 	align_width(st);
-	// }
 }
 
 void specific_i(sign_t *st)
@@ -97,7 +90,6 @@ void specific_i(sign_t *st)
 		if (st->dot != 0)
 			ft_putstr(st->conv, &st->words);
 	}
-
 	free(st->conv);
 	st->conv = NULL;
 }

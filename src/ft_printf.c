@@ -52,6 +52,8 @@ void with_no_flags(va_list args, char *conv, int *words, char c)
 {
 	conv = get_arg(args, c, 0, 0);
 	//printf("  %s  ", conv);
+	if (conv == NULL)
+		conv = "(null)";
 
 	if (c == 'c')
 		ft_putchar(conv[0], words);
@@ -68,20 +70,23 @@ void start_loop(char *fmt, va_list args, sign_t *st)
 	st->words = 0;
 	while (*fmt != '\0')
 	{
-		//printf("\nbe words = %d", st->words);
 		init_struct(st);
 		fmt += print_until_perc((char *)fmt, &st->words);
-		//printf("\naf words = %d", st->words);
 		if (*fmt == '\0')
 			break;
 		size_perc = size_per((char *)fmt, &st->c);
 		if (size_perc == 2)
 			if (fmt[1] == '%')
+			{
 				write(1, "%%", 1);
+				st->words++;
+			}
 			else
 				with_no_flags(args, st->conv, &st->words, st->c);
 		else if (size_perc > 2)
 			with_flags(st, fmt, args);
+		// printf("last words = %d", st->words);
+
 		fmt += size_perc;
 	}
 }
@@ -101,11 +106,3 @@ int ft_printf(const char *fmt, ...)
 	va_end(args);
 	return (st.words);
 }
-
-// int main(void)
-// {
-// 	unsigned long long nbr = 18446744073709551615;
-// 	unsigned long *ptr = &nbr;
-// 	printf(" %p ", ptr);
-// 	ft_printf(" 0*%-0*.10d*0 0*%-0*.0d*0 ", 21, 1021, 21, -1011);
-// }

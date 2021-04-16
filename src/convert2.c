@@ -66,9 +66,9 @@ char		*ft_unsigneditoa(unsigned long long n)
 
 char		*ft_itoa(int n, int **cminus, int **max)
 {
-	//printf(" minus = %d", *cminus);
 	char	*str;
 	int		size;
+
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	else if (n == 0)
@@ -80,10 +80,8 @@ char		*ft_itoa(int n, int **cminus, int **max)
 	}
 	size = ft_intlen(n);
 	str = (char *)malloc(size + 1);
-
 	if (!str)
 		return (NULL);
-
 	str[size] = '\0';
 	if (n < 0)
 	{
@@ -96,8 +94,6 @@ char		*ft_itoa(int n, int **cminus, int **max)
 		n /= 10;
 		size--;
 	}
-	//printf(" minus = %d", *cminus);
-
 	return (str);
 }
 
@@ -112,8 +108,5 @@ char *ft_convert_char(int inteiro)
 	c = (char)inteiro;
 	temp[0] = c;
 	temp[1] = '\0';
-	//printf("temp = %c", temp[0]);
 	return (temp);
 }
-
-

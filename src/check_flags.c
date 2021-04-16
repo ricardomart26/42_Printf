@@ -79,13 +79,10 @@ void	see_width(sign_t *st, char *fmt, va_list args, int *c_signs)
 			st->align = 1;
 		}
 	}
-	// printf("\nwidth = %d", st->width);
 }
 
-// default . e 6 sem certezas
 void	see_precision(sign_t *st, char *fmt, va_list args)
 {
-	//printf("\nsign = %c", *fmt);
 	if (type(*fmt))
 	{
 		st->cdot = 1;
@@ -98,9 +95,7 @@ void	see_precision(sign_t *st, char *fmt, va_list args)
 	}
 	else if (*fmt == '*')
 	{
-		//printf("\nsign = %c ", fmt[c_signs]);
 		st->dot = va_arg(args, int);
-		//printf("\nst->dot = %d", st->dot);
 		if (st->dot < 0)
 		{
 			st->dot *= -1;
@@ -109,13 +104,6 @@ void	see_precision(sign_t *st, char *fmt, va_list args)
 	}
 	if (ft_isdigit(*fmt))
 		st->dot = ft_atoi(fmt);
-
-	//printf("\nst->dot = %d", st->dot);
-	//printf("\n size_c = %d , dot = %d\n", st->size_c, st->dot);
 	if (st->negprec)
 		st->dot = 0;
 }
-
-// Fazer caso especial para se for so 0?
-// Se aparecer o (-) entao escrever primeiro o arg e depois as signs
-// Verificar se signs existem.

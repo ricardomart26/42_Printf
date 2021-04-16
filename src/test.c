@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   geral.c                                            :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 18:25:34 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/16 18:52:35 by rimartin         ###   ########.fr       */
+/*   Created: 2021/04/16 20:23:00 by rimartin          #+#    #+#             */
+/*   Updated: 2021/04/16 20:25:38 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	width_s_precision(sign_t *st)
+#include <stdio.h>
+
+int main(void)
 {
-	if (st->dot < st->size_c)
-	{
-		st->size_c = st->dot;
-		swap(&st->conv, st->size_c, &st->dot);
-		st->dot = 0;
-	}
+	int i;
+	char *str;
+
+	i = printf(" %-3.s ", NULL);
+	printf("\n i = %d", i);
+	i = printf("\n %-3.s ", NULL);
+	printf("\n i = %d", i);
 }

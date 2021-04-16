@@ -45,9 +45,6 @@ char	*ft_convhexa(unsigned int decimal, int control)
 	while (decimal > 0)
 	{
 		index = decimal % 16;
-    // printf(" \n index = %d", index);
-    // printf(" \n decimal = %u", decimal);
-
 		if (control == 1)
 			hexa[--uni] = strX[index];
 		else
@@ -81,7 +78,6 @@ char  *ft_convadress(unsigned long long adress)
     ret[--uni] = str[index];
     adress /= 16;
   }
-  //printf("ret = %s\n", ret);
   return (ret);
 }
 
