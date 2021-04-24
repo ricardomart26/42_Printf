@@ -12,9 +12,9 @@
 
 #include "ft_printf.h"
 
-int			ft_intlen(int n)
+int	ft_intlen(int n)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (n < 0)
@@ -42,7 +42,7 @@ static	int	ft_unsignedlen(unsigned long long n)
 	return (len);
 }
 
-char		*ft_unsigneditoa(unsigned long long n)
+char	*ft_unsigneditoa(unsigned long long n)
 {
 	char	*res;
 	size_t	len;
@@ -64,7 +64,7 @@ char		*ft_unsigneditoa(unsigned long long n)
 	return (res);
 }
 
-char		*ft_itoa(int n, int **cminus, int **max)
+char	*ft_itoa(int n, int **cminus, int **max)
 {
 	char	*str;
 	int		size;
@@ -97,7 +97,7 @@ char		*ft_itoa(int n, int **cminus, int **max)
 	return (str);
 }
 
-char *ft_convert_char(int inteiro)
+char	*ft_convert_char(int inteiro)
 {
 	char c;
 	char *temp;

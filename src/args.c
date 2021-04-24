@@ -6,13 +6,13 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:26:30 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/16 20:31:58 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/24 17:13:32 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char *get_arg(va_list args, char c, int *cminus, int *max)
+char	*get_arg(va_list args, char c, int *cminus, int *max)
 {
 	if (c == 's')
 		return (va_arg(args, char *));
@@ -28,6 +28,8 @@ char *get_arg(va_list args, char c, int *cminus, int *max)
 		return (ft_convhexa(va_arg(args, unsigned int), 1));
 	else if (c == 'p')
 		return (ft_convadress(va_arg(args, unsigned long long)));
+	else if (c == '%')
+		return (ft_convert_char('%'));
 	return (0);
 }
 
@@ -50,5 +52,7 @@ void	do_arg(va_list args, sign_t *st)
 	else if (st->c == 'x' || st->c == 'X')
 		return (specific_x(st));
 	else if (st->c == 'p')
-		return (specific_p(st ));
+		return (specific_p(st));
+	else if (st->c == '%')
+		return (percentagem(st));
 }

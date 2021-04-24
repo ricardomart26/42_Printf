@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void init_struct(sign_t *st)
+void	init_struct(sign_t *st)
 {
 	st->align = 0;
 	st->zero = 0;
@@ -26,19 +26,8 @@ void init_struct(sign_t *st)
 	st->negprec = 0;
 	st->cminus = 0;
 	st->max_value = 0;
-}
 
-// Posso guardar os args na struct?
-// Como alocar memoria para variavel que vai guardar a string convertida?
-// Nao esquecer de chamar as funcoes width e sign
-// Precisao %5.4d (10) sao 5 espacos, mas 3 numeros, exemplo ( 0010);
-// Precisao das strings %10.4s (      olai)a esquerda sao os espacos e a direita os caracteres
-// Width .carateres
-// if (width menor que a string ignorar, se for maior acrescentar espacos.)
-// if (width menor que a string ignorar, se for maior acrescentar espacos.)
-// if (menos entao print string e acrescentar espacos a direita)
-// Fazer align depois de escrever a conversao
-// Funcao para saber o tamanho, para onde mandar mos o tamanho?
+}
 
 void	with_flags(sign_t *st, char *fmt, va_list args)
 {

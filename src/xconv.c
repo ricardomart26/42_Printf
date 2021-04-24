@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:27:15 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/16 19:40:33 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/24 17:27:03 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	precision_inteiro_x(sign_t *st)
 {
-	if (st->dot < st->size_c && st->dot != -1) //&& (!st->align)
-		st->size_c = st->dot; // O size fica com 0
+	if (st->dot < st->size_c && st->dot != -1)
+		st->size_c = st->dot;
 	else if (st->dot > st->size_c)
 	{
 		st->dot -= st->size_c;
@@ -26,7 +26,8 @@ void	precision_inteiro_x(sign_t *st)
 
 void	width_int_x(sign_t *st, int uintmax)
 {
-	int size;
+	int	size;
+
 	size = st->size_c;
 	if (st->temp_dot > size)
 		size = st->temp_dot;
@@ -40,10 +41,9 @@ void	width_int_x(sign_t *st, int uintmax)
 		else
 			mult_char(' ', &st->words, st->width);
 	}
-
 }
 
-void align_width_x(sign_t *st)
+void	align_width_x(sign_t *st)
 {
 	if (st->size_c < st->width)
 	{
@@ -55,20 +55,17 @@ void align_width_x(sign_t *st)
 	}
 }
 
-void align_int_x(sign_t *st, int xintmax)
+void	align_int_x(sign_t *st, int xintmax)
 {
 	if (st->dot > st->size_c)
 	{
-
 		precision_inteiro_x(st);
-		//printf("teste");
 		ft_putstr(st->conv, &st->words);
 		width_int_x(st, xintmax);
-		//printf("\n words 1 = %d\n", st->words);
 	}
 	else if (st->width > st->size_c)
 	{
-		if (st->dot != 0 || xintmax == 1 || st->cdot > 0)
+		if (st->dot != 0 || xintmax == 1 || st->cdot > 1)
 			ft_putstr(st->conv, &st->words);
 		else
 			st->size_c = 0;
@@ -76,20 +73,14 @@ void align_int_x(sign_t *st, int xintmax)
 	}
 	else if (xintmax == 1)
 		ft_putstr(st->conv, &st->words);
-}
-
-int	check_max_x_int(int size_c)
-{
-	if (size_c > 5)
-		return (1);
 	else
-		return (0);
+		ft_putstr(st->conv, &st->words);
 }
 
-void specific_x(sign_t *st)
+void	specific_x(sign_t *st)
 {
-	int xintmax;
-	//printf(" conv = %s ", st->conv);
+	int	xintmax;
+
 	xintmax = check_max_x_int(st->size_c);
 	if (st->align)
 		align_int_x(st, xintmax);
@@ -99,8 +90,6 @@ void specific_x(sign_t *st)
 			width_int_x(st, xintmax);
 		if (st->dot != -1)
 			precision_inteiro_x(st);
-		//printf("cdot = %d", st->cdot);
-		// printf("cdot = %s", st->conv);
 		if (st->dot != 0 || st->conv[0] != '0')
 		{
 			ft_putstr(st->conv, &st->words);

@@ -31,7 +31,7 @@ void	start_loop(char *format, va_list args, sign_t *signs);
 int		ft_printf(const char *format, ...);
 int		size_per(char *fmt, char *c);
 //void	free_needed(char *string, char c);
-void	with_no_flags(va_list args, char *conv, int *words, char c);
+void	with_no_flags(va_list args, sign_t *st);
 void	with_flags(sign_t *st, char *fmt, va_list args);
 // args
 char	*get_arg(va_list args, char c, int *cminus, int *max);
@@ -103,6 +103,7 @@ int		check_max_x_int(int size_c);
 void	align_int_x(sign_t *st, int uintmax);
 void	align_width_x(sign_t *st);
 void	width_int_x(sign_t *st, int uintmax);
+void	percentagem(sign_t *st);
 
 void 	specific_p(sign_t *st);
 #endif

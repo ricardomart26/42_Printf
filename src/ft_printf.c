@@ -12,60 +12,51 @@
 
 #include "ft_printf.h"
 
-// Verificar se esta a contar bem as palavras
-// Ver se e melhor fazer uma função para escrever e depois as flags ou vice versa
-// Ver o 0
-// Perguntar se temos que meter o 0x ja que o # faz isso
-
-int print_until_perc(char *fmt, int *words) // Write até ao %
+int	print_until_perc(char *fmt, int *words)
 {
-	int c;
+	int	c;
 
 	c = 0;
 	while (fmt[c] != '%' && fmt[c] != '\0')
 		c++;
-
 	write(1, fmt, c);
 	*words += c;
 	return (c);
 }
 
-int size_per(char *fmt, char *c)
+int	size_per(char *fmt, char *c)
 {
-	int counter;
+	int	counter;
 
-	counter = 0;
-	if (fmt[counter + 1] == '%')
-		return (2);
-
+	counter = 1;
 	while ((!type(fmt[counter])))
 		counter++;
 	if (type(fmt[counter]))
 	{
 		*c = fmt[counter];
-		return (counter + 1);
+		return (counter);
 	}
 	return (1);
 }
 
-void with_no_flags(va_list args, char *conv, int *words, char c)
+void	with_no_flags(va_list args, sign_t *st)
 {
-	conv = get_arg(args, c, 0, 0);
-	//printf("  %s  ", conv);
-	if (conv == NULL)
-		conv = "(null)";
-
-	if (c == 'c')
-		ft_putchar(conv[0], words);
+	st->conv = get_arg(args, st->c, &st->cminus, &st->max_value);
+	if (st->cminus == 1)
+		ft_putchar('-', &st->words);
+	if (st->conv == NULL)
+		st->conv = "(null)";
+	if (st->c == 'c')
+		ft_putchar(st->conv[0], &st->words);
 	else
-		ft_putstr(conv, words);
-	if (c != 's')
-		free(conv);
+		ft_putstr(st->conv, &st->words);
+	if (st->c != 's')
+		free(st->conv);
 }
 
-void start_loop(char *fmt, va_list args, sign_t *st)
+void	start_loop(char *fmt, va_list args, sign_t *st)
 {
-	int size_perc;
+	int	size_perc;
 
 	st->words = 0;
 	while (*fmt != '\0')
@@ -75,34 +66,41 @@ void start_loop(char *fmt, va_list args, sign_t *st)
 		if (*fmt == '\0')
 			break;
 		size_perc = size_per((char *)fmt, &st->c);
-		if (size_perc == 2)
+		if (size_perc == 1)
 			if (fmt[1] == '%')
 			{
 				write(1, "%%", 1);
 				st->words++;
 			}
 			else
-				with_no_flags(args, st->conv, &st->words, st->c);
-		else if (size_perc > 2)
+				with_no_flags(args, st);
+		else if (size_perc > 1)
 			with_flags(st, fmt, args);
-		// printf("last words = %d", st->words);
-
-		fmt += size_perc;
+		fmt += size_perc + 1;
 	}
 }
 
-int ft_printf(const char *fmt, ...)
+int	ft_printf(const char *fmt, ...)
 {
-	va_list args;
-	sign_t st;
+	va_list	args;
+	sign_t	st;
 
 	if (!fmt)
 		return (0);
 	if (invalid(fmt) != 0)
 		return (-1);
-
 	va_start(args, (char *)fmt);
 	start_loop((char *)fmt, args, &st);
 	va_end(args);
 	return (st.words);
 }
+
+// int main(void)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	printf(" p = %-.d \n", 0);
+// 	ft_printf(" m = %-.d \n", 0);
+
+// }

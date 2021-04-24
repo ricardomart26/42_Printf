@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 09:19:46 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/16 18:51:44 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/24 17:44:58 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	width_int_u(sign_t *st, int uintmax)
 {
-	int size;
+	int	size;
+
 	size = st->size_c;
 	if (st->temp_dot > size)
 		size = st->temp_dot;
@@ -28,10 +29,9 @@ void	width_int_u(sign_t *st, int uintmax)
 		else
 			mult_char(' ', &st->words, st->width);
 	}
-
 }
 
-void align_width_u(sign_t *st)
+void	align_width_u(sign_t *st)
 {
 	if (st->size_c < st->width)
 	{
@@ -43,12 +43,8 @@ void align_width_u(sign_t *st)
 	}
 }
 
-
-
-
-void align_int_u(sign_t *st, int uintmax)
+void	align_int_u(sign_t *st, int uintmax)
 {
-	// if (mst->size_c = 0;
 	if (st->dot > st->size_c)
 	{
 		precision_inteiro(st);
@@ -67,21 +63,21 @@ void align_int_u(sign_t *st, int uintmax)
 	}
 	else if (uintmax == 1)
 		ft_putstr(st->conv, &st->words);
+	else
+		ft_putstr(st->conv, &st->words);
 }
 
 int	check_max_u_int(int size_c)
 {
-
 	if (size_c > 9)
 		return (1);
 	else
 		return (0);
-
 }
 
-void specific_u(sign_t *st)
+void	specific_u(sign_t *st)
 {
-	int uintmax;
+	int	uintmax;
 
 	uintmax = check_max_u_int(st->size_c);
 	if (st->dot == 0 && !st->width && !st->align && st->conv[0] != '0')
@@ -97,7 +93,6 @@ void specific_u(sign_t *st)
 		if (st->dot != 0 || uintmax == 1)
 			ft_putstr(st->conv, &st->words);
 	}
-
 	free(st->conv);
 	st->conv = NULL;
 }
