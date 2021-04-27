@@ -48,6 +48,11 @@ void	with_no_flags(va_list args, sign_t *st)
 		st->conv = "(null)";
 	if (st->c == 'c')
 		ft_putchar(st->conv[0], &st->words);
+	if (st->c == 'p')
+	{
+		ft_putstr("0x", &st->words);
+		ft_putstr(st->conv, &st->words);
+	}
 	else
 		ft_putstr(st->conv, &st->words);
 	if (st->c != 's')
@@ -100,7 +105,7 @@ int	ft_printf(const char *fmt, ...)
 // 	int i;
 
 // 	i = 0;
-// 	printf(" p = %-.d \n", 0);
-// 	ft_printf(" m = %-.d \n", 0);
+// 	printf(" p = %2.9p \n", 1234);
+// 	ft_printf(" m = %2.9p \n", 1234);
 
 // }

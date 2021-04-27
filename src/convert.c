@@ -63,14 +63,12 @@ char	*ft_convadress(unsigned long long adress)
 
 	if (adress < 0)
 		adress *= -1;
-	uni = count_uni_hexa(adress) + 2;
+	uni = count_uni_hexa(adress);
 	if (adress == 0)
-		return (ft_strdup("0x0"));
+		return (ft_strdup("0"));
 	ret = malloc(uni + 1);
 	if (!ret)
 		return (NULL);
-	ret[0] = '0';
-	ret[1] = 'x';
 	ret[uni] = '\0';
 	while (adress > 0)
 	{

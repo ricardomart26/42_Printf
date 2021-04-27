@@ -104,6 +104,7 @@ void	align_int_x(sign_t *st, int uintmax);
 void	align_width_x(sign_t *st);
 void	width_int_x(sign_t *st, int uintmax);
 void	percentagem(sign_t *st);
+void	width_p(sign_t *st);
 
 void 	specific_p(sign_t *st);
 #endif
