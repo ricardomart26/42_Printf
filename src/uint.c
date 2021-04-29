@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 09:19:46 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/24 17:44:58 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/29 18:47:18 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	align_int_u(sign_t *st, int uintmax)
 	{
 		precision_inteiro(st);
 		ft_putstr(st->conv, &st->words);
-		width_int(st);
+		width_int_u(st, uintmax);
 	}
 	else if (st->width > st->size_c)
 	{

@@ -27,32 +27,25 @@ int	ft_intlen(int n)
 	return (len);
 }
 
-static	int	ft_unsignedlen(unsigned long long n)
-{
-	int	len;
-
-	len = 0;
-	if (n == 0)
-		return (1);
-	while (n > 0)
-	{
-		n = n / 10;
-		len++;
-	}
-	return (len);
-}
-
 char	*ft_unsigneditoa(unsigned long long n)
 {
 	char	*res;
 	size_t	len;
+	unsigned long long	temp;
 
-	len = ft_unsignedlen(n);
+	len = 0;
+	temp = n;
+	if (n == 0)
+		len = 1;
+	while (temp > 0)
+	{
+		temp = temp / 10;
+		len++;
+	}
 	res = (char *)malloc(len + 1);
 	if (!res)
 		return (0);
-	res[len] = '\0';
-	len--;
+	res[len--] = '\0';
 	if (n == 0)
 		res[0] = '0';
 	while (n > 0)
@@ -62,6 +55,23 @@ char	*ft_unsigneditoa(unsigned long long n)
 		len--;
 	}
 	return (res);
+}
+
+char	*itoa_two(char *str, int ***cminus, int size, int n)
+{
+	str[size] = '\0';
+	if (n < 0)
+	{
+		***cminus = 1;
+		n *= -1;
+	}
+	while (n > 0)
+	{
+		str[size - 1] = (n % 10) + '0';
+		n /= 10;
+		size--;
+	}
+	return (str);
 }
 
 char	*ft_itoa(int n, int **cminus, int **max)
@@ -82,25 +92,14 @@ char	*ft_itoa(int n, int **cminus, int **max)
 	str = (char *)malloc(size + 1);
 	if (!str)
 		return (NULL);
-	str[size] = '\0';
-	if (n < 0)
-	{
-		**cminus = 1;
-		n *= -1;
-	}
-	while (n > 0)
-	{
-		str[size - 1] = (n % 10) + '0';
-		n /= 10;
-		size--;
-	}
+	str = itoa_two(str, &cminus, size, n);
 	return (str);
 }
 
 char	*ft_convert_char(int inteiro)
 {
-	char c;
-	char *temp;
+	char	c;
+	char	*temp;
 
 	temp = (char *)malloc(2);
 	if (!temp)

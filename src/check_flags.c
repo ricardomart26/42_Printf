@@ -24,14 +24,15 @@ void	init_struct(sign_t *st)
 	st->size_c = 0;
 	st->temp_dot = 0;
 	st->negprec = 0;
+	st->negwidth = 0;
 	st->cminus = 0;
 	st->max_value = 0;
-
+	st->index = 0;
 }
 
 void	with_flags(sign_t *st, char *fmt, va_list args)
 {
-	int c_signs;
+	int	c_signs;
 
 	c_signs = 1;
 	while (fmt[c_signs] == '0' || fmt[c_signs] == '-')
@@ -46,7 +47,7 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 	fmt += c_signs;
 	if (*fmt == '.')
 		see_precision(st, fmt + 1, args);
-	if (st->zero && (st->dot != -1 || st->align))
+	if (st->zero && ((st->dot != -1 && st->negprec == 0) || st->align))
 		st->zero = 0;
 	st->temp_dot = st->dot;
 	do_arg(args, st);
@@ -66,6 +67,7 @@ void	see_width(sign_t *st, char *fmt, va_list args, int *c_signs)
 		{
 			st->width *= -1;
 			st->align = 1;
+			st->negwidth = 1;
 		}
 	}
 }

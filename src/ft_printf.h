@@ -22,7 +22,9 @@ typedef struct signs
 	int		words;
 	int		cminus;
 	int		negprec;
+	int		negwidth;
 	int		max_value;
+	int		index;
 } sign_t;
 
 // printf
@@ -31,7 +33,7 @@ void	start_loop(char *format, va_list args, sign_t *signs);
 int		ft_printf(const char *format, ...);
 int		size_per(char *fmt, char *c);
 //void	free_needed(char *string, char c);
-void	with_no_flags(va_list args, sign_t *st);
+void	with_no_flags(va_list args, sign_t *st, char *fmt);
 void	with_flags(sign_t *st, char *fmt, va_list args);
 // args
 char	*get_arg(va_list args, char c, int *cminus, int *max);
@@ -71,6 +73,7 @@ void	specific_i(sign_t *st);
 void	width_int(sign_t *st);
 void	precision_inteiro(sign_t *st);
 void	align_width(sign_t *st);
+void	special_case(sign_t *st);
 
 
 // Neg int
@@ -80,7 +83,6 @@ void	zero_neg_width(sign_t *st);
 void	negative_int(sign_t *st);
 void	negative_align(sign_t *st);
 void	precision_inteiro_neg(sign_t *st);
-
 
 // Uint
 void	specific_u(sign_t *st);
@@ -107,4 +109,7 @@ void	percentagem(sign_t *st);
 void	width_p(sign_t *st);
 
 void 	specific_p(sign_t *st);
+void	precision_inteiro_p(sign_t *st);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+
 #endif

@@ -39,16 +39,23 @@ int	size_per(char *fmt, char *c)
 	return (1);
 }
 
-void	with_no_flags(va_list args, sign_t *st)
+void	with_no_flags(va_list args, sign_t *st, char *fmt)
 {
+	if (fmt[1] == '%')
+	{
+		write(1, "%%", 1);
+		st->words++;
+		return ;
+	}
 	st->conv = get_arg(args, st->c, &st->cminus, &st->max_value);
+	//printf("conv = %s", st->conv);
 	if (st->cminus == 1)
 		ft_putchar('-', &st->words);
 	if (st->conv == NULL)
 		st->conv = "(null)";
 	if (st->c == 'c')
 		ft_putchar(st->conv[0], &st->words);
-	if (st->c == 'p')
+	else if (st->c == 'p')
 	{
 		ft_putstr("0x", &st->words);
 		ft_putstr(st->conv, &st->words);
@@ -69,16 +76,10 @@ void	start_loop(char *fmt, va_list args, sign_t *st)
 		init_struct(st);
 		fmt += print_until_perc((char *)fmt, &st->words);
 		if (*fmt == '\0')
-			break;
+			break ;
 		size_perc = size_per((char *)fmt, &st->c);
 		if (size_perc == 1)
-			if (fmt[1] == '%')
-			{
-				write(1, "%%", 1);
-				st->words++;
-			}
-			else
-				with_no_flags(args, st);
+			with_no_flags(args, st, fmt);
 		else if (size_perc > 1)
 			with_flags(st, fmt, args);
 		fmt += size_perc + 1;
@@ -105,7 +106,9 @@ int	ft_printf(const char *fmt, ...)
 // 	int i;
 
 // 	i = 0;
-// 	printf(" p = %2.9p \n", 1234);
-// 	ft_printf(" m = %2.9p \n", 1234);
+// 	i = printf("%12.12i, %12.12d \n", -42, 42);
+// 	printf("i = %d", i);
+// 	i = ft_printf("%12.12i, %12.12d \n", -42, 42);
+// 	printf(" i = %d", i);
 
 // }

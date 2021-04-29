@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:26:30 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/24 17:13:32 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/29 17:09:35 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ void	do_arg(va_list args, sign_t *st)
 	else if (st->c == 'c')
 		return (specific_c(st));
 	else if (st->c == 'i' || st->c == 'd')
+	{
 		if (st->cminus)
 			return (specific_i_neg(st));
 		else
 			return (specific_i(st));
+	}
 	else if (st->c == 'u')
 		return (specific_u(st));
 	else if (st->c == 'x' || st->c == 'X')

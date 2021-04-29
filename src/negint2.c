@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 17:31:55 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/24 17:32:27 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/29 05:00:54 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	precision_inteiro_neg(sign_t *st)
 {
-	int temp;
+	int	temp;
 
 	temp = st->dot;
 	if (st->dot < st->size_c && st->dot != -1)
@@ -29,12 +29,11 @@ void	precision_inteiro_neg(sign_t *st)
 
 void	zero_neg_width(sign_t *st)
 {
-	int size;
+	int	size;
 
 	size = 0;
 	if (st->temp_dot > st->size_c)
 	{
-
 		size = st->temp_dot;
 		if (size < st->width)
 		{
@@ -47,7 +46,7 @@ void	zero_neg_width(sign_t *st)
 
 void	width_neg(sign_t *st)
 {
-	int size;
+	int	size;
 
 	size = 0;
 	if (st->temp_dot > st->size_c)
