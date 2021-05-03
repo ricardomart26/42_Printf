@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:27:15 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/24 17:27:03 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/05/02 23:11:49 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ void	align_int_x(sign_t *st, int xintmax)
 			st->size_c = 0;
 		align_width_x(st);
 	}
-	else if (xintmax == 1)
-		ft_putstr(st->conv, &st->words);
-	else
 		ft_putstr(st->conv, &st->words);
 }
 
@@ -82,7 +79,9 @@ void	specific_x(sign_t *st)
 	int	xintmax;
 
 	xintmax = check_max_x_int(st->size_c);
-	if (st->align)
+	if (st->dot == 0 && !st->width && (st->negprec && st->conv[0] != '0'))
+		ft_putstr(st->conv, &st->words);
+	else if (st->align)
 		align_int_x(st, xintmax);
 	else
 	{
@@ -91,9 +90,7 @@ void	specific_x(sign_t *st)
 		if (st->dot != -1)
 			precision_inteiro_x(st);
 		if (st->dot != 0 || st->conv[0] != '0')
-		{
 			ft_putstr(st->conv, &st->words);
-		}
 	}
 	free(st->conv);
 	st->conv = NULL;

@@ -106,9 +106,13 @@ int	ft_printf(const char *fmt, ...)
 // 	int i;
 
 // 	i = 0;
-// 	i = printf("%12.12i, %12.12d \n", -42, 42);
+// 	i = printf(" p = %.*x\n", -1, 0);
 // 	printf("i = %d", i);
-// 	i = ft_printf("%12.12i, %12.12d \n", -42, 42);
+// 	i = ft_printf(" m = %.*x\n", -1, 0);
+// 	printf(" i = %d", i);
+// 		i = printf(" p = %.*x\n", 0, 0);
+// 	printf("i = %d", i);
+// 	i = ft_printf(" m = %.*x\n", 0, 0);
 // 	printf(" i = %d", i);
 
 // }

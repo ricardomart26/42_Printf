@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 09:19:46 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/29 18:47:18 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/05/02 23:04:44 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,11 @@ void	align_int_u(sign_t *st, int uintmax)
 	else if (st->width > st->size_c)
 	{
 		if (st->dot != 0 || uintmax == 1)
-		{
 			ft_putstr(st->conv, &st->words);
-		}
 		else
 			st->size_c = 0;
 		align_width_u(st);
 	}
-	else if (uintmax == 1)
-		ft_putstr(st->conv, &st->words);
 	else
 		ft_putstr(st->conv, &st->words);
 }
@@ -80,9 +76,9 @@ void	specific_u(sign_t *st)
 	int	uintmax;
 
 	uintmax = check_max_u_int(st->size_c);
-	if (st->dot == 0 && !st->width && !st->align && st->conv[0] != '0')
+	if (st->dot == 0 && !st->width && (st->negprec || st->conv[0] != '0'))
 		ft_putstr(st->conv, &st->words);
-	if (st->align)
+	else if (st->align)
 		align_int_u(st, uintmax);
 	else
 	{
