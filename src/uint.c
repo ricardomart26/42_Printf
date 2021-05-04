@@ -53,7 +53,7 @@ void	align_int_u(sign_t *st, int uintmax)
 	}
 	else if (st->width > st->size_c)
 	{
-		if (st->dot != 0 || uintmax == 1)
+		if (st->dot != 0 || (uintmax == 1 && st->negwidth == 0))
 			ft_putstr(st->conv, &st->words);
 		else
 			st->size_c = 0;
@@ -76,7 +76,7 @@ void	specific_u(sign_t *st)
 	int	uintmax;
 
 	uintmax = check_max_u_int(st->size_c);
-	if (st->dot == 0 && !st->width && (st->negprec || st->conv[0] != '0'))
+	if (st->dot == 0 && (st->negprec || st->conv[0] != '0'))
 		ft_putstr(st->conv, &st->words);
 	else if (st->align)
 		align_int_u(st, uintmax);
