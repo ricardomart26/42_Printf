@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 14:48:19 by rimartin          #+#    #+#             */
-/*   Updated: 2021/03/20 19:18:31 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/05/04 17:33:18 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,55 +27,54 @@ static int	count_uni_hexa(unsigned long long adress)
 	return (counter);
 }
 
-char	*ft_convhexa(unsigned int decimal, int control)
+char	*ft_convhexa(unsigned int n, int control)
 {
-	char	*hexa;
-	int		index;
-	char	strx[] = "0123456789abcdef";;
-	char	strX[] = "0123456789ABCDEF";;
-	int		uni;
+	char	*res;
+	unsigned int	len;
 
-	uni = count_uni_hexa(decimal);
-	if (decimal == 0)
+	if (n == 0)
 		return (ft_strdup("0"));
-	hexa = malloc(uni + 1);
-	if (!hexa)
-		return (NULL);
-	hexa[uni] = '\0';
-	while (decimal > 0)
+	len = count_uni_hexa(n);
+	res = (char *)malloc(sizeof(char) * len + 1);
+	//printf(" res = %s \n", res);
+	if (!res)
+		return (0);
+	res[len--] = '\0';
+	while (n > 0)
 	{
-		index = decimal % 16;
-		if (control == 1)
-			hexa[--uni] = strX[index];
-		else
-			hexa[--uni] = strx[index];
-		decimal /= 16;
+		if ((n % 16) < 10)
+			res[len] = (n % 16) + '0';
+		else if (control == 1)
+			res[len] = (n % 16) + 55;
+		else if (control == 0)
+			res[len] = (n % 16) + 87;
+		n = n / 16;
+		len--;
 	}
-	return (hexa);
+	//printf(" res = %s \n", res);
+	return (res);
 }
 
 char	*ft_convadress(unsigned long long adress)
 {
-	int	index;
-	char	str[16] = "0123456789abcdef";;
-	char	*ret;
-	int	uni;
+	char	*res;
+	unsigned int	len;
 
-	if (adress < 0)
-		adress *= -1;
-	uni = count_uni_hexa(adress);
 	if (adress == 0)
 		return (ft_strdup("0"));
-	ret = malloc(uni + 1);
-	if (!ret)
-		return (NULL);
-	ret[uni] = '\0';
+	len = count_uni_hexa(adress);
+	res = (char *)malloc(sizeof(char) * len + 1);
+	if (!res)
+		return (0);
+	res[len--] = '\0';
 	while (adress > 0)
 	{
-		index = adress % 16;
-		ret[--uni] = str[index];
-		adress /= 16;
+		if ((adress % 16) < 10)
+			res[len] = (adress % 16) + '0';
+		else
+			res[len] = (adress % 16) + 87;
+		adress = adress / 16;
+		len--;
 	}
-	return (ret);
+	return (res);
 }
-

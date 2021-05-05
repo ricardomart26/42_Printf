@@ -6,7 +6,7 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:56:38 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/24 17:45:25 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/04/29 17:57:08 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ void	width(sign_t *st)
 		else
 			mult_char(' ', &st->words, st->width);
 	}
-	if (!(st->align) && st->conv[0] != ' ')
+	if (!(st->align))
 		ft_putstr(st->conv, &st->words);
 }
 
 void	specific_c(sign_t *st)
 {
+	st->size_c = 1;
 	if (st->align)
 	{
 		ft_putchar(st->conv[0], &st->words);
-		if (st->width)
+		if (st->width > st->size_c)
 			width(st);
 	}
 	else if (st->width)
@@ -60,6 +61,9 @@ void	specific_c(sign_t *st)
 
 void	specific_s(sign_t *st)
 {
+	int control;
+
+	control = 0;
 	if (st->conv == NULL)
 	{
 		st->conv = "(null)";
@@ -71,6 +75,7 @@ void	specific_s(sign_t *st)
 	{
 		st->size_c = st->dot;
 		swap(&st->conv, st->size_c, &st->dot);
+		control = 1;
 	}
 	if (st->align)
 		ft_putstr(st->conv, &st->words);
@@ -78,4 +83,6 @@ void	specific_s(sign_t *st)
 		width(st);
 	else if (!(st->align))
 		ft_putstr(st->conv, &st->words);
+	if (control == 1)
+		free(st->conv);
 }
