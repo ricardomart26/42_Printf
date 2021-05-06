@@ -17,8 +17,6 @@ static int	count_uni_hexa(unsigned long long adress)
 	int	counter;
 
 	counter = 0;
-	if (adress == 0)
-		return (3);
 	while (adress > 0)
 	{
 		adress /= 16;
