@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	precision_inteiro_neg(sign_t *st)
+void	precision_inteiro_neg(t_sign *st)
 {
 	int	temp;
 
@@ -27,7 +27,7 @@ void	precision_inteiro_neg(sign_t *st)
 	}
 }
 
-void	zero_neg_width(sign_t *st)
+void	zero_neg_width(t_sign *st)
 {
 	int	size;
 
@@ -44,7 +44,7 @@ void	zero_neg_width(sign_t *st)
 	}
 }
 
-void	width_neg(sign_t *st)
+void	width_neg(t_sign *st)
 {
 	int	size;
 
@@ -69,7 +69,7 @@ void	width_neg(sign_t *st)
 		ft_putstr(st->conv, &st->words);
 }
 
-void	negative_int(sign_t *st)
+void	negative_int(t_sign *st)
 {
 	if (st->dot >= st->width)
 	{

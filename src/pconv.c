@@ -27,7 +27,7 @@ static	void	special_putstr(char *string, int *words, int *index)
 	}
 }
 
-void	align_int_p(sign_t *st)
+void	align_int_p(t_sign *st)
 {
 	if (st->dot > st->size_c)
 	{
@@ -52,7 +52,7 @@ void	align_int_p(sign_t *st)
 	}
 }
 
-void	precision_inteiro_p(sign_t *st)
+void	precision_inteiro_p(t_sign *st)
 {
 	st->size_c -= 2;
 	special_putstr("0x", &st->words, &st->index);
@@ -66,7 +66,7 @@ void	precision_inteiro_p(sign_t *st)
 	}
 }
 
-void	width_p(sign_t *st)
+void	width_p(t_sign *st)
 {
 	int	size;
 
@@ -84,7 +84,7 @@ void	width_p(sign_t *st)
 	}
 }
 
-void	specific_p(sign_t *st)
+void	specific_p(t_sign *st)
 {
 	st->size_c += 2;
 	if (!ft_strncmp(st->conv, "0", 1) && st->dot == 0)

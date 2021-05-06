@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	align_special(sign_t *st)
+void	align_special(t_sign *st)
 {
 	if (st->width > st->size_c)
 	{
@@ -24,7 +24,7 @@ void	align_special(sign_t *st)
 		ft_putstr(st->conv, &st->words);
 }
 
-void	special_case(sign_t *st)
+void	special_case(t_sign *st)
 {
 	if (st->negprec)
 		st->size_c = 1;

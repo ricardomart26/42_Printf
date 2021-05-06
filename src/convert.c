@@ -29,14 +29,13 @@ static int	count_uni_hexa(unsigned long long adress)
 
 char	*ft_convhexa(unsigned int n, int control)
 {
-	char	*res;
+	char			*res;
 	unsigned int	len;
 
 	if (n == 0)
 		return (ft_strdup("0"));
 	len = count_uni_hexa(n);
 	res = (char *)malloc(sizeof(char) * len + 1);
-	//printf(" res = %s \n", res);
 	if (!res)
 		return (0);
 	res[len--] = '\0';
@@ -51,13 +50,12 @@ char	*ft_convhexa(unsigned int n, int control)
 		n = n / 16;
 		len--;
 	}
-	//printf(" res = %s \n", res);
 	return (res);
 }
 
 char	*ft_convadress(unsigned long long adress)
 {
-	char	*res;
+	char			*res;
 	unsigned int	len;
 
 	if (adress == 0)

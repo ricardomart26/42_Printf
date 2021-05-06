@@ -39,7 +39,7 @@ int	size_per(char *fmt, char *c)
 	return (1);
 }
 
-void	with_no_flags(va_list args, sign_t *st, char *fmt)
+void	with_no_flags(va_list args, t_sign *st, char *fmt)
 {
 	if (fmt[1] == '%')
 	{
@@ -48,7 +48,6 @@ void	with_no_flags(va_list args, sign_t *st, char *fmt)
 		return ;
 	}
 	st->conv = get_arg(args, st->c, &st->cminus, &st->max_value);
-	//printf("conv = %s", st->conv);
 	if (st->cminus == 1)
 		ft_putchar('-', &st->words);
 	if (st->conv == NULL)
@@ -66,7 +65,7 @@ void	with_no_flags(va_list args, sign_t *st, char *fmt)
 		free(st->conv);
 }
 
-void	start_loop(char *fmt, va_list args, sign_t *st)
+void	start_loop(char *fmt, va_list args, t_sign *st)
 {
 	int	size_perc;
 
@@ -89,7 +88,7 @@ void	start_loop(char *fmt, va_list args, sign_t *st)
 int	ft_printf(const char *fmt, ...)
 {
 	va_list	args;
-	sign_t	st;
+	t_sign	st;
 
 	if (!fmt)
 		return (0);
@@ -100,19 +99,3 @@ int	ft_printf(const char *fmt, ...)
 	va_end(args);
 	return (st.words);
 }
-
-// int main(void)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	i = printf(" p = %*.*u\n", 2, -1, 8);
-// 	printf("i = %d", i);
-// 	i = ft_printf(" m = %*.*u\n", 2, -1, 8);
-// 	printf(" i = %d", i);
-// 		i = printf(" p = %.*x\n", 0, 0);
-// 	printf("i = %d", i);
-// 	i = ft_printf(" m = %.*x\n", 0, 0);
-// 	printf(" i = %d", i);
-
-// }

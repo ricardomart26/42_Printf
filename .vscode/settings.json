@@ -1,6 +1,15 @@
 {
   "files.associations": {
     "*.sass": "scss",
-    "printf.h": "c"
+    "printf.h": "c",
+    "ft_printf.h": "c",
+    "memory_resource": "c",
+    "memory": "c",
+    "__config": "c",
+    "__tuple": "c",
+    "chrono": "c",
+    "ios": "c",
+    "string": "c",
+    "vector": "c"
   }
 }

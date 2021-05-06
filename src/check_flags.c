@@ -12,13 +12,12 @@
 
 #include "ft_printf.h"
 
-void	init_struct(sign_t *st)
+void	init_struct(t_sign *st)
 {
-	st->align = 0;
 	st->zero = 0;
-	st->dot = -1;
-	st->cdot = 0;
+	st->align = 0;
 	st->width = 0;
+	st->dot = -1;
 	st->c = 48;
 	st->conv = 0;
 	st->size_c = 0;
@@ -30,7 +29,7 @@ void	init_struct(sign_t *st)
 	st->index = 0;
 }
 
-void	with_flags(sign_t *st, char *fmt, va_list args)
+void	with_flags(t_sign *st, char *fmt, va_list args)
 {
 	int	c_signs;
 
@@ -53,7 +52,7 @@ void	with_flags(sign_t *st, char *fmt, va_list args)
 	do_arg(args, st);
 }
 
-void	see_width(sign_t *st, char *fmt, va_list args, int *c_signs)
+void	see_width(t_sign *st, char *fmt, va_list args, int *c_signs)
 {
 	if (ft_isdigit(fmt[*c_signs]))
 	{
@@ -72,13 +71,10 @@ void	see_width(sign_t *st, char *fmt, va_list args, int *c_signs)
 	}
 }
 
-void	see_precision(sign_t *st, char *fmt, va_list args)
+void	see_precision(t_sign *st, char *fmt, va_list args)
 {
 	if (type(*fmt))
-	{
-		st->cdot = 1;
 		st->dot = 0;
-	}
 	else if (*fmt == '-')
 	{
 		fmt++;
@@ -89,12 +85,10 @@ void	see_precision(sign_t *st, char *fmt, va_list args)
 		st->dot = va_arg(args, int);
 		if (st->dot < 0)
 		{
-			st->dot *= -1;
+			st->dot = 0;
 			st->negprec = 1;
 		}
 	}
 	if (ft_isdigit(*fmt))
 		st->dot = ft_atoi(fmt);
-	if (st->negprec)
-		st->dot = 0;
 }

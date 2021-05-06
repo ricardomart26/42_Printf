@@ -32,8 +32,6 @@ void	ft_putstr(char *string, int *words)
 	int	size;
 
 	size = ft_strlen(string);
-	if (!string)
-		return ;
 	*words += size;
 	write(1, string, size);
 }

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	percentagem(sign_t *st)
+void	percentagem(t_sign *st)
 {
 	if (st->align)
 	{
@@ -28,7 +28,7 @@ void	percentagem(sign_t *st)
 	st->conv = NULL;
 }
 
-void	width(sign_t *st)
+void	width(t_sign *st)
 {
 	if (st->size_c < st->width)
 	{
@@ -39,10 +39,15 @@ void	width(sign_t *st)
 			mult_char(' ', &st->words, st->width);
 	}
 	if (!(st->align))
-		ft_putstr(st->conv, &st->words);
+	{
+		if (st->c == 'c')
+			ft_putchar(st->conv[0], &st->words);
+		else
+			ft_putstr(st->conv, &st->words);
+	}
 }
 
-void	specific_c(sign_t *st)
+void	specific_c(t_sign *st)
 {
 	st->size_c = 1;
 	if (st->align)
@@ -59,9 +64,23 @@ void	specific_c(sign_t *st)
 	st->conv = NULL;
 }
 
-void	specific_s(sign_t *st)
+char	*ft_convert_char(int inteiro)
 {
-	int control;
+	char	c;
+	char	*temp;
+
+	temp = (char *)malloc(2);
+	if (!temp)
+		return (NULL);
+	c = (char)inteiro;
+	temp[0] = c;
+	temp[1] = '\0';
+	return (temp);
+}
+
+void	specific_s(t_sign *st)
+{
+	int	control;
 
 	control = 0;
 	if (st->conv == NULL)

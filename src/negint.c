@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	negative_align(sign_t *st)
+void	negative_align(t_sign *st)
 {
 	ft_putchar('-', &st->words);
 	st->width--;
@@ -33,7 +33,7 @@ void	negative_align(sign_t *st)
 		ft_putstr(st->conv, &st->words);
 }
 
-void	width_negative(sign_t *st)
+void	width_negative(t_sign *st)
 {
 	if (st->dot > st->size_c)
 	{
@@ -56,7 +56,7 @@ void	width_negative(sign_t *st)
 		mult_char('0', &st->words, st->temp_dot);
 }
 
-void	specific_i_neg(sign_t *st)
+void	specific_i_neg(t_sign *st)
 {
 	if (st->align)
 		negative_align(st);

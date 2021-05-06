@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	width_int_u(sign_t *st)
+void	width_int_u(t_sign *st)
 {
 	int	size;
 
@@ -29,7 +29,7 @@ void	width_int_u(sign_t *st)
 	}
 }
 
-void	align_width_u(sign_t *st)
+void	align_width_u(t_sign *st)
 {
 	if (st->size_c < st->width)
 	{
@@ -41,22 +41,18 @@ void	align_width_u(sign_t *st)
 	}
 }
 
-void	align_int_u(sign_t *st)
+void	align_int_u(t_sign *st)
 {
-	//printf("teste");
 	if (st->dot > st->size_c)
 	{
 		precision_inteiro(st);
 		ft_putstr(st->conv, &st->words);
 		if (st->width > st->size_c)
-		width_int_u(st);
+			width_int_u(st);
 	}
 	else if (st->width >= st->size_c)
 	{
-	//	printf("teste");
-		// if (!st->negprec)
-		// 	ft_putstr(" ", &st->words);
-		if (st->dot != 0 || st->negprec)
+		if (st->dot != 0 || st->negprec || st->conv[0] != '0')
 			ft_putstr(st->conv, &st->words);
 		else
 			st->size_c = 0;
@@ -68,42 +64,33 @@ void	align_int_u(sign_t *st)
 		ft_putstr(st->conv, &st->words);
 }
 
-int	check_max_u_int(int size_c)
+void	special_case_u(t_sign *st)
 {
-	if (size_c > 9)
-		return (1);
+	if (st->align)
+		align_int_u(st);
 	else
-		return (0);
+	{
+		if (st->width > st->size_c)
+			width_int_u(st);
+		ft_putstr(st->conv, &st->words);
+	}
 }
 
-void	specific_u(sign_t *st)
+void	specific_u_x(t_sign *st)
 {
-	int	uintmax;
-
-	uintmax = check_max_u_int(st->size_c);
 	if (st->dot == 0 && (st->negprec || st->conv[0] != '0'))
-	{
-		if (st->align && st->negprec)
-			align_int_u(st);
-		else
-		{
-			if (st->width > st->size_c)
-				width_int_u(st);
-			ft_putstr(st->conv, &st->words);
-		} 
-	}
+		special_case_u(st);
 	else if (st->align)
 		align_int_u(st);
 	else
 	{
-
 		if (st->dot == 0 && !st->negprec && st->conv[0] == '0')
 			st->size_c = 0;
 		if (st->width > st->dot)
 			width_int_u(st);
 		if (st->dot != -1)
 			precision_inteiro(st);
-		if ((st->dot != 0)|| uintmax == 1)
+		if (st->dot != 0)
 			ft_putstr(st->conv, &st->words);
 	}
 	free(st->conv);

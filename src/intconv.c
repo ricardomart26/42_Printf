@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	precision_inteiro(sign_t *st)
+void	precision_inteiro(t_sign *st)
 {
 	if (st->dot > st->size_c)
 	{
@@ -22,7 +22,7 @@ void	precision_inteiro(sign_t *st)
 	}
 }
 
-void	width_int(sign_t *st)
+void	width_int(t_sign *st)
 {
 	int	size;
 
@@ -39,7 +39,7 @@ void	width_int(sign_t *st)
 	}
 }
 
-void	align_width(sign_t *st)
+void	align_width(t_sign *st)
 {
 	if (st->size_c < st->width)
 	{
@@ -51,7 +51,7 @@ void	align_width(sign_t *st)
 	}
 }
 
-void	align_int(sign_t *st)
+void	align_int(t_sign *st)
 {
 	if (st->dot > st->size_c)
 	{
@@ -68,7 +68,7 @@ void	align_int(sign_t *st)
 		ft_putstr(st->conv, &st->words);
 }
 
-void	specific_i(sign_t *st)
+void	specific_i(t_sign *st)
 {
 	if (!ft_strncmp(st->conv, "0", 1) && st->dot == 0)
 		special_case(st);

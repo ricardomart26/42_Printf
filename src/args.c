@@ -33,7 +33,7 @@ char	*get_arg(va_list args, char c, int *cminus, int *max)
 	return (0);
 }
 
-void	do_arg(va_list args, sign_t *st)
+void	do_arg(va_list args, t_sign *st)
 {
 	st->conv = get_arg(args, st->c, &st->cminus, &st->max_value);
 	if (st->conv != NULL)
@@ -49,10 +49,8 @@ void	do_arg(va_list args, sign_t *st)
 		else
 			return (specific_i(st));
 	}
-	else if (st->c == 'u')
-		return (specific_u(st));
-	else if (st->c == 'x' || st->c == 'X')
-		return (specific_u(st));
+	else if (st->c == 'u' || st->c == 'x' || st->c == 'X')
+		return (specific_u_x(st));
 	else if (st->c == 'p')
 		return (specific_p(st));
 	else if (st->c == '%')

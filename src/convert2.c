@@ -27,21 +27,27 @@ int	ft_intlen(int n)
 	return (len);
 }
 
-char	*ft_unsigneditoa(unsigned long long n)
+static int	size_unsigned(unsigned long long n)
 {
-	char	*res;
-	size_t	len;
-	unsigned long long	temp;
+	int	len;
 
 	len = 0;
-	temp = n;
 	if (n == 0)
-		len = 1;
-	while (temp > 0)
+		return (1);
+	while (n > 0)
 	{
-		temp = temp / 10;
+		n = n / 10;
 		len++;
 	}
+	return (len);
+}
+
+char	*ft_unsigneditoa(unsigned long long n)
+{
+	char				*res;
+	size_t				len;
+
+	len = size_unsigned(n);
 	res = (char *)malloc(len + 1);
 	if (!res)
 		return (0);
@@ -94,18 +100,4 @@ char	*ft_itoa(int n, int **cminus, int **max)
 		return (NULL);
 	str = itoa_two(str, &cminus, size, n);
 	return (str);
-}
-
-char	*ft_convert_char(int inteiro)
-{
-	char	c;
-	char	*temp;
-
-	temp = (char *)malloc(2);
-	if (!temp)
-		return (NULL);
-	c = (char)inteiro;
-	temp[0] = c;
-	temp[1] = '\0';
-	return (temp);
 }
