@@ -6,13 +6,13 @@
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 18:22:36 by rimartin          #+#    #+#             */
-/*   Updated: 2021/04/29 05:00:24 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/05/12 19:16:36 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static	void	special_putstr(char *string, int *words, int *index)
+void	special_putstr(char *string, int *words, int *index)
 {
 	int	size;
 

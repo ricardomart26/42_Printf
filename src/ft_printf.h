@@ -14,6 +14,9 @@ typedef struct s_signs
 	int		align;
 	int		width;
 	int		dot;
+	int		space;
+	int		plus;
+	int		hash;
 	char	c;
 	char	*conv;
 	int		size_c;
@@ -24,6 +27,7 @@ typedef struct s_signs
 	int		negwidth;
 	int		max_value;
 	int		index;
+
 }		t_sign;
 
 int		print_until_perc(char *format, int *words);
@@ -79,5 +83,6 @@ void	width_p(t_sign *st);
 void	specific_p(t_sign *st);
 void	precision_inteiro_p(t_sign *st);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	special_putstr(char *string, int *words, int *index);
 
 #endif

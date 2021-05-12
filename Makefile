@@ -19,6 +19,9 @@ $(NAME) : $(OBJS)
 	ar -rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 
+bonus: $(OBJS)
+	ar -rc $(NAME) $(OBJS)
+	ranlib $(NAME)
 clean:
 	rm -f $(OBJS)
 

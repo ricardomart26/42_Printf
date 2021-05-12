@@ -48,7 +48,8 @@ int	type(char c)
 
 int	sign(char c)
 {
-	if (c == '.' || c == '-' || ft_isdigit(c) || c == '*')
+	if (c == '.' || c == '-' || ft_isdigit(c) || c == '*' || c == ' ' || c == '+'
+	|| c == '#')
 		return (1);
 	else
 		return (0);

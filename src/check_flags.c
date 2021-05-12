@@ -27,23 +27,32 @@ void	init_struct(t_sign *st)
 	st->cminus = 0;
 	st->max_value = 0;
 	st->index = 0;
+	st->space = 0;
+	st->plus = 0;
+	st->hash = 0;
 }
 
 void	with_flags(t_sign *st, char *fmt, va_list args)
 {
-	int	c_signs;
+	int	c;
 
-	c_signs = 1;
-	while (fmt[c_signs] == '0' || fmt[c_signs] == '-')
+	c = 1;
+	while (fmt[c] == '0' || fmt[c] == '-' || fmt[c] == '+' || fmt[c] == ' ' || fmt[c] == '#')
 	{
-		if (fmt[c_signs] == '0' )
-			st->zero = c_signs++;
-		if (fmt[c_signs] == '-')
-			st->align = c_signs++;
+		if (fmt[c] == '0' )
+			st->zero = c++;
+		if (fmt[c] == '-')
+			st->align = c++;
+		if (fmt[c] == ' ' )
+			st->space = c++;
+		if (fmt[c] == '+')
+			st->plus = c++;
+		if (fmt[c] == '#')
+			st->hash = c++;
 	}
-	if (ft_isdigit(fmt[c_signs]) || fmt[c_signs] == '*')
-		see_width(st, fmt, args, &c_signs);
-	fmt += c_signs;
+	if (ft_isdigit(fmt[c]) || fmt[c] == '*')
+		see_width(st, fmt, args, &c);
+	fmt += c;
 	if (*fmt == '.')
 		see_precision(st, fmt + 1, args);
 	if (st->zero && ((st->dot != -1 && st->negprec == 0) || st->align))
@@ -52,14 +61,14 @@ void	with_flags(t_sign *st, char *fmt, va_list args)
 	do_arg(args, st);
 }
 
-void	see_width(t_sign *st, char *fmt, va_list args, int *c_signs)
+void	see_width(t_sign *st, char *fmt, va_list args, int *c)
 {
-	if (ft_isdigit(fmt[*c_signs]))
+	if (ft_isdigit(fmt[*c]))
 	{
-		st->width = ft_atoi(fmt + *c_signs);
-		*c_signs += ft_intlen(st->width);
+		st->width = ft_atoi(fmt + *c);
+		*c += ft_intlen(st->width);
 	}
-	else if (fmt[(*c_signs)++] == '*')
+	else if (fmt[(*c)++] == '*')
 	{
 		st->width = va_arg(args, int);
 		if (st->width < 0)

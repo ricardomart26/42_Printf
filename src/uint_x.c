@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   uint.c                                             :+:      :+:    :+:   */
+/*   uint_x.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimartin <rimartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 09:19:46 by rimartin          #+#    #+#             */
-/*   Updated: 2021/05/02 23:04:44 by rimartin         ###   ########.fr       */
+/*   Updated: 2021/05/12 20:09:04 by rimartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	width_int_u(t_sign *st)
 {
 	int	size;
-
+	
 	size = st->size_c;
 	if (st->temp_dot > size)
 		size = st->temp_dot;
@@ -76,8 +76,22 @@ void	special_case_u(t_sign *st)
 	}
 }
 
+void	hash_u_x(t_sign *st)
+{
+	if (st->conv[0] != '0')
+	{
+		special_putstr("0x", &st->words, &st->index);
+		if (st->dot <= 0)
+			st->size_c += 2;
+			
+	}
+}
+
 void	specific_u_x(t_sign *st)
 {
+	if (st->hash)
+		hash_u_x(st);
+		
 	if (st->dot == 0 && (st->negprec || st->conv[0] != '0'))
 		special_case_u(st);
 	else if (st->align)
@@ -86,7 +100,7 @@ void	specific_u_x(t_sign *st)
 	{
 		if (st->dot == 0 && !st->negprec && st->conv[0] == '0')
 			st->size_c = 0;
-		if (st->width > st->dot)
+		if (st->width > st->dot && (!st->hash || st->conv[0] == '0'))
 			width_int_u(st);
 		if (st->dot != -1)
 			precision_inteiro(st);
