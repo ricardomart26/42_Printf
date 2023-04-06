@@ -1,27 +1,29 @@
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
-SRCS = src/*.c
+SRCS = srcs/convert.o srcs/convert2.o srcs/check_flags.o srcs/ft_printf.o srcs/args.o \
+	   srcs/utils.o srcs/validate.o srcs/strconv.o srcs/intconv.o srcs/pconv.o \
+	   srcs/negint.o srcs/uint_x.o srcs/utils2.o srcs/negint2.o srcs/intspecial.o \
 
-OBJS = objs/convert.o objs/convert2.o objs/check_flags.o objs/ft_printf.o objs/args.o \
-	   objs/utils.o objs/validate.o objs/strconv.o objs/intconv.o objs/pconv.o \
-	   objs/negint.o objs/uint_x.o objs/utils2.o objs/negint2.o objs/intspecial.o \
+
+OBJS = $(SRCS:%.c=%.o)
 
 all: $(NAME)
-
-objs/%.o : src/%.c
-	$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME) : $(OBJS)
 	ar -rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 
+objs/%.o : src/%.c
+	$(CC) $(FLAGS) -c $< -o $@
+
 bonus: $(OBJS)
 	ar -rc $(NAME) $(OBJS)
 	ranlib $(NAME)
+
 clean:
 	rm -f $(OBJS)
 
