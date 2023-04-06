@@ -27,30 +27,23 @@ This will print "Hello, world!" to the console.
 Supported Format Specifiers
 
 The ft_printf function supports the following format specifiers:
-Format Specifier	Output
-%c	character
-%s	string
-%p	pointer address
-%d, %i	signed decimal integer
-%u	unsigned decimal integer
-%x, %X	hexadecimal integer
-%o	octal integer
-%f	floating-point number
+
+| Format Specifier | Description               |
+| ---------------- | ------------------------- |
+| `%c`               | character                 |
+| `%s`               | string                    |
+| `%p`               | pointer address           |
+| `%d`, `%i`           | signed decimal integer    |
+| `%u`               | unsigned decimal integer  |
+| `%x`, `%X`           | hexadecimal integer       |
+
 
 The function also supports the following flags:
-Flag	Description
--	left-justify
-0	zero-pad
-.	precision
-*	width or precision from argument
-Project Structure
 
-The project is structured as follows:
-
-    ft_printf.c: Main file containing the implementation of the ft_printf function.
-    ft_printf_utils.c: Helper functions used by ft_printf.
-    ft_printf.h: Header file containing function prototypes and macros.
-
-Contributors
-
-This project was implemented by [your name and your partner's name], as part of the curriculum for the 42 program at [school name]. Feel free to contribute or fork this repository if you find it useful!
+| Flag | Description         |
+| ---- | ------------------- |
+| `-`    | left-justify        |
+| `0`    | zero-pad            |
+| `.`    | precision           |
+| `*`    | width or precision  |
+| `+`  | Prefix a plus sign for positive signed numbers |
